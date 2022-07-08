@@ -4,7 +4,7 @@ const App = () => {
   return (
     <div>
       <div className="test1">
-        KOANA hey man<div className="test2">V2</div>
+        KOANA hey man<div className="test2">V2 is so sweeet</div>
         KOANA<div className="test2">V2</div>
       </div>
       <div className="test1">
