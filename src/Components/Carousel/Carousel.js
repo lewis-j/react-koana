@@ -5,53 +5,69 @@ const _style = (...styles) => styles.join(" ");
 const Carousel = ({
   children: items = ["1", "2"],
   className: wrapper = {},
+  slidesToShow = 1,
+  slidesToMove = 1,
   prevBtnStyles,
   nextBtnStyles,
 }) => {
-  const [slides, setSlides] = useState([items[0], [1]]);
+  const totalSlides = slidesToShow + slidesToMove;
+  const initialSlideContent = items.slice(0, totalSlides);
+  const [slides, setSlides] = useState(initialSlideContent);
   const [current, setCurrent] = useState(0);
   const [stage, setStage] = useState("IDLE");
+  const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
+  const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
 
   useEffect(() => {
     if (stage === "NEXT_STAGE") {
       setStage("NEXT");
-      setCurrent((current) => current + 1);
+      setCurrent((current) => current + slidesToMove);
     }
     if (stage === "PREV_STAGE") {
       setStage("PREV");
-      setCurrent((current) => current - 1);
+      setCurrent((current) => current - slidesToMove);
     }
   }, [stage]);
 
   const slideNext = () => {
-    if (current < items.length - 1) {
-      setSlides(() => [items[current], items[current + 1]]);
+    if (current < items.length - slidesToShow) {
+      setSlides(() =>
+        [...Array(totalSlides).keys()].map((i) => items[current + i])
+      );
       setStage("NEXT_STAGE");
     }
   };
   const slidePrev = () => {
     if (current !== 0) {
-      setSlides(() => [items[current - 1], items[current]]);
+      setSlides(() =>
+        [...Array(totalSlides).keys()].map(
+          (i) => items[current + i - slidesToMove]
+        )
+      );
       setStage("PREV_STAGE");
     }
   };
 
-  const sliderStyle = (stage) => {
-    const _styles = _style(
-      {
-        NEXT: styles.next,
-        PREV_STAGE: styles.prevStage,
-        PREV: styles.prev,
-      }[stage],
-      styles.slider
-    );
-    return _styles;
+  const sliderStyle = (_stage) => {
+    return {
+      NEXT: { transform: `translateX(-${transformX})`, transition: "0.5s" },
+      PREV_STAGE: { transform: `translateX(-${transformX})` },
+      PREV: { transition: "0.5s" },
+    }[_stage];
   };
+
+  console.log("slider style", sliderStyle(stage));
 
   return (
     <div className={wrapper}>
       <div className={styles.container}>
-        <div className={sliderStyle(stage)}>
+        <div
+          className={styles.slider}
+          style={{
+            ...sliderStyle(stage),
+            width: sliderWidth,
+          }}
+        >
           {slides.map((slide, i) => (
             <div key={`#slide${i}`} className={styles.slides}>
               {slide}

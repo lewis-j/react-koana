@@ -4,21 +4,15 @@
   height: 100%;
 }
 
+.slides {
+  border: solid 1px orange;
+}
+
 .container {
   overflow: hidden;
 }
 .slider {
   display: flex;
-  justify-content: space-between;
   height: 100%;
   width: 200%;
-}
-
-.prevStage,
-.next {
-  transform: translateX(-50%);
-}
-.next,
-.prev {
-  transition: 0.5s;
 }
