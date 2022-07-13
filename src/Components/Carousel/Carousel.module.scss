@@ -1,0 +1,24 @@
+.container,
+.slides {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  overflow: hidden;
+}
+.slider {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 200%;
+}
+
+.prevStage,
+.next {
+  transform: translateX(-50%);
+}
+.next,
+.prev {
+  transition: 0.5s;
+}
