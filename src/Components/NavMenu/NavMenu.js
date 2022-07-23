@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
-import koana_logo from "./koana_logo.png";
+import { useState, useEffect, useRef } from "react";
+import koana_logo from "./koana_logo copy.png";
 import "./navMenu.css";
 
 const NavMenu = () => {
     const [collapsed, setCollapsed] = useState(true);
-    const [viewportSize, setViewportSize] = useState({ width: window.innerWidth });
+    const [viewportSize, setViewportSize] = useState({
+        width: window.innerWidth,
+    });
+    const widthSize = useRef(window.innerWidth);
+    const MEDBREAKPOINT = 769;
 
     const navHamburgerItems = [
         "about",
@@ -46,11 +50,12 @@ const NavMenu = () => {
         return <ul className="fullNavItems">{navItems}</ul>;
     };
 
-    useEffect(() => {
-        const handleResize = () => {
-            setViewportSize({ width: window.innerWidth });
-        };
+    const handleResize = () => {
+        setViewportSize({ width: window.innerWidth });
+        widthSize.current = window.innerWidth;
+    };
 
+    useEffect(() => {
         window.addEventListener("resize", handleResize);
 
         return () => {
@@ -58,40 +63,34 @@ const NavMenu = () => {
         };
     }, [viewportSize]);
 
-    function outsideFunction() {
-        console.log("outsideFucntion: ", viewportSize.width)
-        return viewportSize.width < 769
+    function confirmSmallBreakpoint() {
+        return widthSize.current < MEDBREAKPOINT;
     }
 
     useEffect(() => {
-        // checks for 'click' outside of navmenu and collapsed navmenu if open
         const outsideClick = document.querySelector("html");
 
-        outsideClick.removeEventListener("click", testFunction);
-        outsideFunction() && outsideClick.addEventListener("click", testFunction);
+        confirmSmallBreakpoint()
+            ? outsideClick.addEventListener("click", closeExpandedNav)
+            : outsideClick.removeEventListener("click", closeExpandedNav);
 
-
-
-        function testFunction(e) {
+        function closeExpandedNav(e) {
             const target = e.target.classList.value;
-            console.log(viewportSize.width)
-            if (viewportSize.width < 769){
-                console.log("less than 769")
+            if (confirmSmallBreakpoint()) {
                 if (target === "" && collapsed === false) {
-                    console.log(typeof(viewportSize.width), "passed")
                     setCollapsed(true);
                 }
             }
-        };
+        }
 
         return () => {
-            outsideClick.removeEventListener("click", testFunction);
+            outsideClick.removeEventListener("click", closeExpandedNav);
         };
     }, [collapsed]);
 
     const toggleCollapse = () => {
-        viewportSize.width < 769 &&
-        setCollapsed((currentState) => !currentState);
+        viewportSize.width < MEDBREAKPOINT &&
+            setCollapsed((currentState) => !currentState);
     };
 
     const hamburgerStatus = collapsed
@@ -103,9 +102,11 @@ const NavMenu = () => {
 
     return (
         <>
-            <div style={{ color: "red" }}>{viewportSize.width}</div>
+            <div style={{ color: "white", fontWeight: "bolder" }}>
+                {widthSize.current}
+            </div>
             <div className="fullNav fullNavSlider">{fullNavItems()}</div>
-            
+
             <div className={hamburgerStatus[0]}>
                 <div className={hamburgerStatus[1]}>{navHamburgerItems}</div>
             </div>
