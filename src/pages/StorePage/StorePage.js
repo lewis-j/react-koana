@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Carousel } from "../../components/Carousel";
 import styles from "./StorePage.module.scss";
 
