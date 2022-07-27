@@ -1,134 +1,139 @@
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon, faCartAr } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import koana_logo from "./koana_logo copy.png";
+import koana_logo from "./koana_logo.png";
 import "./navMenu.css";
 
 const NavMenu = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [viewportSize, setViewportSize] = useState({
-    width: window.innerWidth,
-  });
-  const navigate = useNavigate();
-  const widthSize = useRef(window.innerWidth);
-  const MEDBREAKPOINT = 769;
+    const [collapsed, setCollapsed] = useState(false);
+    const [viewportSize, setViewportSize] = useState({
+        width: window.innerWidth,
+    });
+    const navigate = useNavigate();
+    const widthSize = useRef(window.innerWidth);
+    const MEDBREAKPOINT = 769;
 
-  // const navHamburgerItems = [
-  //   "about",
-  //   "store",
-  //   "instagram",
-  //   "cart",
-  //   "navLogo",
-  // ].map((item, idx) => {
-  //   return item !== "navLogo" ? (
-  //     // routes need to be added on line 22 for corresponding pages
-  //     <div key={idx} className="navHamburgerItem">
-  //       {item}
-  //     </div>
-  //   ) : (
-  //     <img
-  //       key={idx}
-  //       className="togglerHamburgerIcon"
-  //       onClick={() => toggleCollapse()}
-  //       src={koana_logo}
-  //       alt="logo"
-  //     />
-  //   );
-  // });
+    const tradNavItems = ["store", "about"].map((item, idx) => (
+        <div key={`${idx}${item}`} className="navHamburgerItem">
+            {item}{" "}
+        </div>
+    ));
 
-  const tradNavItems = ["store", "about"].map((item, idx) => (
-    <div key={`${idx}${item}`} className="navHamburgerItem">
-      {item}{" "}
-    </div>
-  ));
+    const iconsData = [
+        {
+            0: [
+                faInstagram,
+                () =>
+                    (window.location.href =
+                        "https://www.instagram.com/koanahawaii/"),
+            ],
+        },
+        {
+            1: [
+                faCartArrowDown,
+                () =>
+                    (window.location.href =
+                        "https://www.instagram.com/koanahawaii/"),
+            ],
+        },
+    ];
 
-  const getIconComponent = (icon, click) => {
-    return <FontAwesomeIcon icon={icon} onClick={click} />;
-  };
+    const iconNavItems = iconsData.map((icon, iconIdx) => {
 
-  const iconNavItems = [
-    getIconComponent(
-      faInstagram,
-      () => (window.location.href = "https://www.instagram.com/koanahawaii/")
-    ),
-  ];
+        const getIconComponent = (icon, click) => {
+            return <FontAwesomeIcon icon={icon} size="1x" onClick={click} />;
+        };
 
-  const navHamburgerItems = [...tradNavItems, iconNavItems];
-  const fullNavItems = () => {
-    const navItems = ["about", "contact", "location", "instagram", "cart"].map(
-      (item, idx) => (
-        <a key={idx + 10} href="#">
-          <li>{item}</li>
-        </a>
-      )
-    );
+        const iconName = 0;
+        const iconRoute = 1;
+        
+        return getIconComponent(
+            icon[iconIdx][iconName],
+            icon[iconIdx][iconRoute]
+        );
+    });
 
-    return <ul className="fullNavItems">{navItems}</ul>;
-  };
+    const navHamburgerItems = [...tradNavItems, ...iconNavItems];
+    const fullNavItems = () => {
+        const navItems = [
+            "about",
+            "contact",
+            "location",
+            "instagram",
+            "cart",
+        ].map((item, idx) => (
+            <a key={idx + 10} href="#">
+                <li>{item}</li>
+            </a>
+        ));
 
-  const handleResize = () => {
-    setViewportSize({ width: window.innerWidth });
-    widthSize.current = window.innerWidth;
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
+        return <ul className="fullNavItems">{navItems}</ul>;
     };
-  }, [viewportSize]);
 
-  function confirmSmallBreakpoint() {
-    return widthSize.current < MEDBREAKPOINT;
-  }
+    const handleResize = () => {
+        setViewportSize({ width: window.innerWidth });
+        widthSize.current = window.innerWidth;
+    };
 
-  useEffect(() => {
-    const outsideClick = document.querySelector("html");
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
 
-    confirmSmallBreakpoint()
-      ? outsideClick.addEventListener("click", closeExpandedNav)
-      : outsideClick.removeEventListener("click", closeExpandedNav);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [viewportSize]);
 
-    function closeExpandedNav(e) {
-      const target = e.target.classList.value;
-      if (confirmSmallBreakpoint()) {
-        if (target === "" && collapsed === false) {
-          setCollapsed(true);
-        }
-      }
+    function confirmSmallBreakpoint() {
+        return widthSize.current < MEDBREAKPOINT;
     }
 
-    return () => {
-      outsideClick.removeEventListener("click", closeExpandedNav);
+    useEffect(() => {
+        const outsideClick = document.querySelector("html");
+
+        confirmSmallBreakpoint()
+            ? outsideClick.addEventListener("click", closeExpandedNav)
+            : outsideClick.removeEventListener("click", closeExpandedNav);
+
+        function closeExpandedNav(e) {
+            const target = e.target.classList.value;
+            if (confirmSmallBreakpoint()) {
+                if (target === "" && collapsed === false) {
+                    setCollapsed(true);
+                }
+            }
+        }
+
+        return () => {
+            outsideClick.removeEventListener("click", closeExpandedNav);
+        };
+    }, [collapsed]);
+
+    const toggleCollapse = () => {
+        viewportSize.width < MEDBREAKPOINT &&
+            setCollapsed((currentState) => !currentState);
     };
-  }, [collapsed]);
 
-  const toggleCollapse = () => {
-    viewportSize.width < MEDBREAKPOINT &&
-      setCollapsed((currentState) => !currentState);
-  };
+    const hamburgerStatus = collapsed
+        ? ["navHamburgerContainerOuter", "navHamburgerContainerInner"]
+        : [
+              "navHamburgerContainerOuter outerHamburgerExpanded",
+              "navHamburgerContainerInner innerHamburgerExpanded",
+          ];
 
-  const hamburgerStatus = collapsed
-    ? ["navHamburgerContainerOuter", "navHamburgerContainerInner"]
-    : [
-        "navHamburgerContainerOuter outerHamburgerExpanded",
-        "navHamburgerContainerInner innerHamburgerExpanded",
-      ];
+    return (
+        <>
+            <div style={{ color: "white", fontWeight: "bolder" }}>
+                {widthSize.current}
+            </div>
+            <div className="fullNav fullNavSlider">{fullNavItems()}</div>
 
-  return (
-    <>
-      <div style={{ color: "white", fontWeight: "bolder" }}>
-        {widthSize.current}
-      </div>
-      <div className="fullNav fullNavSlider">{fullNavItems()}</div>
-
-      <div className={hamburgerStatus[0]}>
-        <div className={hamburgerStatus[1]}>{navHamburgerItems}</div>
-      </div>
-    </>
-  );
+            <div className={hamburgerStatus[0]}>
+                <div className={hamburgerStatus[1]}>{navHamburgerItems}</div>
+            </div>
+        </>
+    );
 };
 
 export default NavMenu;
