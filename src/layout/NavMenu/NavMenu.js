@@ -1,8 +1,8 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon, faCartAr } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useRef } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import koana_logo from "./koana_logo.png";
 import "./navMenu.css";
 
@@ -16,7 +16,12 @@ const NavMenu = () => {
     const MEDBREAKPOINT = 769;
 
     const tradNavItems = ["store", "about"].map((item, idx) => (
-        <div key={`${idx}${item}`} className="navHamburgerItem">
+        <div
+            onClick={() => navigate(`/${item}`)}
+            key={`${idx}${item}`}
+            className="navHamburgerItem"
+        >
+            {console.log(`/${item}`)}
             {item}{" "}
         </div>
     ));
@@ -41,21 +46,32 @@ const NavMenu = () => {
     ];
 
     const iconNavItems = iconsData.map((icon, iconIdx) => {
-
         const getIconComponent = (icon, click) => {
             return <FontAwesomeIcon icon={icon} size="1x" onClick={click} />;
         };
 
         const iconName = 0;
         const iconRoute = 1;
-        
+
         return getIconComponent(
             icon[iconIdx][iconName],
             icon[iconIdx][iconRoute]
         );
     });
 
-    const navHamburgerItems = [...tradNavItems, ...iconNavItems];
+    const logo = (
+        <img
+            className="togglerHamburgerIcon"
+            onClick={(event) => {
+                navigate(`/`);
+                toggleCollapse();
+            }}
+            src={koana_logo}
+            alt="logo"
+        />
+    );
+
+    const navHamburgerItems = [...tradNavItems, ...iconNavItems, logo];
     const fullNavItems = () => {
         const navItems = [
             "about",

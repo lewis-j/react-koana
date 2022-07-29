@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import { StorePage } from "./pages/StorePage";
 import { Navbar } from "./layout/NavMenu";
+import { StorePage } from "./pages/StorePage";
+import { AboutPage } from "./pages/AboutPage";
 import "./App.css";
 
-const Home = () => (
+const FeaturesPage = () => (
   <div>
     <div className="test1">
       KOANA<div className="test2">V2</div>
@@ -15,9 +16,9 @@ const App = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="about" element={<StorePage />} />
-        <Route path="contact" element={<StorePage />} />
+        <Route path="/" element={<FeaturesPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="store" element={<StorePage />} />
       </Routes>
     </>
   );
