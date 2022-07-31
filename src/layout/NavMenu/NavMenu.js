@@ -27,36 +27,25 @@ const NavMenu = () => {
     ));
 
     const iconsData = [
-        {
-            0: [
-                faInstagram,
-                () =>
-                    (window.location.href =
-                        "https://www.instagram.com/koanahawaii/"),
-            ],
-        },
-        {
-            1: [
-                faCartArrowDown,
-                () =>
-                    (window.location.href =
-                        "https://www.instagram.com/koanahawaii/"),
-            ],
-        },
+        [
+            faInstagram,
+            () =>
+                (window.location.href =
+                    "https://www.instagram.com/koanahawaii/"),
+        ],
+        [
+            faCartArrowDown,
+            () =>
+                (window.location.href =
+                    "https://www.instagram.com/koanahawaii/"),
+        ],
     ];
+    const getIconComponent = (icon, click) => {
+        return <FontAwesomeIcon icon={icon} size="1x" onClick={click} />;
+    };
 
-    const iconNavItems = iconsData.map((icon, iconIdx) => {
-        const getIconComponent = (icon, click) => {
-            return <FontAwesomeIcon icon={icon} size="1x" onClick={click} />;
-        };
-
-        const iconName = 0;
-        const iconRoute = 1;
-
-        return getIconComponent(
-            icon[iconIdx][iconName],
-            icon[iconIdx][iconRoute]
-        );
+    const iconNavItems = iconsData.map(([icon, click], iconIdx) => {
+        return getIconComponent(icon, click);
     });
 
     const logo = (
@@ -71,7 +60,23 @@ const NavMenu = () => {
         />
     );
 
-    const navHamburgerItems = [...tradNavItems, ...iconNavItems, logo];
+    const hamburgerIcon = (
+        <>
+            <div
+                className="hamburgerIcon"
+                onClick={() => {
+                    navigate(`/`);
+                    toggleCollapse();
+                }}
+            >
+                <div className="hamburgerBar"></div>
+                <div className="hamburgerBar"></div>
+                <div className="hamburgerBar"></div>
+            </div>
+        </>
+    );
+
+    const navHamburgerItems = [...tradNavItems, ...iconNavItems];
     const fullNavItems = () => {
         const navItems = [
             "about",
@@ -140,9 +145,9 @@ const NavMenu = () => {
 
     return (
         <>
-            <div style={{ color: "white", fontWeight: "bolder" }}>
+            {/* <div style={{ color: "white", fontWeight: "bolder" }}>
                 {widthSize.current}
-            </div>
+            </div> */}
             <div className="fullNav fullNavSlider">{fullNavItems()}</div>
 
             <div className={hamburgerStatus[0]}>
