@@ -1,4 +1,4 @@
-import { Carousel } from "../../Components/Carousel";
+import { Carousel } from "../../components";
 import styles from "./StorePage.module.scss";
 
 const products = [
