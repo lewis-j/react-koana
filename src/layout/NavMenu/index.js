@@ -1,1 +1,1 @@
-export { default as Navbar } from "./NavMenu";
+export { default as NavbarNew } from "./NavMenuNew";

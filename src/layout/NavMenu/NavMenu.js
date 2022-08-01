@@ -149,7 +149,7 @@ const NavMenu = () => {
                 {widthSize.current}
             </div> */}
             <div className="fullNav fullNavSlider">{fullNavItems()}</div>
-
+            <div>{hamburgerIcon}</div>
             <div className={hamburgerStatus[0]}>
                 <div className={hamburgerStatus[1]}>{navHamburgerItems}</div>
             </div>
