@@ -1,1 +1,1 @@
-export { default as NavbarNew } from "./NavMenuNew";
+export { default as NavBarNew } from "./NavMenuNew";

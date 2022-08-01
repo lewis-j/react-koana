@@ -4,7 +4,7 @@ import VerticalMenu from "./VerticalMenu";
 import { useState, useEffect, useRef } from "react";
 import "./navMenuNew.css";
 
-const NavBarNew = () => {
+export const NavBarNew = () => {
     const [expand, setExpand] = useState(false);
 
     const handleExpand = () => {
@@ -20,4 +20,3 @@ const NavBarNew = () => {
     );
 };
 
-export default NavBarNew;
