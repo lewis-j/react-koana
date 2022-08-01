@@ -1,55 +1,57 @@
 body {
-    background-color: rgb(237, 227, 193);
+  background-color: black;
 }
 
 .navHamburgerContainerOuter {
-    position: absolute;
-    transform: translate(0px, -4rem);
-    width: 4rem;
-    height: 4rem;
-    border-radius: 3rem;
-    border: 1px solid rgb(254, 251, 0);
-    /* background-color: rgb(254, 251, 0); */
-    overflow: hidden;
-    transition: 0.25s ease-in-out;
+  position: absolute;
+  transform: translate(0px, -4rem);
+  width: 4rem;
+  height: 4rem;
+  z-index: 1;
+  border-radius: 3rem;
+  border: 1px solid rgb(254, 251, 0);
+  background-color: rgb(254, 251, 0);
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
 }
 
 .navHamburgerContainerInner {
-    margin-top: -0.8rem;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    padding-top: 4rem;
-    gap: 2rem;
-    transform: translate(0px, -14rem);
-    transition: all 0.25s ease-in-out;
+  margin-top: -0.8rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 2rem;
+  transform: translate(0px, -12.5rem);
+  transition: all 0.25s ease-in-out;
 }
 @media only screen and (max-width: 768px) {
-    .outerHamburgerExpanded {
-        height: 15rem;
-    }
+  .outerHamburgerExpanded {
+    height: 20.4rem;
+  }
 
-    .innerHamburgerExpanded {
-        transform: translate(0px, 1rem);
-    }
+  .innerHamburgerExpanded {
+    padding-top: 6rem;
+    transform: translate(0px, 1rem);
+  }
 
-    .fullNavSlider {
-        display: none;
-        border-radius: 3rem;
-        width: 4rem;
-        height: 4rem;
-    }
+  .fullNavSlider {
+    display: none;
+    border-radius: 3rem;
+    width: 4rem;
+    height: 4rem;
+  }
 
-    .fullNavItems a {
-        opacity: 0;
-    }
+  .fullNavItems a {
+    opacity: 0;
+  }
 }
 
 .togglerHamburgerIcon {
-    transform: translate(0px, -5px);
-    width: 100%;
-    margin-bottom: -0.1rem;
-    cursor: pointer;
+  transform: translate(0px, -5px);
+  width: 100%;
+  margin-bottom: -0.1rem;
+  cursor: pointer;
 }
 
 .hamburgerIcon {
@@ -68,48 +70,52 @@ body {
 }
 
 .navHamburgerItem {
-    color: rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
-    /* padding-right: 0.5rem; */
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
+  color: rgb(0, 0, 0);
+  font-family: Arial, Helvetica, sans-serif;
+  /* padding-right: 0.5rem; */
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
 }
 
 .navHamburgerItem:hover {
-    font-weight: bolder;
-    cursor: crosshair;
+  font-weight: bolder;
+  cursor: crosshair;
 }
 
 .fullNav {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
-    align-items: center;
-    border-radius: 3rem;
-    /* background-color: rgb(254, 251, 0); */
-    transition: all 0.25s ease-in-out;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 3rem;
+  background-color: rgb(254, 251, 0);
+  transition: all 0.25s ease-in-out;
 }
 
 @media only screen and (min-width: 769px) {
-    .fullNavSlider {
-        width: 100%;
-        height: 4rem;
-    }
+  .fullNavSlider {
+    width: 100%;
+    height: 4rem;
+  }
 
-    .fullNavItems {
-        display: flex;
-        gap: 2rem;
-        margin-right: 2rem;
-    }
+  .fullNavItems {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-right: 2rem;
+  }
+  .fullNavItems img {
+    height: 3em;
+  }
 
-    .fullNavItems a {
-        list-style: none;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 0.75rem;
-        text-decoration: none;
-        color: black;
-        letter-spacing: 0.3em;
-        opacity: 1;
-        transition: opacity 1s ease-in-out;
-    }
+  .fullNavItems a {
+    list-style: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: black;
+    letter-spacing: 0.3em;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
 }
