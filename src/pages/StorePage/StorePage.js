@@ -1,4 +1,3 @@
-import { Carousel } from "../../Components";
 import styles from "./StorePage.module.scss";
 
 const products = [
@@ -27,11 +26,7 @@ const StorePage = () => {
     slidesToMove: 2,
     className: styles.carousel,
   };
-  return (
-    <div>
-      <Carousel {...carouselProps}>{renderProducts()}</Carousel>
-    </div>
-  );
+  return <div>store</div>;
 };
 
 export default StorePage;
