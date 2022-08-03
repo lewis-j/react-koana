@@ -1,9 +1,37 @@
 @media screen and (max-width: 576px) {
+    .bigMacMode {
+        display: flex;
+        justify-content: space-between;
+        /* border: 1px solid green; */
+    }
+
+    .burgerCollapsedKoanaIcon {
+        margin-top: 0.4rem;
+        margin-right: 0.5rem;
+        height: 3rem;
+        display: flex;
+        animation: opacity-bigMac 1s forwards;
+    }
+
+
+    .burgerCollapsedKoanaIcon img {
+        height: 75%;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .burgerCollapsedKoanaIcon img:hover {
+        height: 200%;
+        margin-top: -0.1rem;
+        margin-right: -0.1rem;
+        cursor: pointer;
+    }
+
     .bigMacIcon {
+        /* border: 1px solid black; */
         position: relative;
         z-index: 1;
-        margin-top: -3.0rem;
-        margin-left: .1rem;
+        margin-top: -3rem;
+        margin-left: 0.1rem;
         /* background color needs to match viewport background */
         background-color: white;
         width: 3rem;
@@ -17,11 +45,16 @@
     }
 
     @keyframes opacity-bigMac {
-        from { opacity: 0}
-        to { opacity: 1}
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     .burgerSpacer {
+        /* border: 1px solid black; */
         height: 50%;
     }
 
@@ -54,6 +87,8 @@
     }
 
     .burgerNavItems {
+        /* border:1px solid black; */
+        margin-left: 0.1rem;
         display: flex;
         flex-flow: column nowrap;
         width: 3rem;
@@ -92,7 +127,7 @@
         cursor: pointer;
         letter-spacing: 0.2rem;
         padding-left: 0.3rem;
-        font-size: 0.75rem;
+        font-size: 0.65rem;
         text-align: right;
     }
 
@@ -119,7 +154,8 @@
     .koanaIcon,
     .koanaIcon img,
     .tradNavItems,
-    .burgerSpacer {
+    .burgerSpacer,
+    .burgerCollapsedKoanaIcon {
         display: none;
     }
 
@@ -136,8 +172,12 @@
     }
 
     @keyframes opacity-regular {
-        from { opacity: 0}
-        to { opacity: 1}
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     .regularKoanaIcon {
@@ -153,7 +193,7 @@
     }
 
     .regularKoanaIcon img:hover {
-        margin-left: -1.5rem;
+        margin-top: 4rem;
         height: 200%;
         cursor: pointer;
         transition: all 0.2s ease-in-out;

@@ -2,10 +2,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import koana_logo from "./koana_logo.png";
 
-const VerticalMenu = ({ expand }) => {
+const VerticalMenu = ({ expand, handleExpand }) => {
     const navigate = useNavigate();
+
+    // the following useEffect hook is used to close the vertical menu when
+    // the user clicks off of the menu
+    useEffect(() => {
+        const outsideClick = document.querySelector("html");
+
+        const closeVerticalMenu = (e) => {
+            const target = e.target.classList.value;
+            if (target === "" && expand) {
+                handleExpand();
+            }
+        };
+
+        outsideClick.addEventListener("click", closeVerticalMenu);
+
+        return () => {
+            outsideClick.removeEventListener("click", closeVerticalMenu);
+        };
+    }, [expand, handleExpand]);
 
     const koanaIcon = (
         <div key={"koanaIcon"} className="koanaIcon">
@@ -20,12 +40,8 @@ const VerticalMenu = ({ expand }) => {
     );
 
     const tradNavItems = ["store", "about"].map((item, idx) => (
-        <div
-            onClick={() => navigate(`/${item}`)}
-            key={`${idx}${item}`}
-            className="tradNavItems"
-        >
-            {item}
+        <div className="tradNavItems" key={`${idx}${item}`}>
+            <div onClick={() => navigate(`/${item}`)}>{item}</div>
         </div>
     ));
 
@@ -45,7 +61,7 @@ const VerticalMenu = ({ expand }) => {
     ];
     const getIconComponent = (icon, destination, idx) => {
         return (
-            <div key={`${idx}${icon}`}>
+            <div key={`${idx}${icon}`} className="burgerFAIcon">
                 <FontAwesomeIcon
                     icon={icon}
                     size="1x"

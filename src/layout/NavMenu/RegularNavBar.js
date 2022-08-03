@@ -64,13 +64,9 @@ const RegularNavBar = () => {
 
     return (
         <>
-            <div className="regularNavContainer">
-                {regularNavItems}
-            </div>
+            <div className="regularNavContainer">{regularNavItems}</div>
         </>
-    )
-
-};  
-
+    );
+};
 
 export default RegularNavBar;
