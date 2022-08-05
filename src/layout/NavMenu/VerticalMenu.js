@@ -39,7 +39,7 @@ const VerticalMenu = ({ expand, handleExpand }) => {
         </div>
     );
 
-    const tradNavItems = ["store", "about"].map((item, idx) => (
+    const tradNavItems = ["shop", "about"].map((item, idx) => (
         <div className="tradNavItems" key={`${idx}${item}`}>
             <div onClick={() => navigate(`/${item}`)}>{item}</div>
         </div>

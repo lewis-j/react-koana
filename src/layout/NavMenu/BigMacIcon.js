@@ -5,10 +5,7 @@ const BigMacIcon = ({ expand, handleExpand }) => {
     const navigate = useNavigate();
 
     const burgerCollapsedKoanaIcon = (
-        <div
-            key={"koanaIcon"}
-            className="burgerCollapsedKoanaIcon"
-        >
+        <div key={"koanaIcon"} className="burgerCollapsedKoanaIcon">
             <img
                 onClick={() => {
                     navigate(`/`);

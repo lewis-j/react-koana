@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
-import { StorePage } from "./pages/StorePage";
+import { FeaturePage } from "./pages/FeaturePage";
 import { AboutPage } from "./pages/AboutPage";
+import { OnlineShop } from "./Components/OnlineShop/OnlineShop";
 import "./App.css";
 
-const FeaturesPage = () => <div></div>;
 const App = () => {
     return (
         <>
             <NavBarNew />
             <Routes>
-                <Route path="/" element={<FeaturesPage />} />
+                <Route path="/" element={null} />
                 <Route path="about" element={<AboutPage />} />
-                <Route path="store" element={<StorePage />} />
+                <Route path="shop" element={<OnlineShop />} />
             </Routes>
         </>
     );
