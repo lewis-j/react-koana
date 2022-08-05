@@ -1,54 +1,63 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Carousel.module.scss";
+import styles from "./MultiCarousel.module.scss";
 const _style = (...styles) => styles.join(" ");
 
-const Carousel = ({
-  children: items = ["1", "2"],
+const MultiCarousel = ({
+  children: items = [
+    ["1", "2"],
+    ["3", "4"],
+    ["5", "6"],
+  ],
   className: wrapper = {},
-  slidesToShow = 1,
+  slidesToShow = 3,
   slidesToMove = 1,
   prevBtnStyles,
   nextBtnStyles,
 }) => {
   const totalSlides = slidesToShow + slidesToMove;
-  const initialSlideContent = items.slice(0, totalSlides);
+
+  const initialSlideContent = items[0].slice(0, totalSlides);
   const [slides, setSlides] = useState(initialSlideContent);
-  const [current, setCurrent] = useState(0);
+
+  const [currentX, setCurrentX] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
   const [stage, setStage] = useState("IDLE");
   const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
   const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
-
   useEffect(() => {
     if (stage === "NEXT_STAGE") {
       setStage("NEXT");
-      setCurrent((current) => current + slidesToMove);
+      setCurrentX((currentX) => currentX + slidesToMove);
     }
     if (stage === "PREV_STAGE") {
       setStage("PREV");
-      setCurrent((current) => current - slidesToMove);
+      setCurrentX((currentX) => currentX - slidesToMove);
     }
-  }, [stage]);
+  }, [stage, slidesToMove]);
 
   const slideNext = () => {
-    if (current < items.length - slidesToShow) {
+    if (currentX < items[currentY].length - slidesToShow) {
       setSlides(() =>
-        [...Array(totalSlides).keys()].map((i) => items[current + i])
+        [...Array(totalSlides).keys()].map((i) => items[currentY][currentX + i])
       );
       setStage("NEXT_STAGE");
     }
   };
   const slidePrev = () => {
-    if (current !== 0) {
+    if (currentX !== 0) {
       setSlides(() =>
         [...Array(totalSlides).keys()].map(
-          (i) => items[current + i - slidesToMove]
+          (i) => items[currentY][currentX + i - slidesToMove]
         )
       );
       setStage("PREV_STAGE");
     }
   };
 
-  const sliderStyle = (_stage) => {
+  const slideDown = () => {
+    console.log("testing");
+  };
+  const sliderTransition = (_stage) => {
     return {
       NEXT: { transform: `translateX(-${transformX})`, transition: "0.5s" },
       PREV_STAGE: { transform: `translateX(-${transformX})` },
@@ -56,15 +65,13 @@ const Carousel = ({
     }[_stage];
   };
 
-  console.log("slider style", sliderStyle(stage));
-
   return (
     <div className={wrapper}>
       <div className={styles.container}>
         <div
           className={styles.slider}
           style={{
-            ...sliderStyle(stage),
+            ...sliderTransition(stage),
             width: sliderWidth,
           }}
         >
@@ -82,11 +89,15 @@ const Carousel = ({
       >
         Prev
       </button>
-      <button onClick={() => slideNext(_style(styles.btn, styles.btnNext))}>
+      <button
+        onClick={() => slideNext()}
+        className={_style(styles.btn, styles.btnNext)}
+      >
         Next
       </button>
+      <button onClick={() => slideDown()}>down</button>
     </div>
   );
 };
 
-export default Carousel;
+export default MultiCarousel;
