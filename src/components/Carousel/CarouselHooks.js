@@ -48,23 +48,25 @@ export const useSetCurrent = (rows, slidesToMove) => {
         setCurrent({ ...current, x: current.x + slidesToMove });
       },
       prev: () => {
-        setCurrent({ ...current, x: current.x - slidesToMove })
+        setCurrent({ ...current, x: current.x - slidesToMove });
       },
 
       down: () => {
         setCurrent({
           x: rowPosition[current.y + slidesToMove],
           y: current.y + slidesToMove,
-        })
+        });
       },
       up: () => {
         setCurrent({
-        x: rowPosition[current.y - slidesToMove],
-        y: current.y - slidesToMove,
-      }),
-    }[action]();
-  };
+          x: rowPosition[current.y - slidesToMove],
+          y: current.y - slidesToMove,
+        });
+      },
+    };
 
+    nextCurrent[action]();
+  };
 
   return [current, setNextCurrent];
 };
