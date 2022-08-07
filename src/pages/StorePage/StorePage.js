@@ -1,18 +1,7 @@
 import MultiCarousel from "../../components/MultiCarousel/MultiCarousel";
 import styles from "./FeaturePage.module.scss";
 
-const allProducts = [
-  "BICR Ka'u Morning Glory",
-  "teas",
-  "art",
-  "gift bags",
-  "mugs",
-  "coffee",
-  "teas",
-  "art",
-  "gift bags",
-  "mugs",
-];
+const allProducts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
 const testData = allProducts.reduce(
   (pre, cur) => {

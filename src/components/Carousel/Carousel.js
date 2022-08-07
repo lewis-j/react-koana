@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTransitionStyle } from "./CarouselHooks";
 import styles from "./Carousel.module.scss";
 const _style = (...styles) => styles.join(" ");
 
@@ -20,110 +21,120 @@ const Carousel = ({
     const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
     const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
 
-    const slideNext = () => {
-        if (currentX < items[currentY].length - slidesToShow) {
-            setSlides(() =>
-                [...Array(totalSlides).keys()].map(
-                    (i) => items[currentY][currentX + i]
-                )
-            );
-            setStage("NEXT_STAGE");
-            setTimeout(() => {
-                setStage("NEXT");
-                setCurrentX((currentX) => currentX + slidesToMove);
-            }, 1);
-        }
-    };
-    const slidePrev = () => {
-        if (currentX !== 0) {
-            setSlides(() =>
-                [...Array(totalSlides).keys()].map(
-                    (i) => items[currentY][currentX + i - slidesToMove]
-                )
-            );
-            setStage("PREV_STAGE");
-            setTimeout(() => {
-                setStage("PREV");
-                setCurrentX((currentX) => currentX - slidesToMove);
-            }, 1);
-        }
-    };
-    const slideDown = () => {
-        setSlides(() =>
-            [...Array(totalSlides).keys()].map(
-                (i) => items[currentY + i][currentX]
-            )
-        );
-        setStage("DOWN_STAGE");
-        setTimeout(() => {
-            setStage("DOWN");
-            setCurrentY((currentY) => currentY + slidesToMove);
-        }, 1);
-    };
-    const slideUp = () => {
-        setSlides(() =>
-            [...Array(totalSlides).keys()].map(
-                (i) => items[currentY + i - slidesToMove][currentX]
-            )
-        );
-        setStage("UP_STAGE");
-        setTimeout(() => {
-            setStage("UP");
-            setCurrentY((currentY) => currentY - slidesToMove);
-        }, 1);
-    };
+  const initialSlideContent = items[0].slice(0, totalSlides);
+  console.log("initialSlideContent:", initialSlideContent);
 
-    const sliderTransition = (_stage) => {
-        return {
-            NEXT: {
-                transform: `translateX(-${transformX})`,
-                transition: "0.5s",
-            },
-            PREV_STAGE: { transform: `translateX(-${transformX})` },
-            PREV: { transition: "0.5s" },
-            DOWN_STAGE: {
-                flexDirection: "column",
-                width: "100%",
-                height: "200%",
-            },
-            DOWN: {
-                flexDirection: "column",
-                width: "100%",
-                height: "200%",
-                transition: "0.5s",
-                transform: `translateY(-${transformX})`,
-            },
-            UP_STAGE: {
-                flexDirection: "column",
-                width: "100%",
-                height: "200%",
-                transform: `translateY(-${transformX})`,
-            },
-            UP: {
-                flexDirection: "column",
-                width: "100%",
-                height: "200%",
-                transition: "0.5s",
-            },
-        }[_stage];
-    };
+  const [slides, setSlides] = useState(initialSlideContent);
+  const [current, setCurrent] = useState({ x: 0, y: 0 });
+  const [rowPosition, setRowPosition] = useState(
+    [...Array(items.length).keys()].map(() => 0)
+  );
+  const [transition, setTransition] = useState({});
 
-    return (
-        <div className={wrapper}>
-            <div className={styles.container}>
-                <div
-                    className={styles.slider}
-                    style={{
-                        ...sliderTransition(stage),
-                        width: sliderWidth,
-                    }}
-                >
-                    {slides.map((slide, i) => (
-                        <div key={`#slide${i}`} className={styles.slides}>
-                            {slide}
-                        </div>
-                    ))}
-                </div>
+  const setNextCurrent = (current, action) => {
+    return {
+      next: { ...current, x: current.x + slidesToMove },
+      prev: { ...current, x: current.x - slidesToMove },
+      down: {
+        x: rowPosition[current.y + slidesToMove],
+        y: current.y + slidesToMove,
+      },
+      up: {
+        x: rowPosition[current.y - slidesToMove],
+        y: current.y - slidesToMove,
+      },
+    };
+  };
+
+  const runTransition = ([stageTransition, transition]) => {
+    setTransition(stageTransition);
+    setTimeout(() => {
+      setTransition(transition);
+    }, 1);
+  };
+
+  const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
+  const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
+
+  const transitions = useTransitionStyle(transformX);
+
+  const slideNext = () => {
+    if (current.x < items[current.y].length - slidesToShow) {
+      setSlides(() =>
+        [...Array(totalSlides).keys()].map(
+          (i) => items[current.y][current.x + i]
+        )
+      );
+      setCurrent((current) => ({ ...current, x: current.x + slidesToMove }));
+      const [end] = transitions.next;
+      runTransition([{}, end]);
+    }
+  };
+  const slidePrev = () => {
+    if (current.x !== 0) {
+      setSlides(() =>
+        [...Array(totalSlides).keys()].map(
+          (i) => items[current.y][current.x + i - slidesToMove]
+        )
+      );
+      setCurrent((current) => ({ ...current, x: current.x - slidesToMove }));
+      runTransition(transitions.prev);
+    }
+  };
+  const slideDown = () => {
+    setSlides(() =>
+      [...Array(totalSlides).keys()].map(
+        (i) => items[current.y + i][rowPosition[current.y + i]]
+      )
+    );
+    setRowPosition((rp) => {
+      console.log({ rp: rp, "current.x": current.x });
+
+      rp[current.y] = current.x;
+      console.log("rp:", rp);
+
+      return rp;
+    });
+    setCurrent((current) => ({
+      x: rowPosition[current.y + slidesToMove],
+      y: current.y + slidesToMove,
+    }));
+    runTransition(transitions.down);
+  };
+  const slideUp = () => {
+    setSlides(() =>
+      [...Array(totalSlides).keys()].map(
+        (i) =>
+          items[current.y + i - slidesToMove][
+            rowPosition[current.y + i - slidesToMove]
+          ]
+      )
+    );
+    setRowPosition((rp) => {
+      console.log({ rp: rp, "current.x": current.x });
+      rp[current.y] = current.x;
+      return rp;
+    });
+    setCurrent((current) => ({
+      x: rowPosition[current.y - slidesToMove],
+      y: current.y - slidesToMove,
+    }));
+    runTransition(transitions.up);
+  };
+
+  return (
+    <div className={wrapper}>
+      <div className={styles.container}>
+        <div
+          className={styles.slider}
+          style={{
+            ...transition,
+            width: sliderWidth,
+          }}
+        >
+          {slides.map((slide, i) => (
+            <div key={`#slide${i}`} className={styles.slides}>
+              {slide}
             </div>
 
             <button
