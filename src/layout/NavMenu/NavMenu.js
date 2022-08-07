@@ -16,7 +16,7 @@ const NavMenu = () => {
   const widthSize = useRef(window.innerWidth);
   const MEDBREAKPOINT = 769;
   console.log("ran state", viewportSize);
-  const tradNavItems = ["store", "about"].map((item, idx) => (
+  const tradNavItems = ["shop", "about"].map((item, idx) => (
     <div
       onClick={() => navigate(`/${item}`)}
       key={`${idx}${item}`}

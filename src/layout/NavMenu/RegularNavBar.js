@@ -19,7 +19,7 @@ const RegularNavBar = () => {
         </div>
     );
 
-    const tradNavItems = ["store", "about"].map((item, idx) => (
+    const tradNavItems = ["shop", "about"].map((item, idx) => (
         <div
             onClick={() => navigate(`/${item}`)}
             key={`${idx}${item}`}

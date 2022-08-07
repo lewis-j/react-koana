@@ -1,6 +1,5 @@
-import Carousel from "../../components/Carousel/Carousel";
 import MultiCarousel from "../../components/MultiCarousel/MultiCarousel";
-import styles from "./StorePage.module.scss";
+import styles from "./FeaturePage.module.scss";
 
 const allProducts = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
@@ -35,7 +34,7 @@ const StorePage = () => {
   };
   return (
     <div>
-      <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+      <MultiCarousel {...carouselProps}>{renderProducts()}</MultiCarousel>
     </div>
   );
 };
