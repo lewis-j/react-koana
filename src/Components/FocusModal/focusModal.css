@@ -1,26 +1,40 @@
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
 .modalBackground {
     position: fixed;
-    top: 4.5rem;
-    transform: translate(7%, 0px);
+    /* keeps modal centered on viewport size change */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /*  */
     height: 75vh;
-    width: 85vw;
+    width: 30rem;
     z-index: 1;
     display: flex;
     flex-flow: column nowrap;
     border-radius: 2rem;
     border: 1px solid rgb(255, 229, 196);
-    background-image: linear-gradient(white, rgb(255, 228, 196));
-    box-shadow: 0 0px 100px 100px rgba(255, 250, 194, .5);
-    animation: fadeModalIn .25s ease-out forwards;
+    background-image: linear-gradient(white, white, rgb(255, 228, 196));
+    box-shadow: 0 0px 100px 100px rgba(140, 140, 140, 0.5);
+    animation: fadeModalIn 0.5s ease-out forwards;
+}
+
+@media screen and (max-width: 750px) {
+    .modalBackground {
+        left: 50%;
+        width: 20rem;
+    }
 }
 
 @keyframes fadeModalIn {
-    0%   { opacity: 0; }
-    100% { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .modalBorder {
@@ -31,6 +45,12 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 0.5rem;
+    overflow: hidden;
+}
+
+.modalBorder img {
+    width: auto;
+    border-radius: 1.5rem;
 }
 
 .modalCloseButton {
@@ -43,19 +63,19 @@
     /* border: 1px solid salmon; */
     cursor: pointer;
     z-index: 1;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.5);
     color: orangered;
     font-size: 1rem;
+    font-weight: bolder;
+    transition: all 0.25s ease-in-out;
 }
 
-.modalBorder img {
-    position: sticky;
-    width: 50%;
-    border-radius: 2rem;
+.modalCloseButton:hover {
+    background-color: rgb(255, 255, 255);
+    transition: all 0.25s ease-in-out;
 }
 
 .boxName {
-    /* flex: auto; */
     /* border: 1px solid red; */
     color: #02b4be;
     font-size: 1.5rem;

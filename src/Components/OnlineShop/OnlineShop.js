@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { imagesData } from "./images/imagesData";
 import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
@@ -18,13 +18,15 @@ export const OnlineShop = () => {
         }
     };
 
+
     const products = imagesData.map((item, idx) => {
+
         return (
             <div
                 key={item.id + idx}
-                className="itemCard"
+                className={modalFocus ? "itemCardBackground" : "itemCard"}
                 onClick={() => {
-                    handleModalFocus("card");
+                    handleModalFocus(!modalFocus ? "card" : "outside");
                     setCurrentModalId(item.id);
                 }}
             >
@@ -46,23 +48,22 @@ export const OnlineShop = () => {
     });
 
     return (
-        <>  
-            
+        <>
             {modalFocus && (
                 <>
-                    <div className="modalWrapper" onClick={() => handleModalFocus("outside")}></div>
+                    <div
+                        className="modalOffClickWrapper"
+                        onClick={() => handleModalFocus("outside")}
+                    ></div>
                     <FocusModal
                         modalFocus={modalFocus}
                         handleModalFocus={handleModalFocus}
                         id={currentModalId}
-                        onClick={e => e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
                     />
                 </>
             )}
-            <div
-                className="itemCardsContainer"
-                // onClick={() => handleModalFocus("outside")}
-            >
+            <div className="itemCardsContainer">
                 <div className="itemCards">{products}</div>
             </div>
         </>
