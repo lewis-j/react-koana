@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { imagesData } from "./images/imagesData";
 import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
@@ -46,12 +46,18 @@ export const OnlineShop = () => {
     });
 
     return (
-        <>
+        <>  
+            
             {modalFocus && (
-                <FocusModal
-                    handleModalFocus={handleModalFocus}
-                    id={currentModalId}
-                />
+                <>
+                    <div className="modalWrapper" onClick={() => handleModalFocus("outside")}></div>
+                    <FocusModal
+                        modalFocus={modalFocus}
+                        handleModalFocus={handleModalFocus}
+                        id={currentModalId}
+                        onClick={e => e.stopPropagation()}
+                    />
+                </>
             )}
             <div
                 className="itemCardsContainer"

@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     padding: 1rem;
+    z-index: 0;
 }
 
 .itemCards {
@@ -31,6 +32,7 @@
     flex-flow: column nowrap;
     align-items: center;
     transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .itemCard:hover {
@@ -88,4 +90,12 @@
     font-size: 0.75rem;
     line-height: 1.8rem;
     vertical-align: text-bottom;
+}
+
+.modalWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;;
+    height: 100%;
+    width: 100vw;
 }
