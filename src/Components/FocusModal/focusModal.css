@@ -56,15 +56,15 @@
 .modalCloseButton {
     position: fixed;
     align-self: flex-end;
-    margin-top: 1rem;
-    margin-right: 1rem;
-    padding: 1rem;
-    border-bottom-left-radius: 2rem;
+    margin-top: 1.3rem;
+    margin-right: 1.3rem;
+    padding: 1rem .3rem;
+    border-radius: 50%;
     /* border: 1px solid salmon; */
     cursor: pointer;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
-    color: orangered;
+
     font-size: 1rem;
     font-weight: bolder;
     transition: all 0.25s ease-in-out;
@@ -73,6 +73,21 @@
 .modalCloseButton:hover {
     background-color: rgb(255, 255, 255);
     transition: all 0.25s ease-in-out;
+}
+
+.leftLine,
+.rightLine {
+    width: 1.5rem;
+    height: 1px;
+    background-color: orangered;
+}
+
+.leftLine {
+    transform: rotate(45deg) translate(0px, 1px);
+}
+
+.rightLine {
+    transform: rotate(-45deg);
 }
 
 .boxName {

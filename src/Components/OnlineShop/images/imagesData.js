@@ -4,6 +4,71 @@ import img2 from "./tea_1.jpg";
 import img3 from "./tea_2.jpg";
 import img4 from "./chocolate.jpg";
 import img5 from "./merch.jpg";
+import img6 from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/layout/NavMenu/koana_logo copy.png"
+
+// export const imagesData = [
+//     {
+//         id: 0,
+//         cat: "coffee",
+//         image: img6,
+//         name: "product name",
+//         price: 69420,
+//         weight: "#",
+//         unit: "weight",
+//         desc: "product description",
+//     },
+//     {
+//         id: 1,
+//         cat: "coffee",
+//         image: img6,
+//         name: "product name",
+//         price: 69420,
+//         weight: "#",
+//         unit: "weight",
+//         desc: "product description",
+//     },
+//     {
+//         id: 2,
+//         cat: "coffee",
+//         image: img6,
+//         name: "product name",
+//         price: 69420,
+//         weight: "#",
+//         unit: "weight",
+//         desc: "product description",
+//     },
+//     {
+//         id: 3,
+//         cat: "coffee",
+//         image: img6,
+//         name: "product name",
+//         price: 30,
+//         weight: 7,
+//         unit: "oz",
+//         desc: "product description",
+//     },
+//     {
+//         id: 4,
+//         cat: "coffee",
+//         image: img6,
+//         name: "product name",
+//         price: 69420,
+//         weight: "#",
+//         unit: "weight",
+//         desc: "product description",
+//     },
+//     {
+//         id: 5,
+//         cat: "coffee",
+//         image: img6,
+//         name: "product name",
+//         price: 69420,
+//         weight: "#",
+//         unit: "weight",
+//         desc: "product description",
+//     },
+
+// ];
 
 export const imagesData = [
     {

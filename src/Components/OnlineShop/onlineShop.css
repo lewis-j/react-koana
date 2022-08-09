@@ -3,6 +3,7 @@
 } */
 
 .itemCardsContainer {
+    padding-top: 5rem;
     display: flex;
     justify-content: center;
     padding: 1rem;
@@ -12,7 +13,7 @@
 .itemCards {
     /* border: 1px solid black; */
     margin-left: 2rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;

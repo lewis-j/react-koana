@@ -12,10 +12,10 @@ export const NavBarNew = () => {
     };
 
     return (
-        <>
+        <div className="navFloat">
             <RegularNavBar />
             <BigMacIcon expand={expand} handleExpand={handleExpand} />
             <VerticalMenu expand={expand} handleExpand={handleExpand} />
-        </>
+        </div>
     );
 };

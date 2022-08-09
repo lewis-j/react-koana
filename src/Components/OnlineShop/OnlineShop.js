@@ -18,9 +18,7 @@ export const OnlineShop = () => {
         }
     };
 
-
     const products = imagesData.map((item, idx) => {
-
         return (
             <div
                 key={item.id + idx}
