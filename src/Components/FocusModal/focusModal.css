@@ -1,0 +1,110 @@
+/* * {
+    box-sizing: border-box;
+} */
+
+.modalBackground {
+    position: fixed;
+    /* keeps modal centered on viewport size change */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /*  */
+    height: 75vh;
+    width: 30rem;
+    z-index: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    border-radius: 2rem;
+    border: 1px solid rgb(255, 229, 196);
+    background-image: linear-gradient(white, white, rgb(255, 228, 196));
+    box-shadow: 0 0px 100px 100px rgba(140, 140, 140, 0.5);
+    animation: fadeModalIn 0.5s ease-out forwards;
+}
+
+@media screen and (max-width: 750px) {
+    .modalBackground {
+        left: 50%;
+        width: 20rem;
+    }
+}
+
+@keyframes fadeModalIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modalBorder {
+    /* border: 1px solid black; */
+    margin: 1rem;
+    padding: 0 rem;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+.modalBorder img {
+    width: auto;
+    border-radius: 1.5rem;
+}
+
+.modalCloseButton {
+    position: fixed;
+    align-self: flex-end;
+    margin-top: 1.3rem;
+    margin-right: 1.3rem;
+    padding: 1rem .3rem;
+    border-radius: 50%;
+    /* border: 1px solid salmon; */
+    cursor: pointer;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+
+    font-size: 1rem;
+    font-weight: bolder;
+    transition: all 0.25s ease-in-out;
+}
+
+.modalCloseButton:hover {
+    background-color: rgb(255, 255, 255);
+    transition: all 0.25s ease-in-out;
+}
+
+.leftLine,
+.rightLine {
+    width: 1.5rem;
+    height: 1px;
+    background-color: rgb(255, 98, 0);
+}
+
+.leftLine {
+    transform: rotate(45deg) translate(0px, 1px);
+}
+
+.rightLine {
+    transform: rotate(-45deg);
+}
+
+.boxName {
+    /* border: 1px solid red; */
+    color: #02b4be;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.25rem;
+}
+
+.boxDesc {
+    color: rgb(0, 103, 119);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.boxPrice {
+    color: rgb(90, 0, 0);
+    font-size: 1rem;
+}

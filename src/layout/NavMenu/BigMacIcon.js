@@ -1,4 +1,4 @@
-import koana_logo from "./koana_logo.png";
+import koana_logo from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/layout/NavMenu/koana_logo copy.png";
 import { useNavigate } from "react-router-dom";
 
 const BigMacIcon = ({ expand, handleExpand }) => {
