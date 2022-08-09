@@ -79,7 +79,7 @@
 .rightLine {
     width: 1.5rem;
     height: 1px;
-    background-color: orangered;
+    background-color: rgb(255, 98, 0);
 }
 
 .leftLine {

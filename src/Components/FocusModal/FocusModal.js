@@ -11,7 +11,7 @@ const FocusModal = ({ handleModalFocus, id }) => {
                 <div
                     key={"modal".concat(item.id)}
                     className="modalBackground"
-                    id="modalBackground"
+                    // id="modalBackground"
                 >
                     <div
                         className="modalCloseButton"

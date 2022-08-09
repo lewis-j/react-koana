@@ -57,7 +57,7 @@ export const OnlineShop = () => {
                         modalFocus={modalFocus}
                         handleModalFocus={handleModalFocus}
                         id={currentModalId}
-                        onClick={(e) => e.stopPropagation()}
+                        // onClick={(e) => e.stopPropagation()}
                     />
                 </>
             )}
