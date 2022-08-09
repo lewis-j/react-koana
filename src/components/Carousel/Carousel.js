@@ -1,5 +1,5 @@
 //testing comment for push
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -32,6 +32,16 @@ const Carousel = ({
       setTransition(transition);
     }, 1);
   };
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     slideNext();
+  //   }, 2000);
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // });
   const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
   const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
   const transitions = useTransitionStyle(transformX, sliderWidth);
