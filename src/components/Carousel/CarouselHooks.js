@@ -1,17 +1,25 @@
 import { useState } from "react";
 
-export const useTransitionStyle = (_translate) => {
+export const useTransitionStyle = (_translate, sliderWidth) => {
   const verticalSlide = {
     width: "100%",
-    height: "200%",
+    height: sliderWidth,
     flexDirection: "column",
   };
+  const horizontalSlide = { width: sliderWidth, height: "100%" };
+
   return (
     {
-      next: [{ transform: `translateX(-${_translate})`, transition: "0.5s" }],
+      next: [
+        {
+          ...horizontalSlide,
+          transform: `translateX(-${_translate})`,
+          transition: "0.5s",
+        },
+      ],
       prev: [
-        { transform: `translateX(-${_translate})` },
-        { transition: "0.5s" },
+        { ...horizontalSlide, transform: `translateX(-${_translate})` },
+        { ...horizontalSlide, transition: "0.5s" },
       ],
       down: [
         { ...verticalSlide },
@@ -32,8 +40,17 @@ export const useTransitionStyle = (_translate) => {
           transition: "0.5s",
         },
       ],
-    } || {}
+    } || { ...horizontalSlide }
   );
+};
+
+export const actions = {
+  NEXT: "NEXT",
+  PREV: "PREV",
+  DOWN: "DOWN",
+  UP: "UP",
+  RESTART: "RESTART",
+  END: "END",
 };
 
 export const useSetCurrent = (rows, slidesToMove) => {
@@ -41,23 +58,38 @@ export const useSetCurrent = (rows, slidesToMove) => {
   const [rowPosition, setRowPosition] = useState(
     [...Array(rows).keys()].map(() => 0)
   );
+  const setRow = (current) => {
+    setRowPosition((rp) => {
+      rp[current.y] = current.x;
+      console.log("rp:", rp);
+      return rp;
+    });
+  };
 
   const setNextCurrent = (current, action) => {
     const nextCurrent = {
-      next: () => {
+      [actions.RESTART]: () => {
+        setCurrent({ x: 0, y: 0 });
+      },
+      [actions.END]: () => {
+        setCurrent({ x: 0, y: current.y + slidesToMove });
+      },
+      [actions.NEXT]: () => {
         setCurrent({ ...current, x: current.x + slidesToMove });
       },
-      prev: () => {
+      [actions.PREV]: () => {
         setCurrent({ ...current, x: current.x - slidesToMove });
       },
 
-      down: () => {
+      [actions.DOWN]: () => {
+        setRow(current);
         setCurrent({
           x: rowPosition[current.y + slidesToMove],
           y: current.y + slidesToMove,
         });
       },
-      up: () => {
+      [actions.UP]: () => {
+        setRow(current);
         setCurrent({
           x: rowPosition[current.y - slidesToMove],
           y: current.y - slidesToMove,
@@ -68,5 +100,5 @@ export const useSetCurrent = (rows, slidesToMove) => {
     nextCurrent[action]();
   };
 
-  return [current, setNextCurrent];
+  return [current, setNextCurrent, rowPosition];
 };

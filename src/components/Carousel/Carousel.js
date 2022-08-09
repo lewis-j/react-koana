@@ -1,6 +1,13 @@
 //testing comment for push
 import React, { useState } from "react";
-import { useTransitionStyle } from "./CarouselHooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft,
+  faAngleUp,
+  faAngleRight,
+  faAngleDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { useTransitionStyle, useSetCurrent, actions } from "./CarouselHooks";
 import styles from "./Carousel.module.scss";
 const _style = (...styles) => styles.join(" ");
 const Carousel = ({
@@ -8,32 +15,17 @@ const Carousel = ({
   className: wrapper = {},
   slidesToShow = 1,
   slidesToMove = 1,
-  prevBtnStyles,
-  nextBtnStyles,
 }) => {
   const totalSlides = slidesToShow + slidesToMove;
   const initialSlideContent = items[0].slice(0, totalSlides);
-  console.log("initialSlideContent:", initialSlideContent);
   const [slides, setSlides] = useState(initialSlideContent);
-  const [current, setCurrent] = useState({ x: 0, y: 0 });
-  const [rowPosition, setRowPosition] = useState(
-    [...Array(items.length).keys()].map(() => 0)
+  const [current, setCurrent, rowPosition] = useSetCurrent(
+    items.length,
+    slidesToMove
   );
+
   const [transition, setTransition] = useState({});
-  const setNextCurrent = (current, action) => {
-    return {
-      next: { ...current, x: current.x + slidesToMove },
-      prev: { ...current, x: current.x - slidesToMove },
-      down: {
-        x: rowPosition[current.y + slidesToMove],
-        y: current.y + slidesToMove,
-      },
-      up: {
-        x: rowPosition[current.y - slidesToMove],
-        y: current.y - slidesToMove,
-      },
-    };
-  };
+
   const runTransition = ([stageTransition, transition]) => {
     setTransition(stageTransition);
     setTimeout(() => {
@@ -42,18 +34,35 @@ const Carousel = ({
   };
   const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
   const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
-  const transitions = useTransitionStyle(transformX);
+  const transitions = useTransitionStyle(transformX, sliderWidth);
   const slideNext = () => {
-    if (current.x < items[current.y].length - slidesToShow) {
+    if (current.x >= items[current.y].length - slidesToShow) {
+      if (current.y === items.length - slidesToShow) {
+        setSlides(() => [...Array(totalSlides).keys()].map((i) => items[0][i]));
+        setCurrent(current, actions.RESTART);
+        runTransition(transitions.down);
+        return;
+      }
       setSlides(() =>
-        [...Array(totalSlides).keys()].map(
-          (i) => items[current.y][current.x + i]
-        )
+        [...Array(totalSlides).keys()].map((i) => {
+          if (i < slidesToShow) {
+            console.log("items1::", items[current.y][current.x + i]);
+            return items[current.y][current.x + i];
+          }
+          console.log("items2::", items[current.y + 1][i]);
+          return items[current.y + 1][0];
+        })
       );
-      setCurrent((current) => ({ ...current, x: current.x + slidesToMove }));
-      const [end] = transitions.next;
-      runTransition([{}, end]);
+      setCurrent(current, actions.END);
+      runTransition(transitions.down);
+      return;
     }
+    setSlides(() =>
+      [...Array(totalSlides).keys()].map((i) => items[current.y][current.x + i])
+    );
+    setCurrent(current, actions.NEXT);
+    const [end] = transitions.next;
+    runTransition([{}, end]);
   };
   const slidePrev = () => {
     if (current.x !== 0) {
@@ -62,29 +71,23 @@ const Carousel = ({
           (i) => items[current.y][current.x + i - slidesToMove]
         )
       );
-      setCurrent((current) => ({ ...current, x: current.x - slidesToMove }));
+      setCurrent(current, actions.PREV);
       runTransition(transitions.prev);
     }
   };
   const slideDown = () => {
+    if (current.y === items.length - slidesToShow) return;
+
     setSlides(() =>
       [...Array(totalSlides).keys()].map(
         (i) => items[current.y + i][rowPosition[current.y + i]]
       )
     );
-    setRowPosition((rp) => {
-      console.log({ rp: rp, "current.x": current.x });
-      rp[current.y] = current.x;
-      console.log("rp:", rp);
-      return rp;
-    });
-    setCurrent((current) => ({
-      x: rowPosition[current.y + slidesToMove],
-      y: current.y + slidesToMove,
-    }));
+    setCurrent(current, actions.DOWN);
     runTransition(transitions.down);
   };
   const slideUp = () => {
+    if (current.y === 0) return;
     setSlides(() =>
       [...Array(totalSlides).keys()].map(
         (i) =>
@@ -93,15 +96,7 @@ const Carousel = ({
           ]
       )
     );
-    setRowPosition((rp) => {
-      console.log({ rp: rp, "current.x": current.x });
-      rp[current.y] = current.x;
-      return rp;
-    });
-    setCurrent((current) => ({
-      x: rowPosition[current.y - slidesToMove],
-      y: current.y - slidesToMove,
-    }));
+    setCurrent(current, actions.UP);
     runTransition(transitions.up);
   };
   return (
@@ -111,7 +106,6 @@ const Carousel = ({
           className={styles.slider}
           style={{
             ...transition,
-            width: sliderWidth,
           }}
         >
           {slides.map((slide, i) => (
@@ -121,20 +115,30 @@ const Carousel = ({
           ))}
         </div>
       </div>
-      <button
-        onClick={() => slidePrev()}
-        className={_style(styles.btn, styles.btnPrev)}
-      >
-        Prev
-      </button>
-      <button
-        onClick={() => slideNext()}
-        className={_style(styles.btn, styles.btnNext)}
-      >
-        Next
-      </button>
-      <button onClick={() => slideDown()}>Down</button>
-      <button onClick={() => slideUp()}>Up</button>
+      <div className={styles.wrapper}>
+        <FontAwesomeIcon
+          icon={faAngleLeft}
+          onClick={() => slidePrev()}
+          className={_style(styles.btn, styles.btnPrev)}
+        />
+
+        <FontAwesomeIcon
+          icon={faAngleRight}
+          onClick={() => slideNext()}
+          className={_style(styles.btn, styles.btnNext)}
+        />
+
+        <FontAwesomeIcon
+          icon={faAngleDown}
+          onClick={() => slideDown()}
+          className={_style(styles.btn, styles.btnDown)}
+        />
+        <FontAwesomeIcon
+          icon={faAngleUp}
+          onClick={() => slideUp()}
+          className={_style(styles.btn, styles.btnUp)}
+        />
+      </div>
     </div>
   );
 };
