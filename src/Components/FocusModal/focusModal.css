@@ -10,7 +10,7 @@
     transform: translate(-50%, -50%);
     /*  */
     height: auto;
-    width: 30rem;
+    /* width: 30rem; */
     z-index: 1;
     display: flex;
     flex-flow: column nowrap;
@@ -40,31 +40,34 @@
 .modalBorder {
     /* border: 1px solid black; */
     margin: 1rem;
-    padding: 0 rem;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
-    gap: 2rem;
-    overflow: hidden;
+    gap: 1rem;
 }
 
 .modalBorder img {
-    width: auto;
+    width: 100%;
     border-radius: 1.5rem;
 }
 
 @media screen and (min-width: 751px) {
-
     .modalBackground {
         left: 50%;
-        width: 50rem;
-        height: 30rem;
+        width: 45rem;
+        height: 25rem;
     }
 
     .modalBorder {
         flex-flow: row nowrap;
+        width: auto;
     }
-    
+
+    .modalBorder img {
+        width: 50%;
+        height: auto;
+        border-radius: 1.5rem;
+    }
 }
 
 .modalCloseButton {
@@ -72,7 +75,7 @@
     align-self: flex-end;
     margin-top: 1.3rem;
     margin-right: 1.3rem;
-    padding: 1rem .3rem;
+    padding: 1rem 0.3rem;
     border-radius: 50%;
     /* border: 1px solid salmon; */
     cursor: pointer;
@@ -107,8 +110,10 @@
 .boxText {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
-    gap: .75rem;
+    gap: 0.75rem;
+    /* border: 1px solid black; */
+    width: auto;
+    justify-content: flex-end;
 }
 
 .boxName {
@@ -121,10 +126,14 @@
 
 .boxDesc {
     color: rgb(0, 103, 119);
-    font-size: .75rem;
+    font-size: 0.65rem;
 }
 
 .boxPrice {
     color: rgb(255, 98, 0);
     font-size: 1rem;
+}
+
+.koanaOutline {
+    width: 1rem;
 }

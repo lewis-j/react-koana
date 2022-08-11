@@ -81,7 +81,7 @@
     justify-content: center;
     align-items: center;
     font-size: 1.5rem;
-    background-color:rgb(255, 241, 224);
+    background-color:rgb(255, 247, 237);
     color: rgb(113, 113, 113);
     border: 1px solid rgb(122, 47, 0);
     border-radius: .5rem;
@@ -98,6 +98,7 @@
     color: rgb(113, 113, 113);
     border: 1px solid rgb(122, 47, 0);
     border-radius: .5rem;
+    border-bottom-right-radius: 1.4rem;
     
 }
 
@@ -114,6 +115,6 @@
 }
 
 .submitButton:active {
-    background-color: rgb(251, 165, 60);
-    transition: all 0s ease-in-out;
+    background-color: yellow;
+    /* transition: all 0s ease-in-out; */
 }
