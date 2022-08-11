@@ -4,7 +4,7 @@ import img2 from "./tea_1.jpg";
 import img3 from "./tea_2.jpg";
 import img4 from "./chocolate.jpg";
 import img5 from "./merch.jpg";
-import img6 from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/layout/NavMenu/koana_logo copy.png"
+import img6 from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/layout/NavMenu/koana_logo copy.png";
 
 // export const imagesData = [
 //     {
@@ -42,9 +42,9 @@ import img6 from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/lay
 //         cat: "coffee",
 //         image: img6,
 //         name: "product name",
-//         price: 30,
-//         weight: 7,
-//         unit: "oz",
+//         price: 69420,
+//         weight: "#",
+//         unit: "weight",
 //         desc: "product description",
 //     },
 //     {
@@ -80,6 +80,7 @@ export const imagesData = [
         weight: 7,
         unit: "oz",
         desc: "Koana House Roasted Med-Dark Ka'u coffee",
+        inventory: 5,
     },
     {
         id: 1,
@@ -90,6 +91,7 @@ export const imagesData = [
         weight: 7,
         unit: "oz",
         desc: "Koana House Roasted Med-Light Ka'u coffee",
+        inventory: 5,
     },
     {
         id: 2,
@@ -100,6 +102,7 @@ export const imagesData = [
         weight: 20,
         unit: "g",
         desc: "Light gentle Volcano Green Tea from Second Alarm Farm",
+        inventory: 5,
     },
     {
         id: 3,
@@ -110,6 +113,7 @@ export const imagesData = [
         weight: 20,
         unit: "g",
         desc: "Refreshing Volcano Earl Grey Tea from Second Alarm Farm",
+        inventory: 5,
     },
     {
         id: 4,
@@ -120,6 +124,7 @@ export const imagesData = [
         weight: 150,
         unit: "g",
         desc: "Koana's own special belnd of spicy chocolate mix, vegan-friendly",
+        inventory: 5,
     },
     {
         id: 5,
@@ -130,5 +135,6 @@ export const imagesData = [
         weight: undefined,
         unit: undefined,
         desc: "Pin exclusively designed for Koana, exactly size of a coffee flower blossom, so you can share your love for coffee and nature wherever you go.",
+        inventory: 5,
     },
 ];
