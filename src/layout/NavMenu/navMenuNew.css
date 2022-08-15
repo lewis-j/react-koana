@@ -188,7 +188,6 @@
     }
 
     .regularKoanaIcon {
-        /* border: 1px solid black; */
         flex: 1;
         display: flex;
         height: 100%;
@@ -208,6 +207,7 @@
     }
 
     .regularTradNavItems {
+        /* border: 1px solid black; */
         cursor: pointer;
         letter-spacing: 0.2rem;
         padding-left: 0.3rem;

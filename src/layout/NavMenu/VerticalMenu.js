@@ -57,6 +57,7 @@ const VerticalMenu = ({ expand, handleExpand }) => {
             () =>
                 (window.location.href =
                     "https://www.instagram.com/koanahawaii/"),
+            
         ],
     ];
     const getIconComponent = (icon, destination, idx) => {

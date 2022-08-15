@@ -86,7 +86,7 @@ export const imagesData = [
         weight: 7,
         unit: "oz",
         desc: "Koana House Roasted Med-Dark Ka'u coffee",
-        inventory: 5,
+        inventory: 0,
     },
     {
         id: 1,
