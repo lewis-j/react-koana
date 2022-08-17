@@ -81,7 +81,6 @@
     cursor: pointer;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
-
     font-size: 1rem;
     font-weight: bolder;
     transition: all 0.25s ease-in-out;

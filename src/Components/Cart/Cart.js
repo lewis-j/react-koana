@@ -1,6 +1,7 @@
 // we're going to access imagesData with the testData 'props'
 import { imagesData } from "../OnlineShop/images/imagesData";
 import { useState } from "react";
+import koana_logo from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/layout/NavMenu/koana_logo copy.png";
 import "./cart.css";
 
 const Cart = () => {
@@ -52,10 +53,10 @@ const Cart = () => {
         setCartData(updatedObjects);
     };
 
-    const handleRemoveItem = (id) => {
-        const itemToRemove = cartData.find((item) => item.id === id);
+    const handleRemoveItem = (event, id) => {
+        // const itemToRemove = cartData.find((item) => item.id === id);
         const remainingCart = cartData.filter(
-            (item) => item.id !== itemToRemove.id
+            (item) => item.id !== id
         );
         setCartData(remainingCart);
     };
@@ -65,9 +66,6 @@ const Cart = () => {
             return (
                 <div key={idx} className="cartItem">
                     <div className="cartItemContent">
-                        <div className="cartItemImageContainer">
-                            <img src={imagesData[cartItem.id].image} alt="item" />
-                        </div>
                         <div className="cartItemStatsContainer">
                             <div className="cartItemTitleContainer">
                                 <div className="cartItemName">
@@ -75,9 +73,9 @@ const Cart = () => {
                                 </div>
                             </div>
                             <div className="cartItemPrice">
-                                    ${imagesData[cartItem.id].price} / {" "}
-                                    {imagesData[cartItem.id].weight}
-                                    {imagesData[cartItem.id].unit}
+                                ${imagesData[cartItem.id].price} {imagesData[cartItem.id].weight !== undefined && "/"}{" "}
+                                {imagesData[cartItem.id].weight}
+                                {imagesData[cartItem.id].unit}
                             </div>
                             <div className="cartItemEditorContainer">
                                 <div className="cartItemQuantityContainer">
@@ -110,10 +108,18 @@ const Cart = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="cartItemImageContainer">
+                            <img
+                                src={imagesData[cartItem.id].image}
+                                alt="item"
+                            />
+                        </div>
                     </div>
                     <div
                         className="cartRemoveItem"
-                        onClick={() => handleRemoveItem(cartItem.id)}
+                        onClick={(event) =>
+                            handleRemoveItem(event, cartItem.id)
+                        }
                     >
                         <div className="leftLine"></div>
                         <div className="rightLine"></div>
@@ -122,15 +128,30 @@ const Cart = () => {
             );
         });
         return (
-            <>
+            <>  
+                <div className="cartHeaderContainer">
+                    <div className="cartHeader">
+                        {"cart".toUpperCase()}
+                    </div>
+                    {/* <img className="cartHeaderLogo"src={koana_logo} alt="logo"/> */}
+                </div>
                 {itemList}
-                <div className="cartSubTotalContainer">{subTotal()}</div>
+                <div className="cartSubTotalContainer">
+                    <div className="cartSubTotal">
+                        {"subtotal".toUpperCase()}{" "} ${subTotal()}
+                    </div>
+                    <div className="cartSubTotalControls">
+                        <div className="cartCloseWindow">{"close".toUpperCase()}</div>
+                        <div className="cartToCheckout">{"checkout".toUpperCase()}</div>
+                        
+                    </div>
+                </div>
             </>
         );
     };
 
     return (
-        <>
+        <>  
             <div className="cartModal">
                 <div>{cartItemsContent()}</div>
             </div>
