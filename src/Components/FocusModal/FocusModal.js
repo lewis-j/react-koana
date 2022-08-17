@@ -17,8 +17,8 @@ const FocusModal = ({ handleModalFocus, id }) => {
                         className="modalCloseButton"
                         onClick={() => handleModalFocus("closeButton")}
                     >
-                        <div className="leftLine"></div>
-                        <div className="rightLine"></div>
+                        <div className="modalCloseButtonLeftLine"></div>
+                        <div className="modalCloseButtonRightLine"></div>
                     </div>
                     <div className="modalBorder">
                         <img src={item.image} alt="item"></img>

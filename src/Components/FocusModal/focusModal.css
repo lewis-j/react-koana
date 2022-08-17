@@ -14,7 +14,8 @@
     z-index: 1;
     display: flex;
     flex-flow: column nowrap;
-    border-radius: 2rem;
+    border-top-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
     border: 1px solid rgb(255, 229, 196);
     background-image: linear-gradient(white, white, rgb(255, 228, 196));
     box-shadow: 0 0px 100px 100px rgba(140, 140, 140, 0.5);
@@ -48,7 +49,8 @@
 
 .modalBorder img {
     width: 100%;
-    border-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
 }
 
 @media screen and (min-width: 751px) {
@@ -81,6 +83,7 @@
     cursor: pointer;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
+
     font-size: 1rem;
     font-weight: bolder;
     transition: all 0.25s ease-in-out;
@@ -91,18 +94,18 @@
     transition: all 0.25s ease-in-out;
 }
 
-.leftLine,
-.rightLine {
+.modalCloseButtonLeftLine,
+.modalCloseButtonRightLine {
     width: 1.5rem;
     height: 1px;
     background-color: rgb(255, 98, 0);
 }
 
-.leftLine {
+.modalCloseButtonLeftLine {
     transform: rotate(45deg) translate(1px, 1px);
 }
 
-.rightLine {
+.modalCloseButtonRightLine {
     transform: rotate(-45deg);
 }
 
