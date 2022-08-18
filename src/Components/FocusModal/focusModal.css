@@ -40,7 +40,7 @@
 
 .modalBorder {
     /* border: 1px solid black; */
-    margin: 1rem;
+    margin: 0.5rem;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -48,42 +48,23 @@
 }
 
 .modalBorder img {
-    width: 100%;
+    height: 100%;
+    border: 0.25rem solid rgb(255, 214, 163);
     border-top-right-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
-}
-
-@media screen and (min-width: 751px) {
-    .modalBackground {
-        left: 50%;
-        width: 45rem;
-        height: 25rem;
-    }
-
-    .modalBorder {
-        flex-flow: row nowrap;
-        width: auto;
-    }
-
-    .modalBorder img {
-        width: 50%;
-        height: auto;
-        border-radius: 1.5rem;
-    }
 }
 
 .modalCloseButton {
     position: fixed;
     align-self: flex-end;
-    margin-top: 1.3rem;
-    margin-right: 1.3rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
     padding: 1rem 0.3rem;
     border-radius: 50%;
     /* border: 1px solid salmon; */
     cursor: pointer;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
-
     font-size: 1rem;
     font-weight: bolder;
     transition: all 0.25s ease-in-out;
@@ -109,13 +90,16 @@
     transform: rotate(-45deg);
 }
 
+.boxDetails {
+    margin-bottom: 0rem;
+}
+
 .boxText {
     display: flex;
     flex-flow: column nowrap;
     gap: 0.75rem;
-    /* border: 1px solid black; */
     width: auto;
-    justify-content: flex-end;
+    flex: 1;
 }
 
 .boxName {
@@ -138,4 +122,48 @@
 
 .koanaOutline {
     width: 1rem;
+}
+
+@media screen and (min-width: 751px) {
+    .modalBackground {
+        left: 50%;
+        width: 45rem;
+        height: 25rem;
+        border-top-right-radius: 2rem;
+        border-bottom-left-radius: 2rem;
+    }
+
+    .modalBorder {
+        /* border:1px solid green; */
+        flex-flow: row nowrap;
+        margin: 0.5rem 0.5rem;
+    }
+
+    .modalBorder img {
+        width: 50%;
+        height: 100%;
+        border-top-right-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+    }
+
+    .modalCloseButton {
+        margin-top: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .boxDetails {
+        display: flex;
+        width: 100%;
+        /* border:1px solid red; */
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        height: 100%;
+        padding-top: 3rem;
+    }
+
+    .boxText {
+        /* border:1px solid black; */
+        width: 16rem;
+        flex: 1;
+    }
 }

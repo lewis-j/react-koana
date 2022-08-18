@@ -1,42 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 import { imagesData } from "../OnlineShop/images/imagesData";
 import "./focusModalForm.css";
 
 const FocusModalForm = ({ id }) => {
-    const [addToCart, setAddToCart] = useState({});
+    const value = useContext(CartContext);
 
-    const [currentItem, setCurrentItem] = useState({
-        id: id,
-        quantity: 1,
-    });
-
-    const updateCart = () => {
-        setAddToCart(currentItem);
-        console.log("item(s) were added to cart:");
-        console.log(
-            `added to cart: ${
-                imagesData.find((item) => item.id === id).name
-            } quantity: ${currentItem.quantity}`
-        );
-    };
+    const [itemQuantity, setItemQuantity] = useState(
+        value.getCartData().find((item) => item.id === id)?.quantity || 1
+    );
 
     const handleQuantityChange = (increment) => {
         const available = imagesData.find((item) => item.id === id).inventory;
         increment
-            ? setCurrentItem((prev) => ({
-                  ...prev,
-                  quantity:
-                      currentItem.quantity < available
-                          ? currentItem.quantity + 1
-                          : currentItem.quantity,
-              }))
-            : setCurrentItem((prev) => ({
-                  ...prev,
-                  quantity:
-                      currentItem.quantity > 0
-                          ? currentItem.quantity - 1
-                          : currentItem.quantity,
-              }));
+            ? setItemQuantity((prev) => {
+                  return itemQuantity < available
+                      ? itemQuantity + 1
+                      : itemQuantity;
+              })
+            : setItemQuantity((prev) => {
+                  return itemQuantity > 0 ? itemQuantity - 1 : itemQuantity;
+              });
     };
 
     return (
@@ -51,7 +35,7 @@ const FocusModalForm = ({ id }) => {
                         <div className="plusHorizontal"></div>
                         <div className="plusVertical"></div>
                     </div>
-                    <div className="quantityWindow">{currentItem.quantity}</div>
+                    <div className="quantityWindow">{itemQuantity}</div>
                     <div
                         className="decrement"
                         onClick={() => handleQuantityChange(false)}
@@ -59,7 +43,10 @@ const FocusModalForm = ({ id }) => {
                         <div className="minus"></div>
                     </div>
                 </div>
-                <div className="submitButton" onClick={() => updateCart()}>
+                <div
+                    className="submitButton"
+                    onClick={() => value.updateCart(id, itemQuantity)}
+                >
                     ADD TO CART
                 </div>
             </div>

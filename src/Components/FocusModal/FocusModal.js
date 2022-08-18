@@ -22,13 +22,14 @@ const FocusModal = ({ handleModalFocus, id }) => {
                     </div>
                     <div className="modalBorder">
                         <img src={item.image} alt="item"></img>
-                        <div className="boxText">
-                            {/* <img className="koanaOutline" src={koana_logo_outline} alt="koana logo"></img> */}
-                            <div className="boxName">{item.name.toUpperCase()}</div>
-                            <div className="boxDesc">{item.desc.toUpperCase()}</div>
-                            <div className="boxPrice">
-                                {`$${item.price}`}&nbsp;/ {item.weight}
-                                {item.unit}
+                        <div className="boxDetails">
+                            <div className="boxText">
+                                <div className="boxName">{item.name.toUpperCase()}</div>
+                                <div className="boxDesc">{item.desc.toUpperCase()}</div>
+                                <div className="boxPrice">
+                                    {`$${item.price}`}&nbsp;/ {item.weight}
+                                    {item.unit}
+                                </div>
                             </div>
                             <FocusModalForm id={id} />
                         </div>
