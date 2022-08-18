@@ -3,11 +3,11 @@ import { CartContext } from "../../context/CartContext";
 import { imagesData } from "../OnlineShop/images/imagesData";
 import "./focusModalForm.css";
 
-const FocusModalForm = ({ id }) => {
+const FocusModalForm = ({ id, handleModalFocus }) => {
     const value = useContext(CartContext);
 
     const [itemQuantity, setItemQuantity] = useState(
-        value.getCartData().find((item) => item.id === id)?.quantity || 1
+        value.getCartData().find((item) => item.id === id)?.quantity || 0
     );
 
     const handleQuantityChange = (increment) => {
@@ -45,7 +45,10 @@ const FocusModalForm = ({ id }) => {
                 </div>
                 <div
                     className="submitButton"
-                    onClick={() => value.updateCart(id, itemQuantity)}
+                    onClick={() => {
+                        value.updateCart(id, itemQuantity);
+                        handleModalFocus("closeButton");
+                    }}
                 >
                     ADD TO CART
                 </div>

@@ -103,6 +103,14 @@
 }
 
 @media screen and (max-width: 750px) {
+
+    .formContent {
+        /* border: 1px solid blue; */
+        margin-top: .5rem;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
     .submitButton {
         border-top-right-radius: 1.3rem;
     }

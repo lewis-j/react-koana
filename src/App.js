@@ -11,16 +11,15 @@ import "./App.css";
 
 const App = () => {
     return (
-        <>  
+        <>
             <Provider>
-            <NavBarNew />
-            <Routes>
-                <Route path="/" element={<FeaturePage />} />
-                <Route path="about" element={<AboutPage />} />
-                <Route path="shop" element={<OnlineShop />} />
-                
-            </Routes>
-            <Cart />
+                {/* <NavBarNew /> */}
+                <Routes>
+                    <Route path="/" element={<FeaturePage />} />
+                    <Route path="about" element={<AboutPage />} />
+                    <Route path="shop" element={<OnlineShop />} />
+                </Routes>
+                <Cart />
             </Provider>
         </>
     );

@@ -31,7 +31,7 @@ const FocusModal = ({ handleModalFocus, id }) => {
                                     {item.unit}
                                 </div>
                             </div>
-                            <FocusModalForm id={id} />
+                            <FocusModalForm id={id} handleModalFocus={handleModalFocus} />
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,11 @@
 .navFloat {
     position: fixed;
-}
-
+    /* border: 1px solid black; */
+    background-color: white;
+    margin-top: none;
+    margin-top: -.5rem;
+    z-index:1;
+    }
 
 @media screen and (max-width: 576px) {
     .bigMacMode {
@@ -167,6 +171,7 @@
 
     .regularNavContainer {
         /* border: 1px solid black; */
+        z-index: 1;
         display: flex;
         align-items: center;
         height: 3rem;
