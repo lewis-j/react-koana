@@ -33,7 +33,7 @@
 
 .modalBorder {
     /* border: 1px solid black; */
-    margin: 0.5rem;
+    padding: 0.5rem;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -42,7 +42,7 @@
 
 .modalBorder img {
     height: 100%;
-    border: 0.25rem solid rgb(255, 214, 163);
+    border: 0.5rem solid rgb(254, 245, 233);
     border-top-right-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
 }
@@ -98,7 +98,7 @@
 .boxName {
     /* border: 1px solid red; */
     color: #02b4be;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     letter-spacing: 0.25rem;
 }
