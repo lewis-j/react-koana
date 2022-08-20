@@ -1,6 +1,7 @@
-import styles from "./StorePage.module.scss";
+import styles from "./FeaturePage.module.scss";
 import Carousel from "../../components/Carousel/Carousel";
 import { imagesData } from "../../assets/images/imagesData";
+import { useEffect } from "react";
 
 // const products = [
 //   "coffee",
@@ -25,15 +26,29 @@ const renderProducts = () =>
   });
 
 const FeaturePage = () => {
+  useEffect(() => {
+    const handle = (event) => {
+      console.log("scroll event:", event);
+    };
+    window.addEventListener("scroll", handle);
+
+    return () => {
+      window.removeEventListener("scroll", handle);
+    };
+  }, []);
+
   const carouselProps = {
     slidesToShow: 1,
     slidesToMove: 1,
     className: styles.carousel,
   };
   return (
-    <div>
-      <Carousel {...carouselProps}>{renderProducts()}</Carousel>
-    </div>
+    <>
+      <div className={styles.container}>
+        <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+      </div>
+      <div className={styles.section}></div>
+    </>
   );
 };
 

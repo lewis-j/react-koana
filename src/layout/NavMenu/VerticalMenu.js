@@ -3,7 +3,7 @@ import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import koana_logo from "./koana_logo copy.png";
+import koana_logo from "./koana_logo.png";
 
 const VerticalMenu = ({ expand, handleExpand }) => {
   const navigate = useNavigate();

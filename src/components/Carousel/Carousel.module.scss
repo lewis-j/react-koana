@@ -1,3 +1,4 @@
+@use "../../variables.scss";
 .container,
 .slides,
 .wrapper {
@@ -13,7 +14,15 @@
     transform: scale(1);
   }
   transition: 0.2s;
+  z-index: 2;
 }
+
+// .glow {
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   box-shadow: 1px 1px 40px variables.$colorKoana;
+// }
 
 .slides {
   display: flex;
@@ -26,6 +35,7 @@
 }
 
 .container {
+  position: relative;
   overflow: hidden;
   border-radius: 50%;
 }
