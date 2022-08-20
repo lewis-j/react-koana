@@ -34,9 +34,13 @@ const RegularNavBar = () => {
       faCartArrowDown,
       () => (window.location.href = "https://www.instagram.com/koanahawaii/"),
     ],
+    // (below) is there an issue with this 'window.open' call (as opposed to
+    // window.location.href) ? I used it to allow for the
+    // "_blank" suffix so clicking on the instagram icon would open a new tab
+    // https://stackoverflow.com/questions/26605170/whats-the-difference-between-window-openurl-and-window-location-href-url-on
     [
       faInstagram,
-      () => (window.location.href = "https://www.instagram.com/koanahawaii/"),
+      () => window.open("https://www.instagram.com/koanahawaii/", "_blank"),
     ],
   ];
   const getIconComponent = (icon, destination, idx) => {

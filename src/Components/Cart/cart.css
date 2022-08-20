@@ -1,0 +1,306 @@
+.cartModal {
+    background-image: linear-gradient(
+        to bottom,
+        rgb(181, 88, 0),
+        rgb(82, 39, 0)
+    );
+    box-shadow: 0 0 25px 25px rgba(140, 140, 140, 0.5);
+    /* inset 0px 0px 10px 20px rgba(0, 0, 0, 0.5); */
+    /* border-top-left-radius: 1.2rem; */
+    border-top-right-radius: 2rem;
+    border-bottom-left-radius: 1.4rem;
+    /* border-bottom-right-radius: 1.4rem; */
+    display: flex;
+    flex-flow: column nowrap;
+    /* min-width: 385px; */
+    max-width: 400px;
+}
+
+.cartHeaderContainer {
+    height: 2.5rem;
+    background-color: rgb(181, 88, 0);
+    /* border:1px solid black; */
+    /* border-bottom: 1px solid rgb(255, 192, 114); */
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.cartHeader {
+    width: 100%;
+    padding-left: 1.25rem;
+    padding-top: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: rgb(254, 251, 0);
+}
+
+.cartHeaderLogo {
+    height: 80%;
+    border-radius: 60%;
+    margin-right: 0.4rem;
+}
+
+.cartItem {
+    background-color: rgb(255, 228, 196);
+    background-image: linear-gradient(
+        to bottom,
+        rgb(255, 228, 196),
+        rgb(255, 218, 173)
+    );
+    border-bottom: 1px solid rgb(255, 192, 114);
+    display: flex;
+    flex-flow: row nowrap;
+    height: auto;
+    align-items: center;
+    padding: 0.25rem;
+    margin: 0 0.3rem;
+}
+
+.cartItem:nth-of-type(2) {
+    /* border-top-left-radius: 1.3rem; */
+    border-top-right-radius: 1.3rem;
+}
+
+.cartItem:hover {
+    /* background-color: rgb(255, 192, 114); */
+    background-image: linear-gradient(
+        to right,
+        rgb(255, 211, 156),
+        rgb(255, 192, 114)
+    );
+    /* transition: all 0.2s ease-out; */
+}
+
+.cartItemContent {
+    flex: 1;
+    display: flex;
+    padding-left: 1rem;
+    /* border: 1px solid black; */
+}
+
+.cartItemImageContainer {
+    /* box-shadow: 0px 0px 5px 5px rgba(254, 251, 0, 0.3); */
+    border-bottom-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    border: 0.25rem solid rgb(255, 214, 163);
+    margin: 1rem;
+    height: 7rem;
+    width: 7rem;
+    overflow: hidden;
+}
+
+.cartItemImageContainer img {
+    width: 100%;
+}
+
+.cartItemStatsContainer {
+    display: flex;
+    flex: 1;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    /* border: 1px solid black; */
+}
+
+.cartItemTitleContainer {
+    /* border: 1px solid goldenrod; */
+    width: 100%;
+}
+
+.cartItemName {
+    width: 75%;
+    font-weight: bold;
+    color: #01949b;
+    letter-spacing: 0.12rem;
+    /* border: 1px solid black; */
+}
+
+.cartItemPrice {
+    /* border: 1px solid black; */
+    color: rgb(255, 98, 0);
+    width: 100%;
+}
+
+.cartItemEditorContainer {
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cartItemQuantityContainer {
+    border: 1px solid rgb(255, 98, 0);
+    background-color: rgb(255, 228, 196);
+    /* border-top-left-radius: 1rem; */
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    /* border-bottom-right-radius: 1rem; */
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0.5rem 0rem;
+}
+
+.cartIncrement {
+    border-right: 1px solid rgb(255, 98, 0);
+    width: 3rem;
+    height: 2rem;
+    cursor: pointer;
+    border-bottom-left-radius: 1rem;
+    /* transition: all 0.2s ease-in-out; */
+}
+
+.cartIncrement:hover {
+    background-color: black;
+}
+
+.cartIncrement:active {
+    background-color: rgb(254, 251, 0);
+}
+
+.cartDecrement {
+    border-left: 1px solid rgb(255, 98, 0);
+    width: 3rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-top-right-radius: 1rem;
+}
+
+.cartDecrement:hover {
+    background-color: black;
+}
+
+.cartDecrement:active {
+    background-color: rgb(254, 251, 0);
+}
+
+.cartPlusHorizontal {
+    width: 1.5rem;
+    height: 1px;
+    background-color: rgb(255, 98, 0);
+    transform: translate(0.75rem, 0.95rem);
+}
+
+.cartPlusVertical {
+    width: 1.5rem;
+    height: 1px;
+    background-color: rgb(255, 98, 0);
+    transform: rotate(90deg) translate(0.9rem, -0.7rem);
+}
+
+.cartMinus {
+    width: 1.5rem;
+    height: 1px;
+    margin-top: 1px;
+    background-color: rgb(255, 98, 0);
+}
+
+.cartQuantityWindow {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: rgb(113, 113, 113);
+    width: 2.5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.cartRemoveItem {
+    /* border: 1px solid rgb(255, 98, 0); */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    margin-bottom: auto;
+    width: 2rem;
+    min-width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.cartRemoveItem:hover {
+    background-color: black;
+}
+
+.leftLine,
+.rightLine {
+    width: 1.5rem;
+    height: 1px;
+    background-color: rgb(255, 98, 0);
+}
+
+.leftLine {
+    transform: translate(.22rem, .95rem) rotate(45deg) ;
+}
+
+.rightLine {
+    transform: translate(.20rem, .9rem) rotate(-45deg) ;
+}
+
+.cartSubTotalContainer {
+    background-image: linear-gradient(
+        to bottom,
+        rgb(255, 228, 196),
+        rgb(252, 223, 187)
+    );
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    height: 2.5rem;
+    margin: 0.1rem;
+    margin-bottom: 0.15rem;
+    color: black;
+    align-items: center;
+    padding: 0rem 1.5rem;
+    transition: all 0.2s ease-out;
+    border-bottom-left-radius: 1rem;
+    margin: .2rem 0.3rem .5rem .3rem;
+    /* border-bottom-right-radius: 1.3rem; */
+}
+
+.cartSubTotal {
+    color: rgb(255, 98, 0);
+    font-size: 0.8rem;
+}
+
+.cartSubTotalControls {
+    /* border: 1px solid black; */
+    display: flex;
+    font-size: 0.8rem;
+}
+
+.cartToCheckout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    padding-left: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(255, 98, 0);
+}
+
+.cartToCheckout:hover {
+    font-size: 1rem;
+}
+
+.cartCloseWindow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    border-right: 1px solid black;
+    padding-right: 0.5rem;
+}
+
+.cartCloseWindow:hover {
+    color: black;
+    font-size: 1rem;
+    cursor: pointer;
+}
