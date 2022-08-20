@@ -1,5 +1,5 @@
 //testing comment for push
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -19,7 +19,6 @@ const Carousel = ({
   const totalSlides = slidesToShow + slidesToMove;
   const initialSlideContent = items[0].slice(0, totalSlides);
   const [slides, setSlides] = useState(initialSlideContent);
-  const [intervalId, setIntervalId] = useState();
   const [current, setCurrent, rowPosition] = useSetCurrent(
     items.length,
     slidesToMove
