@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useState } from "react";
-import { imagesData } from "../assets/images/imagesData";
+import { imagesData } from "../components/OnlineShop/images/imagesData"
 
 export const CartContext = createContext();
 
@@ -9,10 +9,15 @@ export const Provider = ({ children }) => {
     const [cartData, setCartData] = useState(initialState);
 
     const getCartData = () => cartData;
+    console.log("cartData:", cartData);
 
     const cartHandleItemQuantityChange = (id, increment) => {
-        const updatedObjects = cartData.map((item) => {
+        const updatedObjects = getCartData().map((item) => {
             if (item.id === id) {
+                console.log(
+                    item.quantity,
+                    imagesData.find((shopItem) => shopItem.id === id)
+                );
                 if (
                     increment &&
                     item.quantity <
@@ -29,18 +34,16 @@ export const Provider = ({ children }) => {
         setCartData(updatedObjects);
     };
 
-    const handleRemoveItem = (event, id) => {
+    const handleRemoveItem = (id) => {
         const remainingCart = cartData.filter((item) => item.id !== id);
         setCartData(remainingCart);
     };
 
     const updateCart = (id, itemQuantity) => {
         setCartData((prev) => {
-            const otherItems = prev.filter((item) => item.id !== id)
-            return (
-                [...otherItems, {id: id, quantity: itemQuantity}]
-            )
-        })
+            const otherItems = prev.filter((item) => item.id !== id);
+            return [...otherItems, { id: id, quantity: itemQuantity }];
+        });
     };
 
     const value = {

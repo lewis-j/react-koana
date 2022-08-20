@@ -1,68 +1,23 @@
 // we're going to access imagesData with the testData 'props'
 import { imagesData } from "../OnlineShop/images/imagesData";
-import { useState } from "react";
-import koana_logo from "/Users/thejourneyville/Documents/vscode/react/koana_v2/src/layout/NavMenu/koana_logo copy.png";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 import "./cart.css";
 
 const Cart = () => {
     // this would normally be passed as props from parent
-    const [cartData, setCartData] = useState([
-        {
-            id: 0,
-            quantity: 2,
-        },
-        {
-            id: 4,
-            quantity: 3,
-        },
-        {
-            id: 2,
-            quantity: 1,
-        },
-        {
-            id: 5,
-            quantity: 1,
-        },
-    ]);
-
-    console.log(cartData);
+    const value = useContext(CartContext);
 
     const subTotal = () => {
-        return cartData.reduce(
+        console.log("subTotal tally");
+        return value.cartData.reduce(
             (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
             0
         );
     };
 
-    const cartHandleItemQuantityChange = (id, increment) => {
-        const updatedObjects = cartData.map((item) => {
-            if (item.id === id) {
-                if (
-                    increment &&
-                    item.quantity <
-                        imagesData.find((shopItem) => shopItem.id === item.id)
-                            .inventory
-                ) {
-                    return { id: item.id, quantity: item.quantity + 1 };
-                } else if (!increment && item.quantity > 0) {
-                    return { id: item.id, quantity: item.quantity - 1 };
-                }
-            }
-            return item;
-        });
-        setCartData(updatedObjects);
-    };
-
-    const handleRemoveItem = (event, id) => {
-        // const itemToRemove = cartData.find((item) => item.id === id);
-        const remainingCart = cartData.filter(
-            (item) => item.id !== id
-        );
-        setCartData(remainingCart);
-    };
-
     const cartItemsContent = () => {
-        const itemList = cartData.map((cartItem, idx) => {
+        const itemList = value.cartData.map((cartItem, idx) => {
             return (
                 <div key={idx} className="cartItem">
                     <div className="cartItemContent">
@@ -73,7 +28,9 @@ const Cart = () => {
                                 </div>
                             </div>
                             <div className="cartItemPrice">
-                                ${imagesData[cartItem.id].price} {imagesData[cartItem.id].weight !== undefined && "/"}{" "}
+                                ${imagesData[cartItem.id].price}{" "}
+                                {imagesData[cartItem.id].weight !== undefined &&
+                                    "/"}{" "}
                                 {imagesData[cartItem.id].weight}
                                 {imagesData[cartItem.id].unit}
                             </div>
@@ -82,7 +39,7 @@ const Cart = () => {
                                     <div
                                         className="cartIncrement"
                                         onClick={() =>
-                                            cartHandleItemQuantityChange(
+                                            value.cartHandleItemQuantityChange(
                                                 cartItem.id,
                                                 true
                                             )
@@ -97,7 +54,7 @@ const Cart = () => {
                                     <div
                                         className="cartDecrement"
                                         onClick={() =>
-                                            cartHandleItemQuantityChange(
+                                            value.cartHandleItemQuantityChange(
                                                 cartItem.id,
                                                 false
                                             )
@@ -117,9 +74,7 @@ const Cart = () => {
                     </div>
                     <div
                         className="cartRemoveItem"
-                        onClick={(event) =>
-                            handleRemoveItem(event, cartItem.id)
-                        }
+                        onClick={() => value.handleRemoveItem(cartItem.id)}
                     >
                         <div className="leftLine"></div>
                         <div className="rightLine"></div>
@@ -128,22 +83,22 @@ const Cart = () => {
             );
         });
         return (
-            <>  
+            <>
                 <div className="cartHeaderContainer">
-                    <div className="cartHeader">
-                        {"cart".toUpperCase()}
-                    </div>
-                    {/* <img className="cartHeaderLogo"src={koana_logo} alt="logo"/> */}
+                    <div className="cartHeader">{"cart".toUpperCase()}</div>
                 </div>
                 {itemList}
                 <div className="cartSubTotalContainer">
                     <div className="cartSubTotal">
-                        {"subtotal".toUpperCase()}{" "} ${subTotal()}
+                        {"subtotal".toUpperCase()} ${subTotal()}
                     </div>
                     <div className="cartSubTotalControls">
-                        <div className="cartCloseWindow">{"close".toUpperCase()}</div>
-                        <div className="cartToCheckout">{"checkout".toUpperCase()}</div>
-                        
+                        <div className="cartCloseWindow">
+                            {"close".toUpperCase()}
+                        </div>
+                        <div className="cartToCheckout">
+                            {"checkout".toUpperCase()}
+                        </div>
                     </div>
                 </div>
             </>
@@ -151,7 +106,7 @@ const Cart = () => {
     };
 
     return (
-        <>  
+        <>
             <div className="cartModal">
                 <div>{cartItemsContent()}</div>
             </div>

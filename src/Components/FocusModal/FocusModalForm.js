@@ -14,12 +14,10 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
         const available = imagesData.find((item) => item.id === id).inventory;
         increment
             ? setItemQuantity((prev) => {
-                  return itemQuantity < available
-                      ? itemQuantity + 1
-                      : itemQuantity;
+                  return itemQuantity < available ? prev + 1 : prev;
               })
             : setItemQuantity((prev) => {
-                  return itemQuantity > 0 ? itemQuantity - 1 : itemQuantity;
+                  return itemQuantity > 0 ? prev - 1 : prev;
               });
     };
 

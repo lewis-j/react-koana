@@ -236,11 +236,11 @@
 }
 
 .leftLine {
-    transform: translate(.22rem, .95rem) rotate(45deg) ;
+    transform: translate(0.22rem, 0.95rem) rotate(45deg);
 }
 
 .rightLine {
-    transform: translate(.20rem, .9rem) rotate(-45deg) ;
+    transform: translate(0.2rem, 0.9rem) rotate(-45deg);
 }
 
 .cartSubTotalContainer {
@@ -260,7 +260,7 @@
     padding: 0rem 1.5rem;
     transition: all 0.2s ease-out;
     border-bottom-left-radius: 1rem;
-    margin: .2rem 0.3rem .5rem .3rem;
+    margin: 0.2rem 0.3rem 0.5rem 0.3rem;
     /* border-bottom-right-radius: 1.3rem; */
 }
 
@@ -303,4 +303,47 @@
     color: black;
     font-size: 1rem;
     cursor: pointer;
+}
+
+@media screen and (max-width: 380px) {
+
+    .cartItemImageContainer {
+        height: 4rem;
+        width: 4rem;
+        border:none;
+
+    }
+
+    .cartIncrement {
+        border-right: 1px solid rgb(255, 98, 0);
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+        border-bottom-left-radius: 1rem;
+    }
+
+    .cartPlusHorizontal {
+        width: 1.5rem;
+        height: 1px;
+        background-color: rgb(255, 98, 0);
+        transform: translate(0.25rem, 0.95rem);
+    }
+    
+    .cartPlusVertical {
+        width: 1.5rem;
+        height: 1px;
+        background-color: rgb(255, 98, 0);
+        transform: rotate(90deg) translate(0.9rem, -0.3rem);
+    }
+
+    .cartDecrement {
+        border-left: 1px solid rgb(255, 98, 0);
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-top-right-radius: 1rem;
+    }
 }
