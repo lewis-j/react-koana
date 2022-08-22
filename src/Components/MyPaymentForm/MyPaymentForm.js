@@ -3,7 +3,7 @@ import { CreditCard, PaymentForm } from "react-square-web-payments-sdk";
 
 const MyPaymentForm = () => (
   <PaymentForm
-    applicationId="sq0idp-Y0QZQ-Xx-Xx-Xx-Xx"
+    applicationId={process.env.REACT_APP_APPLICATION_ID}
     cardTokenizeResponseReceived={(token, buyer) => {
       console.info({ token, buyer });
     }}
@@ -19,7 +19,7 @@ const MyPaymentForm = () => (
       currencyCode: "GBP",
       intent: "CHARGE",
     })}
-    locationId="LID"
+    locationId={process.env.REACT_APP_LOCATION_ID}
   >
     <CreditCard />
   </PaymentForm>

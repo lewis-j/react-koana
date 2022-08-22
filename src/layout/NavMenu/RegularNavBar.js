@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import koana_logo from "./koana_logo copy.png";
+import { koana_logo } from "../../assets/images/icons";
 
 const RegularNavBar = () => {
   const navigate = useNavigate();

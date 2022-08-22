@@ -1,7 +1,8 @@
 import styles from "./FeaturePage.module.scss";
 import Carousel from "../../components/Carousel/Carousel";
-import { imagesData } from "../../assets/images/imagesData";
-import { useEffect } from "react";
+import { imagesData } from "../../data/imagesData";
+import { useEffect, useState } from "react";
+import { default as KoanaMtns } from "../../assets/images/icons/koana_mtns.svg";
 
 // const products = [
 //   "coffee",
@@ -26,15 +27,15 @@ const renderProducts = () =>
   });
 
 const FeaturePage = () => {
-  useEffect(() => {
-    const handle = (event) => {
-      console.log("scroll event:", event);
-    };
-    window.addEventListener("scroll", handle);
+  const [animDone, setAnimDone] = useState(false);
+  const [animStart, setAnimStart] = useState(false);
 
-    return () => {
-      window.removeEventListener("scroll", handle);
-    };
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setAnimStart(true);
+    }, 3000);
+
+    return () => clearTimeout(timeOut);
   }, []);
 
   const carouselProps = {
@@ -45,9 +46,23 @@ const FeaturePage = () => {
   return (
     <>
       <div className={styles.container}>
-        <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+        <div className={styles.hero}>
+          {animStart && (
+            <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+          )}
+          {!animDone && (
+            <div
+              className={styles.mtnIcon}
+              onAnimationEnd={() => {
+                console.log("animation is done");
+                setAnimDone(true);
+              }}
+            >
+              <img src={KoanaMtns} alt="Koana Mountains" />
+            </div>
+          )}
+        </div>
       </div>
-      <div className={styles.section}></div>
     </>
   );
 };
