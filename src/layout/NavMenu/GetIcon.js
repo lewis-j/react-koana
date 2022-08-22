@@ -3,7 +3,7 @@ import CartBadge from "../../components/Cart/CartBadge";
 import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
 
-export const GetIcon = ({faInstagram, faCartArrowDown}) => {
+export const GetIcon = ({ faInstagram, faCartArrowDown }) => {
     const value = useContext(CartContext);
 
     const iconsData = [
