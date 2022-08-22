@@ -1,6 +1,6 @@
 // we're going to access imagesData with the testData 'props'
 import { imagesData } from "../OnlineShop/images/imagesData";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import "./cart.css";
 
@@ -9,7 +9,6 @@ const Cart = () => {
     const value = useContext(CartContext);
 
     const subTotal = () => {
-        console.log("subTotal tally");
         return value.cartData.reduce(
             (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
             0
@@ -65,37 +64,55 @@ const Cart = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="cartItemImageContainer">
-                            <img
-                                src={imagesData[cartItem.id].image}
-                                alt="item"
-                            />
+                        <div className="removeAndImageContainer">
+                            <div
+                                className="cartRemoveItem"
+                                onClick={() => value.handleRemoveItem(cartItem.id)}
+                            >
+                                {"remove"}
+                            </div>
+                            <div className="cartItemImageContainer">
+                                
+                                <img
+                                    src={imagesData[cartItem.id].image}
+                                    alt="item"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        className="cartRemoveItem"
-                        onClick={() => value.handleRemoveItem(cartItem.id)}
-                    >
-                        <div className="leftLine"></div>
-                        <div className="rightLine"></div>
-                    </div>
+                    </div> 
                 </div>
             );
         });
         return (
             <>
                 <div className="cartHeaderContainer">
-                    <div className="cartHeader">{"cart".toUpperCase()}</div>
+                    <div className="cartHeader">{"CART"}</div>
+                    <div 
+                        className="cartHeaderCloseButton"
+                        onClick={() =>
+                            value.displayCart && value.handleDisplayCart()
+                        }
+                    >
+                        <div className="cartHeaderCloseButtonLeftLine"></div>
+                        <div className="cartHeaderCloseButtonRightLine"></div>
+                    </div>
                 </div>
-                {itemList}
+                <div className="cartScrollWrapper">
+                    {itemList}
+                </div>
                 <div className="cartSubTotalContainer">
                     <div className="cartSubTotal">
                         {"subtotal".toUpperCase()} ${subTotal()}
                     </div>
                     <div className="cartSubTotalControls">
-                        <div className="cartCloseWindow">
+                        {/* <div
+                            className="cartUpdateCart"
+                            onClick={() =>
+                                value.displayCart && value.handleDisplayCart()
+                            }
+                        >
                             {"close".toUpperCase()}
-                        </div>
+                        </div> */}
                         <div className="cartToCheckout">
                             {"checkout".toUpperCase()}
                         </div>
@@ -106,10 +123,19 @@ const Cart = () => {
     };
 
     return (
-        <>
-            <div className="cartModal">
-                <div>{cartItemsContent()}</div>
+        <>  
+            {value.displayCart && (
+            <div
+                className="cartOffClickWrapper"
+                onClick={() => value.handleDisplayCart()}
+            >
             </div>
+            )}
+            {value.displayCart && (
+                <div className="cartModal">
+                    <div>{cartItemsContent()}</div>
+                </div>
+            )}
         </>
     );
 };

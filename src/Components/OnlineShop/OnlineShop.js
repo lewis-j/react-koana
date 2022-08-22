@@ -9,7 +9,6 @@ export const OnlineShop = () => {
     const [currentModalId, setCurrentModalId] = useState(0);
 
     const handleModalFocus = (sender) => {
-        console.log(sender);
         if (sender === "card") {
             setModalFocus(true);
         } else if (sender === "outside") {

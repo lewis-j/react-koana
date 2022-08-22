@@ -28,7 +28,9 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
                 <div className="quantityContainer">
                     <div
                         className="increment"
-                        onClick={() => handleQuantityChange(true)}
+                        onClick={() => {
+                            handleQuantityChange(true);
+                        }}
                     >
                         <div className="plusHorizontal"></div>
                         <div className="plusVertical"></div>
@@ -42,13 +44,17 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
                     </div>
                 </div>
                 <div
-                    className="submitButton"
+                    // (below) will alter classname of submit button
+                    // to reflect if itemQuantity is > 0
+                    className={`${
+                        !itemQuantity ? "submitButton Zero" : "submitButton"
+                    }`}
                     onClick={() => {
                         value.updateCart(id, itemQuantity);
                         handleModalFocus("closeButton");
                     }}
                 >
-                    ADD TO CART
+                    {"update cart".toUpperCase()}
                 </div>
             </div>
         </>

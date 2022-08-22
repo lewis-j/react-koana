@@ -124,9 +124,10 @@
 
 .modalOffClickWrapper {
     position: absolute;
+    background-color: rgba(255, 255, 255, .75);
     top: 0;
     left: 0;
     height: 100%;
     width: 100vw;
-    z-index: .5;
+    z-index: 2;
 }

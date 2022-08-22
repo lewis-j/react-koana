@@ -119,9 +119,20 @@
 .submitButton:hover {
     background-color: rgb(253, 203, 142);
     transition: all 0.2s ease-in-out;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .submitButton:active {
     background-color: yellow;
-    /* transition: all 0s ease-in-out; */
+}
+
+.submitButton:hover.Zero {
+    background-color: black;
+    color: rgb(255, 98, 0);
+    font-weight: bold;
+}
+
+.submitButton:active.Zero {
+    background-color: yellow;
 }
