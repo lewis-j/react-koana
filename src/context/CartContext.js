@@ -7,11 +7,14 @@ const initialState = [];
 
 export const Provider = ({ children }) => {
   const [cartData, setCartData] = useState(initialState);
+  // state to toggle visibility of Cart
+  const [displayCart, setDisplayCart] = useState(false);
 
   const getCartData = () => cartData;
 
   const cartHandleItemQuantityChange = (id, increment) => {
-    const updatedObjects = cartData.map((item) => {
+    console.log("cartHandleItemQuantityChange");
+    const updatedObjects = getCartData().map((item) => {
       if (item.id === id) {
         if (
           increment &&
@@ -28,7 +31,7 @@ export const Provider = ({ children }) => {
     setCartData(updatedObjects);
   };
 
-  const handleRemoveItem = (event, id) => {
+  const handleRemoveItem = (id) => {
     const remainingCart = cartData.filter((item) => item.id !== id);
     setCartData(remainingCart);
   };
@@ -36,8 +39,18 @@ export const Provider = ({ children }) => {
   const updateCart = (id, itemQuantity) => {
     setCartData((prev) => {
       const otherItems = prev.filter((item) => item.id !== id);
-      return [...otherItems, { id: id, quantity: itemQuantity }];
+      return itemQuantity > 0
+        ? [...otherItems, { id: id, quantity: itemQuantity }]
+        : otherItems;
     });
+  };
+
+  // function to switch visibility of Cart component,
+  // this is accessed on Cart close button,
+  // VerticalMenu and RegularNavbar (children of the navbar)
+  const handleDisplayCart = () => {
+    console.log("handleDisplayCart: ", displayCart);
+    setDisplayCart(!displayCart);
   };
 
   const value = {
@@ -46,6 +59,9 @@ export const Provider = ({ children }) => {
     getCartData,
     cartData,
     updateCart,
+    //
+    handleDisplayCart,
+    displayCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

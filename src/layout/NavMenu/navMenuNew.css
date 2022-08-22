@@ -224,3 +224,14 @@
         font-weight: bold;
     }
 }
+
+.cartBadgeOverLap {
+    display: flex;
+    padding-right: 5rem;
+    position: fixed;
+    z-index: 2;
+}
+
+.badgeFiller {
+    flex: 1;
+}

@@ -6,9 +6,14 @@ import "./navMenuNew.css";
 
 export const NavBarNew = ({ modalFocus, cartFocus }) => {
     const [expand, setExpand] = useState(false);
+    const [toggleCart, setToggleCart] = useState(false);
 
     const handleExpand = () => {
         setExpand(!expand);
+    };
+
+    const handleToggleCart = () => {
+        setToggleCart(!toggleCart);
     };
 
     // used when modal or cart is active so user cannot access navbar buttons
@@ -23,7 +28,7 @@ export const NavBarNew = ({ modalFocus, cartFocus }) => {
 
     return (
         <div style={navDisabledStatus} className="navFloat">
-            <RegularNavBar />
+            <RegularNavBar handleToggleCart={handleToggleCart} />
             <BigMacIcon expand={expand} handleExpand={handleExpand} />
             <VerticalMenu expand={expand} handleExpand={handleExpand} />
         </div>

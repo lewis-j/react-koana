@@ -1,7 +1,3 @@
-/* * {
-    box-sizing: border-box;
-} */
-
 .modalBackground {
     position: fixed;
     /* keeps modal centered on viewport size change */
@@ -11,14 +7,14 @@
     /*  */
     height: auto;
     /* width: 30rem; */
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-flow: column nowrap;
     border-top-right-radius: 2rem;
     border-bottom-left-radius: 2rem;
     border: 1px solid rgb(255, 229, 196);
     background-image: linear-gradient(white, white, rgb(255, 228, 196));
-    box-shadow: 0 0px 100px 100px rgba(140, 140, 140, 0.5);
+    box-shadow: 0 0px 50px 25px rgba(140, 140, 140, 0.5);
     animation: fadeModalIn 0.5s ease-out forwards;
 }
 
