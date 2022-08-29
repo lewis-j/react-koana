@@ -3,10 +3,12 @@
   display: flex;
   flex-direction: column;
   width: 25%;
-  left: 12%;
-  top: 12%;
-  z-index: 5;
-  opacity: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 2.5%;
+  z-index: 1;
+  opacity: 1;
   transition: 1s;
   &:hover,
   &:active {
@@ -16,6 +18,10 @@
 
 .fadeIn {
   animation: fade-in 2s ease-out forwards;
+}
+
+.active {
+  opacity: 1;
 }
 
 @keyframes fade-in {
@@ -46,5 +52,6 @@
 
   img {
     width: 100%;
+    height: 25%;
   }
 }

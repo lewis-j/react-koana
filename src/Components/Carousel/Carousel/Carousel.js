@@ -21,7 +21,8 @@ const Carousel = ({
   const initialSlideContent = items[0].slice(0, totalSlides);
   const [slides, setSlides] = useState(initialSlideContent);
   const [timeOutId, setTimeoutId] = useState(null);
-  const [interpolatedNav, setInterpolatedNav] = useState([1, 0, 0]);
+  // const [interpolatedNav, setInterpolatedNav] = useState([1, 0, 0]);
+  const [activeNav, setActiveNav] = useState("");
   const [current, setCurrent, rowPosition] = useSetCurrent(
     items.length,
     slidesToMove
@@ -64,20 +65,12 @@ const Carousel = ({
 
   const verticalNavDown = (_current) => {
     revealNav();
-    const mapVertNav = [...Array(3).keys()].map((item) =>
-      item === _current.y + 1 ? 1 : 0
-    );
-
-    setInterpolatedNav(mapVertNav);
+    setActiveNav(_current.y + 1);
   };
 
   const verticalNavUp = (_current) => {
     revealNav();
-    const mapVertNav = [...Array(3).keys()].map((item) =>
-      item === _current.y - 1 ? 1 : 0
-    );
-
-    setInterpolatedNav(mapVertNav);
+    setActiveNav(current.y - 1);
   };
 
   const slideNext = (_current) => {
@@ -167,30 +160,13 @@ const Carousel = ({
 
   const setCurrentRow = (index) => {
     const coord = { x: 0, y: index };
-    // setCurrent(current, actions.SET, coord);
-    // const steps = Math.abs(index - current.y);
-    // console.log("index from row", index, steps);
-    // if (index < current.y) {
-    //   // for (let i = 0; i < steps; i++) {
-    //   //   window.requestAnimationFrame(() => {
-    //   //     console.log("slide up");
-
-    //   //   });
-    //   }
-    // }
-    // if (index > current.y) {
-    //   for (let i = 0; i < steps; i++) {
-    //     console.log("slide down");
-    //     slideDown();
-    //   }
-    // }
   };
 
   return (
     <div className={wrapper}>
       <div className={styles.container}>
         <VeritcalNav
-          interpolatedNav={interpolatedNav}
+          activeNav={activeNav}
           isVisible={!!timeOutId}
           sendIndex={setCurrentRow}
         />

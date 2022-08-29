@@ -16,7 +16,7 @@ import { imagesData } from "../../data/imagesData";
 // ];
 
 const renderProducts = () =>
-  [...Array(3).keys()].map((j) => {
+  [...Array(4).keys()].map((j) => {
     return imagesData.map(({ image, name }, i) => (
       <div key={`productId#${i}${j}`} className={styles.imgContainer}>
         <img src={image} alt={name} className={styles.img} />
