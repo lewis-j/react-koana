@@ -1,10 +1,11 @@
-import MyPaymentForm from "../../components/MyPaymentForm/MyPaymentForm";
 import styles from "./CheckoutPage.module.scss";
+import PaymentForm from "../../components/PaymentForm/PaymentForm";
 
 const CheckoutPage = () => {
   return (
     <div className={styles.container}>
-      <MyPaymentForm />
+      {/* <MyPaymentForm /> */}
+      <PaymentForm />
     </div>
   );
 };

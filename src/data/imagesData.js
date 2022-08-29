@@ -17,6 +17,7 @@ export const imagesData = [
     weight: 7,
     unit: "oz",
     desc: "Koana House Roasted Med-Dark Ka'u coffee",
+    inventory: 200,
   },
   {
     id: 1,
@@ -27,6 +28,7 @@ export const imagesData = [
     weight: 7,
     unit: "oz",
     desc: "Koana House Roasted Med-Light Ka'u coffee",
+    inventory: 5,
   },
   {
     id: 2,
@@ -47,6 +49,7 @@ export const imagesData = [
     weight: 20,
     unit: "g",
     desc: "Refreshing Volcano Earl Grey Tea from Second Alarm Farm",
+    inventory: 5,
   },
   {
     id: 4,
@@ -57,6 +60,7 @@ export const imagesData = [
     weight: 150,
     unit: "g",
     desc: "Koana's own special belnd of spicy chocolate mix, vegan-friendly",
+    inventory: 5,
   },
   {
     id: 5,
@@ -67,5 +71,6 @@ export const imagesData = [
     weight: undefined,
     unit: undefined,
     desc: "Pin exclusively designed for Koana, exactly size of a coffee flower blossom, so you can share your love for coffee and nature wherever you go.",
+    inventory: 5,
   },
 ];

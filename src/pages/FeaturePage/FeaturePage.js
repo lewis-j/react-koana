@@ -27,16 +27,7 @@ const renderProducts = () =>
   });
 
 const FeaturePage = () => {
-  const [animDone, setAnimDone] = useState(false);
   const [animStart, setAnimStart] = useState(false);
-
-  useEffect(() => {
-    const timeOut = setTimeout(() => {
-      setAnimStart(true);
-    }, 3000);
-
-    return () => clearTimeout(timeOut);
-  }, []);
 
   const carouselProps = {
     slidesToShow: 1,
@@ -47,20 +38,11 @@ const FeaturePage = () => {
     <>
       <div className={styles.container}>
         <div className={styles.hero}>
-          {animStart && (
-            <Carousel {...carouselProps}>{renderProducts()}</Carousel>
-          )}
-          {!animDone && (
-            <div
-              className={styles.mtnIcon}
-              onAnimationEnd={() => {
-                console.log("animation is done");
-                setAnimDone(true);
-              }}
-            >
-              <img src={KoanaMtns} alt="Koana Mountains" />
-            </div>
-          )}
+          <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+
+          {/* <div className={styles.mtnIcon}>
+            <img src={KoanaMtns} alt="Koana Mountains" />
+          </div> */}
         </div>
       </div>
     </>

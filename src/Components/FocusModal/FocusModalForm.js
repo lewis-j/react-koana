@@ -38,7 +38,10 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
           <div className="quantityWindow">{itemQuantity}</div>
           <div
             className="decrement"
-            onClick={() => handleQuantityChange(false)}
+            onClick={() => {
+              console.log("handling quantity change");
+              handleQuantityChange(false);
+            }}
           >
             <div className="minus"></div>
           </div>

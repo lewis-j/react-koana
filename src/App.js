@@ -8,12 +8,13 @@ import { Provider } from "./context/CartContext";
 import Cart from "./components/Cart/Cart.js";
 
 import "./App.css";
+import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
 
 const App = () => {
   return (
     <>
       <Provider>
-        {/* <NavBarNew /> */}
+        <NavBarNew />
         <Routes>
           <Route path="/" element={<FeaturePage />} />
           <Route path="about" element={<AboutPage />} />
