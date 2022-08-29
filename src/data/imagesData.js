@@ -17,7 +17,7 @@ export const imagesData = [
     weight: 7,
     unit: "oz",
     desc: "Koana House Roasted Med-Dark Ka'u coffee",
-    inventory: 200,
+    inventory: 5,
   },
   {
     id: 1,
@@ -39,6 +39,7 @@ export const imagesData = [
     weight: 20,
     unit: "g",
     desc: "Light gentle Volcano Green Tea from Second Alarm Farm",
+    inventory: 5,
   },
   {
     id: 3,
