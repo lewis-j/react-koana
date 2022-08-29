@@ -1,5 +1,5 @@
 //testing comment for push
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useTransitionStyle, useSetCurrent, actions } from "./CarouselHooks";
 import styles from "./Carousel.module.scss";
+import VeritcalNav from "../VerticalNav/VerticalNav";
 const _style = (...styles) => styles.join(" ");
 const Carousel = ({
   children: items = ["1", "2"],
@@ -19,6 +20,8 @@ const Carousel = ({
   const totalSlides = slidesToShow + slidesToMove;
   const initialSlideContent = items[0].slice(0, totalSlides);
   const [slides, setSlides] = useState(initialSlideContent);
+  const [timeOutId, setTimeoutId] = useState(null);
+  const [interpolatedNav, setInterpolatedNav] = useState([1, 0, 0]);
   const [current, setCurrent, rowPosition] = useSetCurrent(
     items.length,
     slidesToMove
@@ -30,30 +33,56 @@ const Carousel = ({
 
   const runTransition = ([stageTransition, transition]) => {
     setTransition(stageTransition);
-    setTimeout(() => {
+    window.requestAnimationFrame(() => {
       setTransition(transition);
-    }, 1);
+    });
   };
 
-  // useEffect(() => {
-  //   const _intervalId = setInterval(() => {
-  //     slideNext(current);
-  //   }, 4000);
+  useEffect(() => {
+    const _intervalId = setInterval(() => {
+      slideNext(current);
+    }, 10000);
 
-  //   return () => {
-  //     clearInterval(_intervalId);
-  //   };
-  // }, [current]);
+    return () => {
+      clearInterval(_intervalId);
+    };
+  }, [current]);
 
   const sliderWidth = `${((totalSlides / slidesToShow) * 100).toFixed(0)}%`;
   const transformX = `${((slidesToMove / totalSlides) * 100).toFixed(0)}%`;
   const transitions = useTransitionStyle(transformX, sliderWidth);
+
+  const revealNav = () => {
+    if (timeOutId) {
+      clearTimeout(timeOutId);
+    }
+    const newTimeOutId = setTimeout(() => {
+      setTimeoutId(null);
+    }, 2000);
+    setTimeoutId(newTimeOutId);
+  };
+
+  const verticalNavDown = (_current) => {
+    revealNav();
+    const mapVertNav = [...Array(3).keys()].map((item) =>
+      item === _current.y + 1 ? 1 : 0
+    );
+
+    setInterpolatedNav(mapVertNav);
+  };
+
+  const verticalNavUp = (_current) => {
+    revealNav();
+    const mapVertNav = [...Array(3).keys()].map((item) =>
+      item === _current.y - 1 ? 1 : 0
+    );
+
+    setInterpolatedNav(mapVertNav);
+  };
+
   const slideNext = (_current) => {
-    console.log("running ##???");
     if (_current.x >= items[_current.y].length - slidesToShow) {
-      console.log("running ???");
       if (_current.y === items.length - slidesToShow) {
-        console.log("running restart");
         setSlides(() => {
           let count = 0;
           const result = [...Array(totalSlides).keys()].map((i) => {
@@ -63,7 +92,6 @@ const Carousel = ({
             }
             return items[0][i - count];
           });
-          console.log("result:", result);
 
           return result;
         });
@@ -85,6 +113,7 @@ const Carousel = ({
         return result;
       });
       setCurrent(_current, actions.END);
+      verticalNavDown(_current);
       runTransition(transitions.down);
       return;
     }
@@ -117,6 +146,8 @@ const Carousel = ({
       )
     );
     setCurrent(current, actions.DOWN);
+
+    verticalNavDown(current);
     runTransition(transitions.down);
   };
   const slideUp = () => {
@@ -130,11 +161,39 @@ const Carousel = ({
       )
     );
     setCurrent(current, actions.UP);
+    verticalNavUp(current);
     runTransition(transitions.up);
   };
+
+  const setCurrentRow = (index) => {
+    const coord = { x: 0, y: index };
+    // setCurrent(current, actions.SET, coord);
+    // const steps = Math.abs(index - current.y);
+    // console.log("index from row", index, steps);
+    // if (index < current.y) {
+    //   // for (let i = 0; i < steps; i++) {
+    //   //   window.requestAnimationFrame(() => {
+    //   //     console.log("slide up");
+
+    //   //   });
+    //   }
+    // }
+    // if (index > current.y) {
+    //   for (let i = 0; i < steps; i++) {
+    //     console.log("slide down");
+    //     slideDown();
+    //   }
+    // }
+  };
+
   return (
     <div className={wrapper}>
       <div className={styles.container}>
+        <VeritcalNav
+          interpolatedNav={interpolatedNav}
+          isVisible={!!timeOutId}
+          sendIndex={setCurrentRow}
+        />
         <div className={styles.glow}></div>
         <div
           className={styles.slider}

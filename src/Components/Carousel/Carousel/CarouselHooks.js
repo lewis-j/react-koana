@@ -51,6 +51,7 @@ export const actions = {
   UP: "UP",
   RESTART: "RESTART",
   END: "END",
+  SET: "SET",
 };
 
 export const useSetCurrent = (rows, slidesToMove) => {
@@ -66,8 +67,11 @@ export const useSetCurrent = (rows, slidesToMove) => {
     });
   };
 
-  const setNextCurrent = (current, action) => {
+  const setNextCurrent = (current, action, coord = null) => {
     const nextCurrent = {
+      [actions.SET]: () => {
+        setCurrent({ x: coord.x, y: coord.y });
+      },
       [actions.RESTART]: () => {
         setCurrent({ x: 0, y: 0 });
       },

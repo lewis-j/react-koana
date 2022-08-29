@@ -1,8 +1,6 @@
 import styles from "./FeaturePage.module.scss";
-import Carousel from "../../components/Carousel/Carousel";
+import { Carousel } from "../../components/Carousel";
 import { imagesData } from "../../data/imagesData";
-import { useEffect, useState } from "react";
-import { default as KoanaMtns } from "../../assets/images/icons/koana_mtns.svg";
 
 // const products = [
 //   "coffee",
@@ -27,8 +25,6 @@ const renderProducts = () =>
   });
 
 const FeaturePage = () => {
-  const [animStart, setAnimStart] = useState(false);
-
   const carouselProps = {
     slidesToShow: 1,
     slidesToMove: 1,
@@ -39,10 +35,6 @@ const FeaturePage = () => {
       <div className={styles.container}>
         <div className={styles.hero}>
           <Carousel {...carouselProps}>{renderProducts()}</Carousel>
-
-          {/* <div className={styles.mtnIcon}>
-            <img src={KoanaMtns} alt="Koana Mountains" />
-          </div> */}
         </div>
       </div>
     </>
