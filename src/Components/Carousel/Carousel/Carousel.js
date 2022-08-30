@@ -89,6 +89,7 @@ const Carousel = ({
           return result;
         });
         setCurrent(_current, actions.RESTART);
+        verticalNavDown({ y: -1 });
         runTransition(transitions.down);
         return;
       }
@@ -106,7 +107,7 @@ const Carousel = ({
         return result;
       });
       setCurrent(_current, actions.END);
-      verticalNavDown(_current);
+      verticalNavDown(current);
       runTransition(transitions.down);
       return;
     }
@@ -164,12 +165,12 @@ const Carousel = ({
 
   return (
     <div className={wrapper}>
+      <VeritcalNav
+        activeNav={activeNav}
+        isVisible={!!timeOutId}
+        sendIndex={setCurrentRow}
+      />
       <div className={styles.container}>
-        <VeritcalNav
-          activeNav={activeNav}
-          isVisible={!!timeOutId}
-          sendIndex={setCurrentRow}
-        />
         <div className={styles.glow}></div>
         <div
           className={styles.slider}

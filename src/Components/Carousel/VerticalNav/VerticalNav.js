@@ -17,7 +17,6 @@ const VeritcalNav = ({ activeNav, isVisible, sendIndex }) => {
     }, 2000);
   }, []);
   const renderVerticalNavItems = () => {
-    console.log("active nav", activeNav);
     return (
       <>
         {icons.map((icon, i) => {

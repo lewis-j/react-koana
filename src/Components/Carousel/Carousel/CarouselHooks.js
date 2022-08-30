@@ -62,7 +62,7 @@ export const useSetCurrent = (rows, slidesToMove) => {
   const setRow = (current) => {
     setRowPosition((rp) => {
       rp[current.y] = current.x;
-      console.log("rp:", rp);
+
       return rp;
     });
   };

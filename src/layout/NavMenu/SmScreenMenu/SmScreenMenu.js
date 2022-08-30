@@ -19,7 +19,6 @@ const SmScreenMenu = () => {
   useEffect(() => {
     const outsideClick = document.querySelector("html");
     const closeVerticalMenu = (e) => {
-      console.log("clicking listerner", !menuBtnRef.current.contains(e.target));
       if (!menuBtnRef.current.contains(e.target) && expand) {
         setExpand(false);
       }
@@ -29,7 +28,6 @@ const SmScreenMenu = () => {
       // }
     };
 
-    console.log("adding click listener");
     outsideClick.addEventListener("click", closeVerticalMenu);
 
     return () => {
