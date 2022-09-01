@@ -9,6 +9,7 @@ import Cart from "./components/Cart/Cart.js";
 
 import "./App.css";
 import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
+import { Footer } from "./layout/NavMenu/Footer";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="shop" element={<OnlineShop />} />
           <Route path="checkout" element={<CheckoutPage />} />
         </Routes>
+        <Footer />
         <Cart />
       </Provider>
     </>

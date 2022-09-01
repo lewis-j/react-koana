@@ -6,6 +6,7 @@ import {
   faAngleUp,
   faAngleRight,
   faAngleDown,
+  faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTransitionStyle, useSetCurrent, actions } from "./CarouselHooks";
 import styles from "./Carousel.module.scss";
@@ -20,6 +21,7 @@ const Carousel = ({
   const totalSlides = slidesToShow + slidesToMove;
   const initialSlideContent = items[0].slice(0, totalSlides);
   const [slides, setSlides] = useState(initialSlideContent);
+  const [intervalId, setIntervalId] = useState(null);
   const [timeOutId, setTimeoutId] = useState(null);
   // const [interpolatedNav, setInterpolatedNav] = useState([1, 0, 0]);
   const [activeNav, setActiveNav] = useState("");
@@ -38,11 +40,19 @@ const Carousel = ({
       setTransition(transition);
     });
   };
+  useEffect(() => {
+    const _timeoutId = setTimeout(() => {
+      setActiveNav(0);
+    }, 4000);
+
+    return () => clearTimeout(_timeoutId);
+  }, []);
 
   useEffect(() => {
     const _intervalId = setInterval(() => {
-      slideNext(current);
+      // slideNext(current);
     }, 10000);
+    setIntervalId(_intervalId);
 
     return () => {
       clearInterval(_intervalId);
@@ -171,7 +181,6 @@ const Carousel = ({
         sendIndex={setCurrentRow}
       />
       <div className={styles.container}>
-        <div className={styles.glow}></div>
         <div
           className={styles.slider}
           style={{
@@ -202,7 +211,6 @@ const Carousel = ({
             icon={faAngleDown}
             onClick={() => {
               slideDown();
-              pauseSlides();
             }}
             className={_style(styles.btn, styles.btnDown)}
           />
@@ -211,6 +219,11 @@ const Carousel = ({
             onClick={() => slideUp()}
             className={_style(styles.btn, styles.btnUp)}
           />
+          {/* <FontAwesomeIcon
+            icon={faPause}
+            onClick={() => console.log("pausing")}
+            className={_style(styles.btn, styles.btnPause)}
+          /> */}
         </div>
       </div>
     </div>
