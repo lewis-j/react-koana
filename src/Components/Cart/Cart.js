@@ -111,7 +111,9 @@ const Cart = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="cartSubTotalContainer">cart is empty</div>
+                    <div className="cartSubTotalContainer">
+                        <div className="cartSubTotal">cart is empty</div>
+                    </div>
                 )}
             </>
         );
