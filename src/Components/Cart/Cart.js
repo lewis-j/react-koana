@@ -1,13 +1,13 @@
 // we're going to access imagesData with the testData 'props'
 import { imagesData } from "../../data/imagesData";
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import "./cart.css";
 
 const Cart = () => {
-    // this would normally be passed as props from parent
     const value = useContext(CartContext);
-
+    const navigate = useNavigate();
     const subTotal = () => {
         return value.cartData.reduce(
             (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
@@ -105,7 +105,15 @@ const Cart = () => {
                             {"subtotal".toUpperCase()} ${subTotal()}
                         </div>
                         <div className="cartSubTotalControls">
-                            <div className="cartToCheckout">
+                            <div
+                                className="cartToCheckout"
+                                // checkout button now goes to checkout section
+                                onClick={() => {
+                                    navigate("/checkout");
+                                    value.displayCart &&
+                                        value.handleDisplayCart();
+                                }}
+                            >
                                 {"checkout".toUpperCase()}
                             </div>
                         </div>
