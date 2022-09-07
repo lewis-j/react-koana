@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavBarNew } from "../../layout/NavMenu/NavMenuNew";
 import { Formik, useField, Form } from "formik";
 import * as Yup from "yup";
 import "./checkoutForms.css";
@@ -49,119 +49,133 @@ export const ShippingForm = ({
     handleFormsCompleted,
 }) => {
     return (
-        <div className="outerFormContainer">
-            <h1>CHECKOUT</h1>
-            <h3 className="formTheme">Shipping address</h3>
-            <div className="formContainer">
-                <Formik
-                    initialValues={shippingFormData}
-                    validationSchema={Yup.object({
-                        firstName: Yup.string().required("Required"),
-                        lastName: Yup.string().required("Required"),
-                        addressLineOne: Yup.string().required("Required"),
-                        city: Yup.string()
-                            .matches(/[A-Za-z]/, "Invalid City Name")
-                            .required("Required"),
-                        region: Yup.string()
-                            .matches(/^[A-Z]{2}$/, "Invalid State Abbreviation")
-                            .required("Required"),
-                        zip: Yup.string()
-                            .matches(/^[0-9-]{5,}$/, "Invalid Zip/Postal Code")
-                            .required("Required"),
-                        country: Yup.string()
-                            .matches(/[A-Za-z]/, "Invalid Country Name")
-                            .required("Required"),
-                    })}
-                    onSubmit={(values) => {
-                        handleFormsCompleted("shippingForm", true);
-                        // alert(JSON.stringify(values, null, 2)); // for testing
-                        setShippingFormData({ ...values });
+        <>
+            <NavBarNew modalFocus={false} />
+            <div className="outerFormContainer">
+                <div className="innerFormContainer">
+                    <h1>CHECKOUT</h1>
+                    <h3 className="formTheme">Shipping address</h3>
+                    <Formik
+                        initialValues={shippingFormData}
+                        validationSchema={Yup.object({
+                            firstName: Yup.string().required("Required"),
+                            lastName: Yup.string().required("Required"),
+                            addressLineOne: Yup.string().required("Required"),
+                            city: Yup.string()
+                                .matches(/[A-Za-z]/, "Invalid City Name")
+                                .required("Required"),
+                            region: Yup.string()
+                                .matches(
+                                    /^[A-Z]{2}$/,
+                                    "Invalid State Abbreviation"
+                                )
+                                .required("Required"),
+                            zip: Yup.string()
+                                .matches(
+                                    /^[0-9-]{5,}$/,
+                                    "Invalid Zip/Postal Code"
+                                )
+                                .required("Required"),
+                            country: Yup.string()
+                                .matches(/[A-Za-z]/, "Invalid Country Name")
+                                .required("Required"),
+                        })}
+                        onSubmit={(values) => {
+                            handleFormsCompleted("shippingForm", true);
+                            // alert(JSON.stringify(values, null, 2)); // for testing
+                            setShippingFormData({ ...values });
 
-                        setPaymentFormData((prev) => {
-                            return values.paymentSameAddressCheckbox === true
-                                ? {
-                                      ...prev,
-                                      addressLineOne: values.addressLineOne,
-                                      addressLineTwo: values.addressLineTwo,
-                                      country: values.country,
-                                      region: values.region,
-                                      city: values.city,
-                                      zip: values.zip,
-                                  }
-                                : {
-                                      ...prev,
-                                      addressLineOne: "",
-                                      addressLineTwo: "",
-                                      country: "",
-                                      region: "",
-                                      city: "",
-                                      zip: "",
-                                  };
-                        });
-                    }}
-                >
-                    <Form>
-                        <div>
-                            <TextInput
-                                label="First Name*"
-                                name="firstName"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <TextInput
-                                label="Last Name*"
-                                name="lastName"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <TextInput
-                                label="Address Line 1*"
-                                name="addressLineOne"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <TextInput
-                                label="Address Line 2"
-                                name="addressLineTwo"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <TextInput label="City*" name="city" type="text" />
-                        </div>
-                        <div>
-                            <TextInput
-                                label="State*"
-                                name="region"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <TextInput
-                                label="Zip/Postal Code*"
-                                name="zip"
-                                type="text"
-                            />
-                        </div>
-                        <div>
-                            <TextInput
-                                label="Country*"
-                                name="country"
-                                type="text"
-                            />
-                        </div>
+                            setPaymentFormData((prev) => {
+                                return values.paymentSameAddressCheckbox ===
+                                    true
+                                    ? {
+                                          ...prev,
+                                          addressLineOne: values.addressLineOne,
+                                          addressLineTwo: values.addressLineTwo,
+                                          country: values.country,
+                                          region: values.region,
+                                          city: values.city,
+                                          zip: values.zip,
+                                      }
+                                    : {
+                                          ...prev,
+                                          addressLineOne: "",
+                                          addressLineTwo: "",
+                                          country: "",
+                                          region: "",
+                                          city: "",
+                                          zip: "",
+                                      };
+                            });
+                        }}
+                    >
+                        <Form>
+                            <div>
+                                <TextInput
+                                    label="First Name*"
+                                    name="firstName"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="Last Name*"
+                                    name="lastName"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="Address Line 1*"
+                                    name="addressLineOne"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="Address Line 2"
+                                    name="addressLineTwo"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="City*"
+                                    name="city"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="State*"
+                                    name="region"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="Zip/Postal Code*"
+                                    name="zip"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <TextInput
+                                    label="Country*"
+                                    name="country"
+                                    type="text"
+                                />
+                            </div>
 
-                        <PaymentSameAddressCheckbox name="paymentSameAddressCheckbox">
-                            Use this address for payment details
-                        </PaymentSameAddressCheckbox>
+                            <PaymentSameAddressCheckbox name="paymentSameAddressCheckbox">
+                                Use this address for payment details
+                            </PaymentSameAddressCheckbox>
 
-                        <button type="submit">Next - Payment</button>
-                    </Form>
-                </Formik>
+                            <button type="submit">Next - Payment</button>
+                        </Form>
+                    </Formik>
+                </div>
             </div>
-        </div>
+        </>
     );
 };

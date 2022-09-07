@@ -30,8 +30,10 @@ const RegularNavBar = () => {
     return (
         <div className="regularNavContainer">
             {koanaIcon}
-            {tradNavItems}
-            <GetIcon />
+            <div className="regularNavItems">
+                {tradNavItems}
+                <GetIcon />
+            </div>
         </div>
     );
 };

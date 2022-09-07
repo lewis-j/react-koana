@@ -8,11 +8,19 @@
 }
 
 .outerFormContainer {
-    border: 1px solid black;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.innerFormContainer {
+    margin-top: 3rem;
     padding: 1rem;
+    border: 1px solid black;
+    border-top-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
 }
 
 .formTheme {
-    letter-spacing: .25rem;
+    letter-spacing: 0.25rem;
     text-transform: uppercase;
 }
