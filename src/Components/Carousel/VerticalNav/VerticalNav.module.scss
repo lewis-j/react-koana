@@ -1,0 +1,55 @@
+.verticalNav {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  left: 0;
+  top: 2.5%;
+  z-index: 1;
+  opacity: 1;
+  transition: 1.2s;
+  &:hover,
+  &:active {
+    opacity: 1;
+  }
+}
+
+// .fadeIn {
+//   animation: fade-in 2s ease-out forwards;
+// }
+
+// .active {
+//   opacity: 1;
+// }
+
+// @keyframes fade-in {
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }
+
+// .fadeOut {
+//   animation: fade-out 2s ease-out;
+// }
+
+// @keyframes fade-out {
+//   0% {
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 0;
+//   }
+// }
+
+.navItem {
+  opacity: 0.2;
+  transition: 0.4s;
+
+  img {
+    width: 100%;
+    height: 25%;
+  }
+}

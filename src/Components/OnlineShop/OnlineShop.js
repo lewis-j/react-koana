@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { imagesData } from "../../data/imagesData";
 import FocusModal from "../FocusModal/FocusModal";
-import { NavBarNew } from "../../layout/NavMenu/NavMenuNew";
 import "./onlineShop.css";
 
 export const OnlineShop = () => {
@@ -59,7 +58,6 @@ export const OnlineShop = () => {
           />
         </>
       )}
-      <NavBarNew modalFocus={modalFocus} />
       <div className="itemCardsContainer">
         <div className="itemCards">{products}</div>
       </div>

@@ -19,57 +19,19 @@
 
     animation: fadeInBackground 4s ease-out forwards;
   }
-  // &::after {
-  //   content: " ";
-  //   position: absolute;
-  //   width: 57em;
-  //   height: 100%;
-  //   min-width: 20em;
-  //   background-color: rgb(0, 0, 0);
-  //   z-index: 2;
-  //   clip-path: polygon(39% 45%, 63% 86%, 71% 68%, 100% 100%, 0 100%);
-  // }
 }
 .mtnIcon {
-  width: 20em;
-  position: absolute;
-  right: 0;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
-  height: 50vh;
-  animation: fly-over 5s linear 0.2s;
-  animation-fill-mode: forwards;
-  img {
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-    right: 0;
-  }
+  width: 25em;
   z-index: 5;
-}
-
-@keyframes fly-over {
-  0% {
-    transform: scale(0.5) translateX(20px);
-  }
-  50% {
-    transform: scale(7) translateX(20px);
-  }
-  100% {
-    transform: scale(10) translateX(-30px);
-  }
-  // 100% {
-  //   transform: scale(6) translateX(75px);
-  // }
 }
 
 .hero {
   position: relative;
   display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
 }
 
 .section {
@@ -88,15 +50,16 @@
   }
 }
 
-$imgSize: 20em;
+$imgSize: 90vw;
 
 .carousel {
   height: $imgSize;
   width: $imgSize;
-  margin-top: 8em;
+  margin-bottom: 4em;
   position: relative;
   border-radius: 50%;
-  animation: rise 5s ease-out;
+  transform: translateY(105%) scale(0.2);
+  animation: rise 1s ease-in forwards;
   z-index: 2;
 
   &::before {
@@ -105,11 +68,11 @@ $imgSize: 20em;
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    animation: fadeout 4s ease-out forwards;
+    animation: fadeout 3s ease-out 1s forwards;
     background-color: variables.$colorKoana;
     box-shadow: 1px 1px 40px variables.$colorKoana;
     z-index: 1;
-    opacity: 0;
+    opacity: 1;
   }
 }
 
@@ -124,10 +87,10 @@ $imgSize: 20em;
 
 @keyframes rise {
   0% {
-    transform: translateY(250px) scale(0.25);
+    transform: translateY(50%) scale(0.9);
   }
   100% {
-    transform: translateY(0px) scale(1);
+    transform: translateY(0%) scale(1);
   }
 }
 .imgContainer {

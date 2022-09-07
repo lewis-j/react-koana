@@ -1,194 +1,45 @@
 .navFloat {
-    position: fixed;
-    background-color: white;
-    margin-top: none;
-    margin-top: -0.5rem;
-    z-index: 1;
+  position: fixed;
+  /* border: 1px solid black; */
+  background-color: white;
+  margin-top: none;
+  margin-top: -0.5rem;
+  z-index: 1;
 }
 
 @media screen and (max-width: 576px) {
-    .bigMacMode {
-        display: flex;
-        justify-content: space-between;
-    }
+  .regularNavContainer {
+    display: none;
+  }
 
-    .burgerCollapsedKoanaIcon {
-        position: fixed;
-        right: 1rem;
-        margin-top: 0.4rem;
-        margin-right: 0.5rem;
-        height: 3rem;
-        display: flex;
-        animation: opacity-bigMac 1s forwards;
-    }
-
-    .burgerCollapsedKoanaIcon img {
-        height: 75%;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .burgerCollapsedKoanaIcon img:hover {
-        height: 200%;
-        /* transform: translate(0rem, 0px); */
-        cursor: pointer;
-        z-index: 1;
-    }
-
-    .bigMacIcon {
-        /* border: 1px solid black; */
-        position: relative;
-        z-index: 1;
-        margin-top: -3rem;
-        margin-left: 0.1rem;
-        /* background color needs to match viewport background */
-        background-color: white;
-        width: 3rem;
-        height: 6rem;
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        animation: opacity-bigMac 2s forwards;
-    }
-
-    @keyframes opacity-bigMac {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    .burgerSpacer {
-        /* border: 1px solid black; */
-        height: 50%;
-    }
-
-    .burger {
-        width: 50%;
-        height: 1px;
-        /* border: 1px solid black; */
-        background-color: black;
-        transition: all 0.25s ease-in-out;
-        z-index: 1;
-    }
-
-    .burgerExpand {
-        height: 1.45rem;
-        border: 1px solid black;
-        background-color: rgba(0, 0, 0, 0);
-        border-radius: 50%;
-        transition: all 0.25s ease-in-out;
-    }
-
-    .burgerExpand:hover {
-        background-color: rgb(254, 251, 0);
-        border: none;
-    }
-
-    .burgerFade {
-        border: none;
-        background-color: rgba(0, 0, 0, 0);
-        transition: all 0.05s ease-in-out;
-    }
-
-    .burgerNavItems {
-        /* border:1px solid black; */
-        margin-left: 0.1rem;
-        display: flex;
-        flex-flow: column nowrap;
-        width: 3rem;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        opacity: 1;
-        transition: opacity 1s, transform 0.4s ease-in-out;
-        position: absolute;
-    }
-
-    .burgerNavItemsHide {
-        transform: translate(0px, -14rem);
-        opacity: 0;
-        transition: opacity 0.5s, transform 0.5s ease-in-out;
-    }
-
-    .koanaIcon {
-        display: flex;
-        justify-content: center;
-        padding-top: 1rem;
-    }
-
-    .koanaIcon img {
-        width: 75%;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .koanaIcon img:hover {
-        margin-top: -0.3rem;
-        width: 85%;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .tradNavItems {
-        cursor: pointer;
-        letter-spacing: 0.2rem;
-        padding-left: 0.3rem;
-        font-size: 0.65rem;
-        text-align: right;
-    }
-
-    .tradNavItems:hover {
-        font-weight: bold;
-    }
-
-    .regularNavContainer {
-        display: none;
-    }
-
-    .regularKoanaIcon img {
-        display: none;
-    }
+  .regularKoanaIcon img {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 577px) {
-    .bigMacIcon,
-    .burgerSpacer,
-    .burger .burgerExpand,
-    .burgerFade,
-    .burgerNavItems,
-    .burgerNavItemsHide,
-    .koanaIcon,
-    .koanaIcon img,
-    .tradNavItems,
-    .burgerSpacer,
-    .burgerCollapsedKoanaIcon {
-        display: none;
-    }
+  .regularNavContainer {
+    /* border: 1px solid black; */
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    width: 96vw;
+    gap: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+    opacity: 1;
+    animation: opacity-regular 2s forwards;
+  }
 
-    .regularNavContainer {
-        z-index: 1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 3.3rem;
-        width: 97vw;
-        padding-left: 0.5rem;
-        padding-right: 1rem;
-        opacity: 1;
-        animation: opacity-regular 2s forwards;
+  @keyframes opacity-regular {
+    from {
+      opacity: 0;
     }
-
-    @keyframes opacity-regular {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
+    to {
+      opacity: 1;
     }
+  }
 
     .regularNavItems {
         flex: 0;
@@ -206,17 +57,17 @@
         align-items: center;
     }
 
-    .regularKoanaIcon img {
-        height: 75%;
-        transition: all 0.2s ease-in-out;
-    }
+  .regularKoanaIcon img {
+    height: 75%;
+    transition: all 0.2s ease-in-out;
+  }
 
-    .regularKoanaIcon img:hover {
-        margin-top: 4rem;
-        height: 200%;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-    }
+  .regularKoanaIcon img:hover {
+    margin-top: 4rem;
+    height: 200%;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
 
     .regularTradNavItems {
         /* border: 1px solid black; */
@@ -226,18 +77,19 @@
         /* text-align: right; */
     }
 
-    .regularTradNavItems:hover {
-        font-weight: bold;
-    }
+  .regularTradNavItems:hover {
+    font-weight: bold;
+  }
+>>>>>>> 0add6ff1dd359846296af2eec4c07da00acc65f1
 }
 
 .cartBadgeOverLap {
-    display: flex;
-    padding-right: 5rem;
-    position: fixed;
-    z-index: 2;
+  display: flex;
+  padding-right: 5rem;
+  position: fixed;
+  z-index: 2;
 }
 
 .badgeFiller {
-    flex: 1;
+  flex: 1;
 }

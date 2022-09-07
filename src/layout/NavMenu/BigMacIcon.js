@@ -19,7 +19,13 @@ const BigMacIcon = ({ expand, handleExpand }) => {
   return (
     <>
       <div className="bigMacMode">
-        <div className="bigMacIcon" onClick={() => handleExpand()}>
+        <div
+          className="bigMacIcon"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleExpand();
+          }}
+        >
           {expand ? (
             <>
               <div className="burgerSpacer"></div>

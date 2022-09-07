@@ -8,22 +8,23 @@ import { Provider } from "./context/CartContext";
 import Cart from "./components/Cart/Cart.js";
 
 import "./App.css";
+import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
 
 const App = () => {
-    return (
-        <>
-            <Provider>
-                {/* <NavBarNew /> */}
-                <Routes>
-                    <Route path="/" element={<FeaturePage />} />
-                    <Route path="about" element={<AboutPage />} />
-                    <Route path="shop" element={<OnlineShop />} />
-                    <Route path="checkout" element={<CheckoutPage />} />
-                </Routes>
-                <Cart />
-            </Provider>
-        </>
-    );
+  return (
+    <>
+      <Provider>
+        <NavBarNew />
+        <Routes>
+          <Route path="/" element={<FeaturePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="shop" element={<OnlineShop />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+        </Routes>
+        <Cart />
+      </Provider>
+    </>
+  );
 };
 
 export default App;
