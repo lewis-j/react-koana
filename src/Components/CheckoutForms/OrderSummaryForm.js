@@ -1,29 +1,36 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { imagesData } from "../../data/imagesData";
-import { NavBarNew } from "../../layout/NavMenu/NavMenuNew";
+import { useNavigate } from "react-router-dom";
 
 export const OrderSummaryForm = (props) => {
-    const { getCartData, cartData } = useContext(CartContext);
-    const { shippingFormData, paymentFormData } = props;
+    const { getCartData, cartData, displayCart, handleDisplayCart } =
+        useContext(CartContext);
+    const { shippingFormData, paymentFormData, handleFormsCompleted } = props;
+    const navigate = useNavigate();
 
     const subTotal = () => {
-        return cartData.reduce(
+        const total = cartData.reduce(
             (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
             0
         );
+
+        if (!total) {
+            displayCart && handleDisplayCart();
+            navigate(`/shop`);
+        } else {
+            return total;
+        }
     };
 
     const itemsInCart = () => {
-        return getCartData().map((item) => [
-            imagesData[item.id].name,
-            item.quantity,
-        ]);
+        return getCartData()
+            .filter((item) => item.quantity > 0)
+            .map((item) => [imagesData[item.id].name, item.quantity]);
     };
 
     return (
         <>
-            <NavBarNew modalFocus={false} />
             <div className="outerFormContainer">
                 <div className="innerFormContainer">
                     <h1>CHECKOUT</h1>
@@ -51,6 +58,14 @@ export const OrderSummaryForm = (props) => {
                         ))}
                     </ul>
                     <h3>{`subtotal: $${subTotal()}`}</h3>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            handleFormsCompleted("paymentForm", false)
+                        }
+                    >
+                        Back - Payment Method
+                    </button>
                 </div>
             </div>
         </>

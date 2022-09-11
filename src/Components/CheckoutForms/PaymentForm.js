@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik, useField, Form } from "formik";
 import * as Yup from "yup";
-import { NavBarNew } from "../../layout/NavMenu/NavMenuNew";
 import "./checkoutForms.css";
 
 // Checkout Form One
@@ -34,7 +33,6 @@ export const PaymentForm = ({
 }) => {
     return (
         <>
-            <NavBarNew modalFocus={false} />
             <div className="outerFormContainer">
                 <div className="innerFormContainer">
                     <h1>CHECKOUT</h1>
@@ -201,7 +199,7 @@ export const PaymentForm = ({
                                         )
                                     }
                                 >
-                                    Back
+                                    Back - Shipping Address
                                 </button>
                                 <button type="submit">
                                     Next - Order Summary

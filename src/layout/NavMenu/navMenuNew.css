@@ -1,13 +1,14 @@
 .navFloat {
   position: fixed;
-  /* border: 1px solid black; */
+  padding-top: .5rem;
+  width: 100%;
   background-color: white;
   margin-top: none;
   margin-top: -0.5rem;
   z-index: 1;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 577px) {
   .regularNavContainer {
     display: none;
   }
@@ -75,12 +76,12 @@
         /* padding-left: 0.3rem; */
         font-size: 0.75rem;
         /* text-align: right; */
+        cursor: pointer;
     }
 
   .regularTradNavItems:hover {
     font-weight: bold;
   }
->>>>>>> 0add6ff1dd359846296af2eec4c07da00acc65f1
 }
 
 .cartBadgeOverLap {

@@ -1,8 +1,8 @@
 import React from "react";
-import { NavBarNew } from "../../layout/NavMenu/NavMenuNew";
 import { Formik, useField, Form } from "formik";
 import * as Yup from "yup";
 import "./checkoutForms.css";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 // Checkout Form One
 // this form holds full name, shipping address, and option for same address for payment details
@@ -31,8 +31,9 @@ const PaymentSameAddressCheckbox = ({ children, ...props }) => {
     const [field, meta] = useField({ ...props, type: "checkbox" });
     return (
         <div>
-            <label className="checkbox-input">
-                <input type="checkbox" {...field} {...props} />
+            <label className="checkbox-input formCheckbox">
+                <input 
+                    type="checkbox" {...field} {...props} />
                 {children}
             </label>
             {meta.touched && meta.error ? (
@@ -50,11 +51,12 @@ export const ShippingForm = ({
 }) => {
     return (
         <>
-            <NavBarNew modalFocus={false} />
             <div className="outerFormContainer">
                 <div className="innerFormContainer">
-                    <h1>CHECKOUT</h1>
-                    <h3 className="formTheme">Shipping address</h3>
+                    <div className="formTheme">
+                        <h5>CHECKOUT</h5>
+                        <h3>Shipping address</h3>
+                    </div>
                     <Formik
                         initialValues={shippingFormData}
                         validationSchema={Yup.object({
@@ -109,69 +111,88 @@ export const ShippingForm = ({
                             });
                         }}
                     >
-                        <Form>
-                            <div>
-                                <TextInput
-                                    label="First Name*"
-                                    name="firstName"
-                                    type="text"
-                                />
+                        <Form className="formCategories">
+                            <div className="formRowDouble">
+                                <div>
+                                    <TextInput
+                                        className="formColumnSingle"
+                                        label="First Name*"
+                                        name="firstName"
+                                        type="text"
+                                    />
+                                </div>
+                                <div>
+                                    <TextInput
+                                        className="formColumnSingle"
+                                        label="Last Name*"
+                                        name="lastName"
+                                        type="text"
+                                    />
+                                </div>
                             </div>
-                            <div>
+                            <div className="formRowSingle">
                                 <TextInput
-                                    label="Last Name*"
-                                    name="lastName"
-                                    type="text"
-                                />
-                            </div>
-                            <div>
-                                <TextInput
+                                    className="formColumnDouble"
                                     label="Address Line 1*"
                                     name="addressLineOne"
                                     type="text"
                                 />
                             </div>
-                            <div>
+                            <div className="formRowSingle">
                                 <TextInput
+                                    className="formColumnDouble"
                                     label="Address Line 2"
                                     name="addressLineTwo"
                                     type="text"
                                 />
                             </div>
-                            <div>
-                                <TextInput
-                                    label="City*"
-                                    name="city"
-                                    type="text"
-                                />
+                            <div className="formRowDouble">
+                                <div>
+                                    <TextInput
+                                        className="formColumnSingle"
+                                        label="City*"
+                                        name="city"
+                                        type="text"
+                                    />
+                                </div>
+                                <div>
+                                    <TextInput
+                                        className="formColumnSingle"
+                                        label="State (xx) *"
+                                        name="region"
+                                        type="text"
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <TextInput
-                                    label="State*"
-                                    name="region"
-                                    type="text"
-                                />
+                            <div className="formRowDouble">
+                                <div>
+                                    <TextInput
+                                        className="formColumnSingle"
+                                        label="Zip/Postal Code*"
+                                        name="zip"
+                                        type="text"
+                                    />
+                                </div>
+                                <div>
+                                    <TextInput
+                                        className="formColumnSingle"
+                                        label="Country*"
+                                        name="country"
+                                        type="text"
+                                    />
+                                </div>
                             </div>
-                            <div>
-                                <TextInput
-                                    label="Zip/Postal Code*"
-                                    name="zip"
-                                    type="text"
-                                />
-                            </div>
-                            <div>
-                                <TextInput
-                                    label="Country*"
-                                    name="country"
-                                    type="text"
-                                />
-                            </div>
+                            <div className="formBottomContent">
+                                <PaymentSameAddressCheckbox
+                                    name="paymentSameAddressCheckbox"
+                                >
+                                    <span>
+                                        Use this address for payment details
+                                    </span>
+                                </PaymentSameAddressCheckbox>
 
-                            <PaymentSameAddressCheckbox name="paymentSameAddressCheckbox">
-                                Use this address for payment details
-                            </PaymentSameAddressCheckbox>
-
-                            <button type="submit">Next - Payment</button>
+                                <button className="formButton" type="submit">Next - Payment Method</button>
+                            </div>
                         </Form>
                     </Formik>
                 </div>

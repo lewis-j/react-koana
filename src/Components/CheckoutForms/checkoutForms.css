@@ -13,14 +13,131 @@
 }
 
 .innerFormContainer {
-    margin-top: 3rem;
+    position: fixed;
+    /* keeps modal centered on viewport size change */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .2rem;
+    /* margin: 3rem 3.5rem; */
     padding: 1rem;
-    border: 1px solid black;
     border-top-right-radius: 2rem;
     border-bottom-left-radius: 2rem;
+    width: 23rem;
+    background-image: linear-gradient(white, rgb(255, 228, 196));
+    border: 1px solid rgb(218, 218, 218);
+    box-shadow: 0px 10px 10px 1px rgba(0,0,0,.2);
 }
 
 .formTheme {
     letter-spacing: 0.25rem;
     text-transform: uppercase;
+    color: #02b4be;
+    padding-bottom: 2rem;
+}
+
+.formCategories {
+    color: rgb(0, 103, 119);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    /* border: 1px solid black; */
+}
+
+.formRowDouble {
+    display: flex;
+    /* border: 1px solid black; */
+    height: 3.5rem;
+    justify-content: space-between;
+    gap: 2rem;
+    letter-spacing: 0.10rem;
+    /* margin-right: 1rem; */
+}
+
+.formRowSingle {
+    height: 3.5rem;
+    width: 100%;
+    letter-spacing: 0.10rem;
+}
+
+.formColumnSingle {
+    display: flex;
+    margin: 0.3rem 0 0.3rem 0;
+    border-top-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    border: 1px solid rgb(255, 137, 64);
+    padding: 0.5rem 0rem 0.5rem;
+    text-indent: .5rem;
+}
+
+.formColumnSingle:focus {
+    background-color: black;
+    color: white;
+    outline: none;
+}
+
+.formColumnDouble {
+    display: flex;
+    margin: 0.3rem 0 0.3rem 0;
+    width: 100%;
+    padding: 0.5rem 0rem 0.5rem;
+    border-top-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+    border: 1px solid rgb(255, 137, 64);
+    text-indent: .5rem;
+    /* border: 1px solid rgb(255, 153, 90); */
+}
+
+.formColumnDouble:focus {
+    background-color: black;
+    color: white;
+    outline: none;
+}
+
+.formBottomContent {
+    margin-top: 2rem;
+    display: flex;
+    /* border: 1px solid black; */
+    height: 3.5rem;
+    justify-content: space-between;
+    gap: 1rem;
+    letter-spacing: 0.10rem;
+    /* margin-right: 1rem; */
+}
+
+.formCheckbox {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    /* border: 1px solid pink; */
+}
+
+input[type="checkbox"]{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    }
+
+.formButton {
+    border-top-right-radius: 0.45rem;
+    border-bottom-left-radius: 0.45rem;
+    background-color: rgb(255, 137, 64);
+    color: white;
+    border: 1px solid rgb(218, 218, 218);
+    /* padding: 0.2rem; */
+    font-size: .75rem;
+    letter-spacing: 0.10rem;
+    text-transform: uppercase;
+    width: 100%;
+    height: 3rem;
+}
+
+.formButton:hover {
+    background-color: black;
+    color: rgb(255, 137, 64);
+    cursor: pointer;
 }
