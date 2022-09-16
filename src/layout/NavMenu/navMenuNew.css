@@ -4,7 +4,7 @@
   background-color: white;
   margin-top: none;
   margin-top: -0.5rem;
-  z-index: 1;
+  z-index: 3;
 }
 
 @media screen and (max-width: 576px) {

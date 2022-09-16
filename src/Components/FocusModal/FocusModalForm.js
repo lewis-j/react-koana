@@ -1,17 +1,20 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { StoreItemContext } from "../../context/StoreItemsContext";
 import { imagesData } from "../../data/imagesData";
 import "./focusModalForm.css";
 
 const FocusModalForm = ({ id, handleModalFocus }) => {
   const value = useContext(CartContext);
+  const { storeItems } = useContext(StoreItemContext);
 
   const [itemQuantity, setItemQuantity] = useState(
     value.getCartData().find((item) => item.id === id)?.quantity || 0
   );
 
   const handleQuantityChange = (increment) => {
-    const available = imagesData.find((item) => item.id === id).inventory;
+    console.log("store item", storeItems);
+    const available = storeItems.find((item) => item.id === id).inventory;
     increment
       ? setItemQuantity((prev) => {
           return itemQuantity < available ? prev + 1 : prev;

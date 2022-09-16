@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import StoreItemProvider from "./context/StoreItemsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
-    <App />
+    <StoreItemProvider>
+      <App />
+    </StoreItemProvider>
   </BrowserRouter>
   // </React.StrictMode>
 );

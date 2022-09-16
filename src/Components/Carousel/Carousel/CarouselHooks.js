@@ -87,21 +87,23 @@ export const useSetCurrent = (rows, slidesToMove) => {
 
       [actions.DOWN]: () => {
         setRow(current);
-        setCurrent({
+        const _current = {
           x: rowPosition[current.y + slidesToMove],
           y: current.y + slidesToMove,
-        });
+        };
+        setCurrent(_current);
       },
       [actions.UP]: () => {
         setRow(current);
-        setCurrent({
+        const _current = {
           x: rowPosition[current.y - slidesToMove],
           y: current.y - slidesToMove,
-        });
+        };
+        setCurrent(_current);
       },
     };
 
-    nextCurrent[action]();
+    return nextCurrent[action]();
   };
 
   return [current, setNextCurrent, rowPosition];

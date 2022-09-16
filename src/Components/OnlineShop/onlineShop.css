@@ -131,14 +131,3 @@
   width: 100vw;
   z-index: 2;
 }
-
-.modalOffClickWrapper::before {
-  position: absolute;
-  content: " ";
-  background-color: rgba(179, 38, 38, 0.678);
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100vw;
-  z-index: 3;
-}

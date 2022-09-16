@@ -23,7 +23,7 @@ const Carousel = ({
   const [slides, setSlides] = useState(initialSlideContent);
   const [intervalId, setIntervalId] = useState(null);
   const [timeOutId, setTimeoutId] = useState(null);
-  // const [interpolatedNav, setInterpolatedNav] = useState([1, 0, 0]);
+
   const [activeNav, setActiveNav] = useState("");
   const [current, setCurrent, rowPosition] = useSetCurrent(
     items.length,
@@ -144,18 +144,20 @@ const Carousel = ({
   const slideDown = () => {
     if (current.y === items.length - slidesToShow) return;
 
+    console.log("Current", current);
     setSlides(() =>
-      [...Array(totalSlides).keys()].map(
-        (i) => items[current.y + i][rowPosition[current.y + i]]
-      )
+      [...Array(totalSlides).keys()].map((i) => {
+        if (i === 0) return items[current.y][current.x];
+        return items[current.y + i][rowPosition[current.y + i]];
+      })
     );
     setCurrent(current, actions.DOWN);
-
     verticalNavDown(current);
     runTransition(transitions.down);
   };
   const slideUp = () => {
     if (current.y === 0) return;
+
     setSlides(() =>
       [...Array(totalSlides).keys()].map(
         (i) =>
