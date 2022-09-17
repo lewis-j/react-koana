@@ -1,23 +1,9 @@
 import styles from "./FeaturePage.module.scss";
+import stylesCarousel from "./CarouselContainer.module.scss";
 import { Carousel } from "../../components/Carousel";
 import { imagesData } from "../../data/imagesData";
 import { useEffect, useRef, useState } from "react";
 import { MapsOL } from "../../components/MapsOL";
-
-// const products = [
-//   "coffee",
-//   "teas",
-//   "art",
-//   "gift bags",
-//   "mugs",
-//   "coffee",
-//   "teas",
-//   "art",
-//   "gift bags",
-//   "mugs",
-// ];
-
-//test values
 
 const featuredItems = imagesData
   .slice(0, 6)
@@ -26,20 +12,23 @@ const featuredItems = imagesData
 const renderProducts = () =>
   [...Array(4).keys()].map((j) => {
     return imagesData.map(({ image, name }, i) => (
-      <div key={`productId#${i}${j}`} className={styles.imgContainer}>
-        <img src={image.url} alt={name} className={styles.img} />
+      <div key={`productId#${i}${j}`} className={stylesCarousel.imgContainer}>
+        <img src={image.url} alt={name} className={stylesCarousel.img} />
       </div>
     ));
   });
 
 const FeaturePage = () => {
-  const containerRef = useRef();
+  const galleryRef = useRef();
+  const carouselRef = useRef();
   const [isGalleryVisible, setIsGalleryVisible] = useState(false);
-
+  const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const animationNames = { GALLERY: "GALLERY", CAROUSEL: "CAROUESEL" };
   useEffect(() => {
-    const container = containerRef.current;
+    const gallery = galleryRef.current;
+    const carousel = carouselRef.current;
 
-    if (container) {
+    if (gallery && carousel) {
       console.log("setting up observer");
       const observer = new IntersectionObserver(
         (entries) => {
@@ -54,7 +43,14 @@ const FeaturePage = () => {
             });
             if (isIntersecting) {
               observer.unobserve(entry.target);
-              setIsGalleryVisible(true);
+              console.log("target", target.dataset.anim);
+              if (target.dataset.anim === animationNames.GALLERY) {
+                setIsGalleryVisible(true);
+              }
+              if (target.dataset.anim === animationNames.CAROUSEL) {
+                console.log("run carousel anim");
+                setIsCarouselVisible(true);
+              }
             }
           });
         },
@@ -63,7 +59,8 @@ const FeaturePage = () => {
         }
       );
 
-      observer.observe(container);
+      observer.observe(gallery);
+      observer.observe(carousel);
 
       return () => observer.disconnect();
     }
@@ -81,12 +78,13 @@ const FeaturePage = () => {
       ? { transform: "translateX(0%)", opacity: "1" }
       : null;
 
-    const result = _arr.map((item) => {
+    const result = _arr.map((item, j) => {
       return (
-        <div className={styles.featuredSet}>
+        <div className={styles.featuredSet} key={`${j}featureset`}>
           {item.map((item, i) => {
             return (
               <div
+                key={`${j}${i}gallery`}
                 className={styles.gallery}
                 data-title={item.name.toUpperCase()}
                 style={_style}
@@ -116,7 +114,7 @@ const FeaturePage = () => {
   const carouselProps = {
     slidesToShow: 1,
     slidesToMove: 1,
-    className: styles.carousel,
+    className: stylesCarousel.carousel,
   };
   return (
     <>
@@ -141,12 +139,24 @@ const FeaturePage = () => {
               Explore our wide selection today
             </h3>
           </div>
-          <div className={styles.featuredContainer} ref={containerRef}>
+          <div
+            className={styles.featuredContainer}
+            ref={galleryRef}
+            data-anim={animationNames.GALLERY}
+          >
             {renderGallery()}
           </div>
         </div>
-        <div className={styles.carouselContainer}>
-          <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+        <div className={stylesCarousel.wrapper}>
+          <div
+            className={stylesCarousel.container}
+            ref={carouselRef}
+            data-anim={animationNames.CAROUSEL}
+          >
+            {isCarouselVisible && (
+              <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+            )}
+          </div>
         </div>
         <div className={styles.location}>
           <div className={styles.locationContent}></div>

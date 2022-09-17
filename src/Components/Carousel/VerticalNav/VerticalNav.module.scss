@@ -24,37 +24,8 @@ $neonColor: #fffa01;
     inset 0 0 1.3rem variables.$colorKoana;
 }
 
-// .fadeIn {
-//   animation: fade-in 2s ease-out forwards;
-// }
-
-// .active {
-//   opacity: 1;
-// }
-
-// @keyframes fade-in {
-//   0% {
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
-
-// .fadeOut {
-//   animation: fade-out 2s ease-out;
-// }
-
-// @keyframes fade-out {
-//   0% {
-//     opacity: 1;
-//   }
-//   100% {
-//     opacity: 0;
-//   }
-// }
-
 .navItem {
+  position: relative;
   opacity: 0.2;
   transition: 0.4s;
   display: flex;
@@ -69,7 +40,8 @@ $neonColor: #fffa01;
 .title {
   position: absolute;
   width: 100%;
-  text-align: center;
+  bottom: 0;
+  font-size: 1.5em;
   color: #ffffff;
   text-shadow: 0 0 7px rgb(156, 156, 156), 0 0 10px #fff, 0 0 21px #fff,
     0 0 42px variables.$colorKoana, 0 0 82px variables.$colorKoana,
