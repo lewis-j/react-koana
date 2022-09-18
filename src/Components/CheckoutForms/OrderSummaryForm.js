@@ -25,41 +25,44 @@ export const OrderSummaryForm = (props) => {
         }
     });
 
-    const ItemsInCart = () => {
-        const checkoutItems = getCartData()
-            .filter((item) => item.quantity > 0)
-            .map((checkoutItem, idx) => {
-                return (
-                    <div key={idx} className="checkoutItem">
-                        <div className="checkoutItemImage">
-                            <img
-                                src={imagesData[checkoutItem.id].image}
-                                alt={imagesData[checkoutItem.id].name}
-                            />
-                        </div>
-                        <div className="checkoutItemDesc">
-                            {imagesData[checkoutItem.id].name}
-                        </div>
+    let checkoutItemState = "checkoutItem";
+    if (displayCart) {
+        checkoutItemState = "checkoutItemStatic";
+    }
 
-                        <div className="quantityEdit">
-                            <div className="checkoutItemQuantity">
-                                {checkoutItem.quantity}
-                            </div>
-                            <div
-                                className="checkoutItemEdit"
-                                onClick={() => handleDisplayCart()}
-                            >
-                                edit
-                            </div>
+    const checkoutItems = getCartData().filter((item) => item.quantity > 0);
+
+    const ItemsInCart = () => {
+        return checkoutItems.map((checkoutItem, idx) => {
+            return (
+                <div key={idx} className={checkoutItemState}>
+                    <div className="checkoutItemImage">
+                        <img
+                            src={imagesData[checkoutItem.id].image}
+                            alt={imagesData[checkoutItem.id].name}
+                        />
+                    </div>
+                    <div className="checkoutItemDesc">
+                        {imagesData[checkoutItem.id].name}
+                    </div>
+
+                    <div className="quantityEdit">
+                        <div className="checkoutItemQuantity">
+                            {checkoutItem.quantity}
                         </div>
-                        <div className="checkoutitemPrice">
-                            ${imagesData[checkoutItem.id].price}
+                        <div
+                            className="checkoutItemEdit"
+                            onClick={() => handleDisplayCart()}
+                        >
+                            edit
                         </div>
                     </div>
-                );
-            });
-
-        return <div>{checkoutItems}</div>;
+                    <div className="checkoutitemPrice">
+                        ${imagesData[checkoutItem.id].price}
+                    </div>
+                </div>
+            );
+        });
     };
 
     return (
@@ -82,20 +85,48 @@ export const OrderSummaryForm = (props) => {
                         <ItemsInCart />
                     </div>
 
-                    <div className="subTotalShippingOrderTotal">
-                        <div>{`subtotal: $${subTotal()}.00`}</div>
-                        <div>{"taxes: $0.00"}</div>
-                        <div>{`Fedex 2 Day USA: $12.50`}</div>
-                        <div>{`order total: $${subTotal() + 12.5}`}</div>
+                    <div className="subTotalShippingOrderTotal  categoryStyling">
+                        <div className="subTotalShippingOrderTotalRow">
+                            <div className="subTotalShippingOrderTotalCol">{`subtotal: `}</div>
+                            <div>{`$${subTotal()}.00`}</div>
+                        </div>
+                        <div className="subTotalShippingOrderTotalRow">
+                            <div className="subTotalShippingOrderTotalCol">
+                                {"taxes: "}
+                            </div>
+                            <div>{"$0.00"}</div>
+                        </div>
+                        <div className="subTotalShippingOrderTotalRow">
+                            <div className="subTotalShippingOrderTotalCol">{`Fedex 2 Day USA: `}</div>
+                            <div>{`$12.50`}</div>
+                        </div>
+                        <br></br>
+                        <div className="subTotalShippingOrderTotalRow">
+                            <div className="subTotalShippingOrderTotalTallyCol">{`order total: `}</div>
+                            <div className="subTotalShippingOrderTotalTallyVal">{`$${(
+                                (subTotal() + 12.5) /
+                                1
+                            ).toFixed(2)}`}</div>
+                        </div>
                     </div>
-                    <button
-                        type="button"
-                        onClick={() =>
-                            handleFormsCompleted("paymentForm", false)
-                        }
-                    >
-                        Back - Payment Method
-                    </button>
+                    <div className="formBottomContent">
+                        <div
+                            className="formButton"
+                            type="button"
+                            onClick={() => {
+                                handleFormsCompleted("paymentForm", false);
+                            }}
+                        >
+                            Back - Payment Method
+                        </div>
+                        <div
+                            className="formButtonPurchase"
+                            onClick={() => console.log(checkoutItems)}
+                        >
+                            <div className="place">place</div>
+                            <div className="order">order</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

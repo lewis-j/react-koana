@@ -16,6 +16,9 @@ export const ShippingInfoSummary = ({ shippingFormData, paymentFormData }) => {
     const styling = {
         fontWeight: "bold",
         textTransform: "uppercase",
+        fontSize: ".65rem",
+        letterSpacing: "0.1rem",
+        color: "#01949b",
     };
 
     function capChanger(text, setting) {
@@ -30,9 +33,11 @@ export const ShippingInfoSummary = ({ shippingFormData, paymentFormData }) => {
     }
 
     return (
-        <div>
-            <FontAwesomeIcon icon={faPaperPlane} size="1x" />
-            <span style={styling}> Shipping address:</span>
+        <div className="categoryStyling">
+            <span style={styling}>
+                <FontAwesomeIcon icon={faPaperPlane} size="1x" /> Shipping
+                address:
+            </span>
             <div className="margin">
                 {capChanger(firstName, "capitalize")}{" "}
                 {capChanger(lastName, "capitalize")}

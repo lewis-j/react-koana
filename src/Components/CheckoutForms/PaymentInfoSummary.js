@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import { faFileInvoice } from "@fortawesome/free-solid-svg-icons";
 
 export const PaymentInfoSummary = ({ shippingFormData, paymentFormData }) => {
     const {
@@ -17,6 +18,9 @@ export const PaymentInfoSummary = ({ shippingFormData, paymentFormData }) => {
     const styling = {
         fontWeight: "bold",
         textTransform: "uppercase",
+        fontSize: ".65rem",
+        letterSpacing: "0.1rem",
+        color: "#01949b",
     };
 
     function capChanger(text, setting) {
@@ -35,37 +39,58 @@ export const PaymentInfoSummary = ({ shippingFormData, paymentFormData }) => {
     return (
         <>
             {shippingFormData.paymentSameAddressCheckbox ? (
-                <div className="checkoutReivew">
-                    <div style={styling}>Billing Address:</div>
+                <div className="checkoutReivew categoryStyling">
+                    <FontAwesomeIcon
+                        style={styling}
+                        icon={faFileInvoice}
+                        size="1x"
+                    />{" "}
+                    <span style={styling}> Billing Address:</span>
                     <div className="margin">
                         <div>Same as shipping address</div>
                         <br></br>
-                        <div style={{ fontWeight: "bold" }}>
-                            <FontAwesomeIcon icon={faCreditCard} size="1x" />{" "}
-                            Card number ending in{" "}
-                            {capChanger(cardNumber, "creditCard")}
-                        </div>
                     </div>
+                    <span style={styling}>
+                        <FontAwesomeIcon icon={faCreditCard} size="1x" /> Card
+                        number ending in:{" "}
+                    </span>
+                    {capChanger(cardNumber, "creditCard")}
                 </div>
             ) : (
                 <div>
-                    <div style={styling}>Billing Address:</div>
-                    <div>
-                        {capChanger(firstName, "capitalize")}{" "}
-                        {capChanger(lastName, "capitalize")}
+                    <FontAwesomeIcon
+                        style={styling}
+                        icon={faFileInvoice}
+                        size="1x"
+                    />{" "}
+                    <span style={styling}> Billing address:</span>
+                    <div className="margin">
+                        <div>
+                            {capChanger(firstName, "capitalize")}{" "}
+                            {capChanger(lastName, "capitalize")}
+                        </div>
+                        <div>{capChanger(addressLineOne, "capitalize")}</div>
+                        {addressLineTwo ? (
+                            <div>
+                                {capChanger(addressLineTwo, "capitalize")}
+                            </div>
+                        ) : null}
+                        <div>
+                            {capChanger(city, "capitalize")},{" "}
+                            {`${region} ${zip}`}
+                        </div>
+                        <div>{capChanger(country, "upper")}</div>
                     </div>
-                    <div>{capChanger(addressLineOne, "capitalize")}</div>
-                    {addressLineTwo ? (
-                        <div>{capChanger(addressLineTwo, "capitalize")}</div>
-                    ) : null}
-                    <div>
-                        {capChanger(city, "capitalize")}, {`${region} ${zip}`}
-                    </div>
-                    <div>{capChanger(country, "upper")}</div>
-                    <div style={styling}>
+                    <FontAwesomeIcon
+                        style={styling}
+                        icon={faCreditCard}
+                        size="1x"
+                    />{" "}
+                    <span style={styling}>
+                        {" "}
                         Card number ending in{" "}
                         {capChanger(cardNumber, "creditCard")}
-                    </div>
+                    </span>
                 </div>
             )}
         </>
