@@ -1,46 +1,47 @@
 .navFloat {
-  position: fixed;
-  padding-top: .5rem;
-  width: 100%;
-  background-color: white;
-  margin-top: none;
-  margin-top: -0.5rem;
-  z-index: 3;
+    position: fixed;
+    padding-top: 0.5rem;
+    width: 100%;
+    /* background-color: white; */
+    color: rgb(135, 135, 135);
+    margin-top: none;
+    margin-top: -0.5rem;
+    z-index: 1;
 }
 
 @media screen and (max-width: 577px) {
-  .regularNavContainer {
-    display: none;
-  }
+    .regularNavContainer {
+        display: none;
+    }
 
-  .regularKoanaIcon img {
-    display: none;
-  }
+    .regularKoanaIcon img {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 577px) {
-  .regularNavContainer {
-    /* border: 1px solid black; */
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    height: 3rem;
-    width: 100vw;
-    gap: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 1rem;
-    opacity: 1;
-    animation: opacity-regular 2s forwards;
-  }
+    .regularNavContainer {
+        /* border: 1px solid black; */
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        width: 96vw;
+        gap: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        opacity: 1;
+        animation: opacity-regular 2s forwards;
+    }
 
-  @keyframes opacity-regular {
-    from {
-      opacity: 0;
+    @keyframes opacity-regular {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
-    to {
-      opacity: 1;
-    }
-  }
 
     .regularNavItems {
         flex: 0;
@@ -48,7 +49,6 @@
         height: 100%;
         align-items: center;
         gap: 1rem;
- 
     }
 
     .regularKoanaIcon {
@@ -58,17 +58,17 @@
         align-items: center;
     }
 
-  .regularKoanaIcon img {
-    height: 75%;
-    transition: all 0.2s ease-in-out;
-  }
+    .regularKoanaIcon img {
+        height: 75%;
+        transition: all 0.2s ease-in-out;
+    }
 
-  .regularKoanaIcon img:hover {
-    margin-top: 4rem;
-    height: 200%;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
+    .regularKoanaIcon img:hover {
+        margin-top: 4rem;
+        height: 200%;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
 
     .regularTradNavItems {
         /* border: 1px solid black; */
@@ -79,18 +79,18 @@
         cursor: pointer;
     }
 
-  .regularTradNavItems:hover {
-    font-weight: bold;
-  }
+    .regularTradNavItems:hover {
+        font-weight: bold;
+    }
 }
 
 .cartBadgeOverLap {
-  display: flex;
-  padding-right: 5rem;
-  position: fixed;
-  z-index: 2;
+    display: flex;
+    padding-right: 5rem;
+    position: fixed;
+    z-index: 2;
 }
 
 .badgeFiller {
-  flex: 1;
+    flex: 1;
 }
