@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { FeaturePage } from "./pages/FeaturePage";
+// import { FeaturePage } from "./pages/FeaturePage";
+import { FeaturePageTemp } from "./pages/FeaturePageTemp/FeaturePageTemp";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
@@ -33,7 +34,8 @@ const App = () => {
             <Provider>
                 <NavBarNew />
                 <Routes>
-                    <Route path="/" element={<FeaturePage />} />
+                    {/* <Route path="/" element={<FeaturePage />} /> */}
+                    <Route path="/" element={<FeaturePageTemp />} />
                     <Route path="about" element={<AboutPage />} />
                     <Route path="shop" element={<OnlineShop />} />
                     <Route path="checkout" element={<CheckoutPage />} />
