@@ -11,7 +11,7 @@ export const imagesData = [
   {
     id: 0,
     cat: "coffee",
-    image: { url: coffee_dark, name: "coffee dark" },
+    image: coffee_dark,
     name: "Koana Speciality Med-Dark Roast",
     price: 30,
     weight: 7,
@@ -22,7 +22,7 @@ export const imagesData = [
   {
     id: 1,
     cat: "coffee",
-    image: { url: coffee_light, name: "coffee light" },
+    image: coffee_light,
     name: "Koana Speciality Med-Light Roast",
     price: 30,
     weight: 7,
@@ -33,7 +33,7 @@ export const imagesData = [
   {
     id: 2,
     cat: "tea",
-    image: { url: tea_green, name: "green tea" },
+    image: tea_green,
     name: "Koana's Volcano Green Tea",
     price: 19,
     weight: 20,
@@ -44,7 +44,7 @@ export const imagesData = [
   {
     id: 3,
     cat: "tea",
-    image: { url: tea_earl, name: "Earl Grey Tea" },
+    image: tea_earl,
     name: "Koana's Volcano Earl Grey Tea",
     price: 19,
     weight: 20,
@@ -55,7 +55,7 @@ export const imagesData = [
   {
     id: 4,
     cat: "food",
-    image: { url: chocolate, name: "chocolate" },
+    image: chocolate,
     name: "Chocolate Lava Mix",
     price: 18,
     weight: 150,
@@ -66,7 +66,7 @@ export const imagesData = [
   {
     id: 5,
     cat: "merch",
-    image: { url: merch, name: "merch" },
+    image: merch,
     name: "Koana's Coffee Flower",
     price: 16,
     weight: undefined,

@@ -166,5 +166,17 @@ of the cart component but made with a custom 'x' shape.
 } -->
 
 //#7
-Adding item inventory count badge on top of the cart icon
-...
+
+<!-- Adding item inventory count badge on top of the cart icon -->
+
+---
+
+session notes: 9/7
+OrderSummaryForm - cart now closes and navigates to shop page when the value of the cart is zero
+NavMenuNew - Adjusted width to accomodate the entire width of the screen
+OrderSummaryForm - now has button to go back to Payment Method
+9/8-9/10
+added styling for checkout - shipping address form
+fixed regular nav icon/hamburger nav icon conflict on media breakpoints
+
+

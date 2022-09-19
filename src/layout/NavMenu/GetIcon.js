@@ -23,7 +23,6 @@ export const GetIcon = () => {
     }, 0);
 
     return iconsData.map(([icon, action], iconIdx) => {
-        console.log(icon.iconName);
         return (
             <div key={iconIdx}>
                 {iconWithBadge.includes(icon.iconName) && (
