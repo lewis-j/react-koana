@@ -1,9 +1,11 @@
-import styles from "./FeaturePage.module.scss";
-import stylesCarousel from "./CarouselContainer.module.scss";
+import { styles, stylesCarousel, stylesLocation, stylesHero } from "./styles";
 import { Carousel } from "../../components/Carousel";
 import { imagesData } from "../../data/imagesData";
 import { useEffect, useRef, useState } from "react";
 import { MapsOL } from "../../components/MapsOL";
+import logoIcon from "../../assets/images/icons/koana_logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMap, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const featuredItems = imagesData
   .slice(0, 6)
@@ -23,6 +25,7 @@ const FeaturePage = () => {
   const carouselRef = useRef();
   const [isGalleryVisible, setIsGalleryVisible] = useState(false);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [carouselAnimEnd, setCarouselAnimEnd] = useState(0);
   const animationNames = { GALLERY: "GALLERY", CAROUSEL: "CAROUESEL" };
   useEffect(() => {
     const gallery = galleryRef.current;
@@ -110,25 +113,67 @@ const FeaturePage = () => {
     });
     return result;
   };
+  const addStyleClass =
+    (current) =>
+    (style = "") =>
+      `${current} ${style}`;
+  const containerStyle = addStyleClass(stylesCarousel.container);
+  const logoOverlayStyle = addStyleClass(stylesCarousel.logoOverlay);
 
+  const getAnimStyles = () => {
+    const { container, logoOverlay, carousel } = stylesCarousel;
+    const style = { container, logoOverlay, carousel };
+    if (isCarouselVisible) {
+      style.container = `${container} ${stylesCarousel.rise}`;
+    }
+    if (carouselAnimEnd > 0) {
+      return {
+        ...style,
+        carousel: `${carousel} ${stylesCarousel.fadeIn}`,
+        logoOverlay: `${logoOverlay} ${stylesCarousel.fadeOut}`,
+      };
+    }
+    return style;
+  };
+  console.log("animation styles::", getAnimStyles());
+
+  const animStyles = getAnimStyles();
+
+  // const animContiainerStyle = isCarouselVisible
+  //   ? containerStyle(stylesCarousel.rise)
+  //   : containerStyle();
+
+  // const animLogoOverlayStyle = carouselAnimEnd
+  //   ? logoOverlayStyle(stylesCarousel.fadeOut)
+  //   : logoOverlayStyle();
   const carouselProps = {
     slidesToShow: 1,
     slidesToMove: 1,
-    className: stylesCarousel.carousel,
+    className: animStyles.carousel,
+    navDelay: 200,
+    showNav: (func) => {
+      console.log("carouselanimend", carouselAnimEnd);
+      if (carouselAnimEnd > 1) func();
+    },
   };
+
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.hero}>
-          <div className={styles.heroWrapper}>
-            <div className={styles.heroContent}>
-              <h1 className={styles.heroTitle}>
-                Best Coffee Shop in the State of Hawaii 2022 by FOOD & WINE
-              </h1>
-              <h3 className={styles.heroSubtitle}>
-                Hawaii Speciality Coffee and Chocolate
-              </h3>
-              <button>Shop Now</button>
+        <div className={stylesHero.container}>
+          <div className={stylesHero.overlay}>
+            <div className={stylesHero.contentWrapper}>
+              <div className={stylesHero.content}>
+                <h1 className={stylesHero.title}>
+                  Best Coffee Shop in the State of Hawaii 2022 by FOOD & WINE
+                </h1>
+                <h3 className={stylesHero.subtitle}>
+                  Hawaii Speciality Coffee and Chocolate
+                </h3>
+                <div className={styles.btnWrapper}>
+                  <button className={stylesHero.btn}>Shop Now</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -149,18 +194,70 @@ const FeaturePage = () => {
         </div>
         <div className={stylesCarousel.wrapper}>
           <div
-            className={stylesCarousel.container}
+            className={animStyles.container}
             ref={carouselRef}
             data-anim={animationNames.CAROUSEL}
+            onAnimationEnd={() => {
+              console.log("running animation");
+              setCarouselAnimEnd((stage) => stage + 1);
+            }}
           >
-            {isCarouselVisible && (
-              <Carousel {...carouselProps}>{renderProducts()}</Carousel>
-            )}
+            <div
+              className={animStyles.logoOverlay}
+              onAnimationEnd={() => {
+                console.log("running animation");
+                setCarouselAnimEnd((stage) => stage + 1);
+              }}
+            >
+              <img src={logoIcon} alt={"Koana Brand Icon"} />
+            </div>
+            <Carousel {...carouselProps}>{renderProducts()}</Carousel>
           </div>
         </div>
-        <div className={styles.location}>
-          <div className={styles.locationContent}></div>
-          <MapsOL className={styles.map} />
+        <div className={stylesLocation.container}>
+          <div className={stylesLocation.mapContainer}>
+            <MapsOL className={stylesLocation.map} />
+          </div>
+          <div className={stylesLocation.contentContainer}>
+            <div className={stylesLocation.content}>
+              <h3 className={stylesLocation.title}>Driving to Koana</h3>
+              <h1 className={stylesLocation.jumboTitle}>
+                Mountain View Village
+              </h1>
+              <p className={stylesLocation.message}>
+                We are located at the heart of old Mountain View Village, about
+                20 mins outside of Hilo, and 20 mins away from the national
+                park. Come by for a coffee break.
+              </p>
+              <div
+                className={stylesLocation.address}
+                onClick={() => {
+                  window.open(
+                    "https://www.google.com/maps/dir//Koana,+18-1325+Old+Volcano+Rd,+Mountain+View,+HI+96771/@19.551059,-155.1118996,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x7953cdbce39b4f45:0xe9a9b13d06b4489d!2m2!1d-155.1075018!2d19.5510317",
+                    "_blank"
+                  );
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faMap}
+                  className={stylesLocation.circleBtn}
+                />
+                <p>18-1325 Old Volcano Rd Mountain View, HI 96771</p>
+              </div>
+              <div className={stylesLocation.phoneNumber}>
+                <a href="tel:8082094432">
+                  <FontAwesomeIcon
+                    icon={faPhone}
+                    className={stylesLocation.circleBtn}
+                  />
+                  <div className={styles.numberContainer}>
+                    <p>808-209-4432</p>
+                  </div>
+                </a>
+              </div>
+              <button className={stylesLocation.submit}>Learn More</button>
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -17,6 +17,7 @@ const Carousel = ({
   className: wrapper = {},
   slidesToShow = 1,
   slidesToMove = 1,
+  showNav,
 }) => {
   const totalSlides = slidesToShow + slidesToMove;
   const initialSlideContent = items[0].slice(0, totalSlides);
@@ -41,12 +42,10 @@ const Carousel = ({
     });
   };
   useEffect(() => {
-    const _timeoutId = setTimeout(() => {
+    showNav(() => {
       setActiveNav(0);
-    }, 4000);
-
-    return () => clearTimeout(_timeoutId);
-  }, []);
+    });
+  }, [showNav]);
 
   useEffect(() => {
     const _intervalId = setInterval(() => {

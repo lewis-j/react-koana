@@ -1,40 +1,10 @@
-@use "../../variables.scss";
+@use "../../../variables.scss";
 
 .container {
   height: 100%;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-}
-.hero {
-  position: relative;
-  aspect-ratio: 4/3;
-  width: 100%;
-  background-attachment: fixed;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url("../../assets/images/interior_shop.jpg");
-  @media (min-width: 1160px) {
-    background-size: cover;
-    height: 100vh;
-  }
-}
-
-.heroWrapper {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.781);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: end;
-  color: white;
-}
-
-.heroContent {
-  width: 60%;
-  height: 33%;
 }
 
 .featured {
@@ -156,16 +126,4 @@
 
 .gallery {
   transition: 1s;
-}
-
-.location {
-  position: relative;
-  width: 100%;
-  height: 30em;
-}
-.map {
-  position: absolute;
-  aspect-ratio: 1/1;
-  height: 20em;
-  min-height: 20em;
 }
