@@ -14,44 +14,45 @@ import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
 import { Footer } from "./layout/NavMenu/Footer";
 import { useContext, useEffect } from "react";
 import { StoreItemContext } from "./context/StoreItemsContext";
+import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {
-    // running useEffect to 'fetch the items' from the server using Axios
-    useEffect(() => {
-        console.log("useEffect started");
-        const fetch_squareItems = async () => {
-            try {
-                const res = await axios.get("/items");
-                console.log(res.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
+  // running useEffect to 'fetch the items' from the server using Axios
+  useEffect(() => {
+    console.log("useEffect started");
+    const fetch_squareItems = async () => {
+      try {
+        const res = await axios.get("/items");
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-        fetch_squareItems();
-    }, []);
+    fetch_squareItems();
+  }, []);
 
-    const storeItemContext = useContext(StoreItemContext);
-    useEffect(() => {
-        storeItemContext.fetchStoreItems();
-    }, []);
-    console.log("storeItemContext.storeItems::", storeItemContext.storeItems);
-    return (
-        <>
-            <Provider>
-                <NavBarNew />
-                <Routes>
-                    {/* <Route path="/" element={<FeaturePage />} /> */}
-                    <Route path="/" element={<FeaturePageTemp />} />
-                    <Route path="about" element={<AboutPage />} />
-                    <Route path="shop" element={<OnlineShop />} />
-                    <Route path="checkout" element={<CheckoutPage />} />
-                </Routes>
-                <Footer />
-                <Cart />
-            </Provider>
-        </>
-    );
+  const storeItemContext = useContext(StoreItemContext);
+  useEffect(() => {
+    storeItemContext.fetchStoreItems();
+  }, []);
+  console.log("storeItemContext.storeItems::", storeItemContext.storeItems);
+  return (
+    <>
+      <Provider>
+        <NavBarNew />
+        <Routes>
+          <Route path="/" element={<FeaturePage />} />
+          {/* <Route path="/" element={<FeaturePageTemp />} /> */}
+          <Route path="about" element={<AboutPage />} />
+          <Route path="shop" element={<OnlineShop />} />
+          <Route path="checkout" element={<CheckoutPage />} />
+        </Routes>
+        <Footer />
+        <Cart />
+      </Provider>
+    </>
+  );
 };
 
 export default App;

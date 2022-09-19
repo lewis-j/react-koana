@@ -1,0 +1,100 @@
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.781);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  color: white;
+  @media (min-width: 1160px) {
+    align-items: start;
+  }
+}
+
+.contentWrapper {
+  padding: 1em;
+  height: 50%;
+  width: 100%;
+  height: 50%;
+  @media (min-width: 1160px) {
+    width: 66%;
+  }
+}
+
+.content {
+  //   width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  width: 100%;
+  max-width: 29em;
+  margin: 0 auto;
+}
+// .title,
+// .subtitle {
+//   margin-bottom: 1rem;
+// }
+.title {
+  font-weight: bold;
+  font-size: 1.5em;
+  letter-spacing: 0.1rem;
+  margin-bottom: 1rem;
+}
+.subtitle {
+  letter-spacing: 0.05rem;
+  margin-bottom: 2rem;
+}
+.btnWrapper {
+  width: 100%;
+}
+
+.btn {
+  display: block;
+  border: 2px solid white;
+  font-size: 1em;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  color: white;
+  background-color: transparent;
+  padding: 0.5em;
+  margin: 0px auto;
+  width: 16em;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+  }
+}
+
+.container {
+  position: relative;
+  aspect-ratio: 9/16;
+  width: 100%;
+  background-attachment: fixed;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../../../assets/images/interior_shop_mobile.jpg");
+
+  @media (min-width: 578px) {
+    aspect-ratio: 4/3;
+    background-size: contain;
+    background-image: url("../../../assets/images/interior_shop.jpg");
+  }
+  @media (min-width: 1160px) {
+    background-size: cover;
+    height: 100vh;
+  }
+}
+
+@media (min-width: 680px) {
+  .content {
+    max-width: 36em;
+    align-items: center;
+  }
+  .title {
+    font-size: 2em;
+    text-align: center;
+  }
+}

@@ -165,7 +165,7 @@ const FeaturePage = () => {
   return (
     <>
       <div className={styles.container}>
-        <div className={stylesHero.container}>
+        {/* <div className={stylesHero.container}>
           <div className={stylesHero.overlay}>
             <div className={stylesHero.contentWrapper}>
               <div className={stylesHero.content}>
@@ -184,6 +184,23 @@ const FeaturePage = () => {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div> */}
+        <div className={stylesHero.viewport}>
+          <div className={stylesHero.outerContainer}>
+            <div
+              className={stylesHero.hoop}
+              // id="feature-hoop"
+              onClick={() => navigate(`/shop`)}
+            >
+              <div className={stylesHero.koana}>koana</div>
+              <div className={stylesHero.desc}>
+                Hawaii Speciality Coffee and Chocolate
+              </div>
+            </div>
+            <div className={stylesHero.best}>
+              Best Coffee Shop in the State of Hawaii 2022 by FOOD & WINE
             </div>
           </div>
         </div>
