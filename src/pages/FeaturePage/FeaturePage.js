@@ -6,6 +6,8 @@ import { MapsOL } from "../../components/MapsOL";
 import logoIcon from "../../assets/images/icons/koana_logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/Button";
 
 const featuredItems = imagesData
   .slice(0, 6)
@@ -13,11 +15,14 @@ const featuredItems = imagesData
 
 const renderProducts = () =>
   [...Array(4).keys()].map((j) => {
-    return imagesData.map(({ image, name }, i) => (
-      <div key={`productId#${i}${j}`} className={stylesCarousel.imgContainer}>
-        <img src={image} alt={name} className={stylesCarousel.img} />
-      </div>
-    ));
+    return imagesData.map(({ image, name, id }, i) => {
+      console.log("id in images data carousel mapping id", id);
+      return (
+        <div key={`${id}`} className={stylesCarousel.imgContainer} data-id={id}>
+          <img src={image} alt={name} className={stylesCarousel.img} />
+        </div>
+      );
+    });
   });
 
 const FeaturePage = () => {
@@ -156,7 +161,7 @@ const FeaturePage = () => {
       if (carouselAnimEnd > 1) func();
     },
   };
-
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.container}>
@@ -171,7 +176,12 @@ const FeaturePage = () => {
                   Hawaii Speciality Coffee and Chocolate
                 </h3>
                 <div className={styles.btnWrapper}>
-                  <button className={stylesHero.btn}>Shop Now</button>
+                  <button
+                    className={stylesHero.btn}
+                    onClick={() => navigate("/shop")}
+                  >
+                    Shop Now
+                  </button>
                 </div>
               </div>
             </div>

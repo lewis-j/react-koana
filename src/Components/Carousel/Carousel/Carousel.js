@@ -11,6 +11,7 @@ import {
 import { useTransitionStyle, useSetCurrent, actions } from "./CarouselHooks";
 import styles from "./Carousel.module.scss";
 import VeritcalNav from "../VerticalNav/VerticalNav";
+import { Button } from "../../Button";
 const _style = (...styles) => styles.join(" ");
 const Carousel = ({
   children: items = ["1", "2"],
@@ -196,6 +197,15 @@ const Carousel = ({
         </div>
 
         <div className={styles.wrapper}>
+          <Button
+            variant="light"
+            className={styles.btnSubmit}
+            onClick={(e) =>
+              console.log("clicking item", current, items[current.x][current.y])
+            }
+          >
+            Add Item
+          </Button>
           <FontAwesomeIcon
             icon={faAngleLeft}
             onClick={() => slidePrev()}

@@ -61,6 +61,11 @@
   padding: 0.5em;
   margin: 0px auto;
   width: 16em;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+  }
 }
 
 .container {

@@ -24,7 +24,7 @@ const MapsOL = ({ className: style_container }) => {
         target: "map",
         view: new View({
           center: place,
-          zoom: 9.5,
+          zoom: 8,
         }),
         layers: [
           new TileLayer({
