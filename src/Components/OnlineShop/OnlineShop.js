@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { StoreItemContext } from "../../context/StoreItemsContext";
+import { useState } from "react";
 import { imagesData } from "../../data/imagesData";
 import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
@@ -7,8 +6,6 @@ import "./onlineShop.css";
 export const OnlineShop = () => {
   const [modalFocus, setModalFocus] = useState(false);
   const [currentModalId, setCurrentModalId] = useState(0);
-  const { storeItems } = useContext(StoreItemContext);
-  console.log("storeItems:", storeItems);
 
   const handleModalFocus = (sender) => {
     if (sender === "card") {
@@ -20,7 +17,7 @@ export const OnlineShop = () => {
     }
   };
 
-  const products = storeItems.map((item, idx) => {
+  const products = imagesData.map((item, idx) => {
     return (
       <div
         key={item.id + idx}
@@ -30,7 +27,7 @@ export const OnlineShop = () => {
           setCurrentModalId(item.id);
         }}
       >
-        <img src={item.image.url} alt={item.image.name}></img>
+        <img src={item.image} alt={item.name}></img>
         <div className="itemInfo">
           <div className="itemDesc">{item.name.toUpperCase()}</div>
           <div className="itemSpecs">

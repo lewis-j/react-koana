@@ -9,13 +9,13 @@ import { faMap, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const featuredItems = imagesData
   .slice(0, 6)
-  .map((data) => ({ url: data.image.url, name: data.name, price: data.price }));
+  .map((data) => ({ url: data.image, name: data.name, price: data.price }));
 
 const renderProducts = () =>
   [...Array(4).keys()].map((j) => {
     return imagesData.map(({ image, name }, i) => (
       <div key={`productId#${i}${j}`} className={stylesCarousel.imgContainer}>
-        <img src={image.url} alt={name} className={stylesCarousel.img} />
+        <img src={image} alt={name} className={stylesCarousel.img} />
       </div>
     ));
   });
