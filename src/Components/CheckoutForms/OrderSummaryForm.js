@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
-import { imagesData } from "../../data/imagesData";
+import { StoreItemContext } from "../../context/StoreItemsContext";
+// import { imagesData } from "../../data/imagesData";
 import { useNavigate } from "react-router-dom";
 import { ShippingInfoSummary } from "./ShippingInfoSummary";
 import { PaymentInfoSummary } from "./PaymentInfoSummary";
@@ -8,14 +9,21 @@ import { PaymentInfoSummary } from "./PaymentInfoSummary";
 export const OrderSummaryForm = (props) => {
     const { getCartData, cartData, displayCart, handleDisplayCart } =
         useContext(CartContext);
+    const { storeItems } = useContext(StoreItemContext);
     const { shippingFormData, paymentFormData, handleFormsCompleted } = props;
     const navigate = useNavigate();
 
+    // const subTotal = () => {
+    //     return cartData.reduce(
+    //         (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
+    //         0
+    //     );
+    // };
     const subTotal = () => {
-        return cartData.reduce(
-            (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
-            0
-        );
+        return cartData.reduce((acc, cur) => {
+            const item = storeItems.find((item) => item.id === cur.id);
+            return item.price * cur.quantity + acc;
+        }, 0);
     };
 
     useEffect(() => {
@@ -30,21 +38,31 @@ export const OrderSummaryForm = (props) => {
         checkoutItemState = "checkoutItemStatic";
     }
 
+    const alertItems = () => {
+        const itemsAndQuantity = checkoutItems.map((purchase) => {
+            const product = storeItems.find((item) => item.id === purchase.id);
+            return `\n${product.name} (${purchase.quantity})`;
+        });
+        const total = `$${((subTotal() + 12.5) / 1).toFixed(2)}`;
+        const orderNumber = Math.floor(Math.random() * 9999999999);
+        alert(
+            `Thank you for your purchase!\nORDER: ${orderNumber}\n${itemsAndQuantity}\n\nTOTAL: ${total}`
+        );
+    };
+
     const checkoutItems = getCartData().filter((item) => item.quantity > 0);
 
     const ItemsInCart = () => {
         return checkoutItems.map((checkoutItem, idx) => {
+            const { name, price, image } = storeItems.find(
+                (item) => item.id === checkoutItem.id
+            );
             return (
                 <div key={idx} className={checkoutItemState}>
                     <div className="checkoutItemImage">
-                        <img
-                            src={imagesData[checkoutItem.id].image}
-                            alt={imagesData[checkoutItem.id].name}
-                        />
+                        <img src={image} alt={name} />
                     </div>
-                    <div className="checkoutItemDesc">
-                        {imagesData[checkoutItem.id].name}
-                    </div>
+                    <div className="checkoutItemDesc">{name}</div>
 
                     <div className="quantityEdit">
                         <div className="checkoutItemQuantity">
@@ -57,9 +75,7 @@ export const OrderSummaryForm = (props) => {
                             edit
                         </div>
                     </div>
-                    <div className="checkoutitemPrice">
-                        ${imagesData[checkoutItem.id].price}
-                    </div>
+                    <div className="checkoutitemPrice">${price}</div>
                 </div>
             );
         });
@@ -121,7 +137,7 @@ export const OrderSummaryForm = (props) => {
                         </div>
                         <div
                             className="formButtonPurchase"
-                            onClick={() => console.log(checkoutItems)}
+                            onClick={() => alertItems()}
                         >
                             <div className="place">place</div>
                             <div className="order">order</div>

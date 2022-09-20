@@ -1,11 +1,13 @@
 import { createContext, useContext, useReducer, useState } from "react";
-import { imagesData } from "../data/imagesData";
+// import { imagesData } from "../data/imagesData";
+import { StoreItemContext } from "./StoreItemsContext";
 
 export const CartContext = createContext();
 
 const initialState = [];
 
 export const Provider = ({ children }) => {
+    const { storeItems } = useContext(StoreItemContext);
     const [cartData, setCartData] = useState(initialState);
     // state to toggle visibility of Cart
     const [displayCart, setDisplayCart] = useState(false);
@@ -19,7 +21,7 @@ export const Provider = ({ children }) => {
                 if (
                     increment &&
                     item.quantity <
-                        imagesData.find((shopItem) => shopItem.id === item.id)
+                        storeItems.find((shopItem) => shopItem.id === item.id)
                             .inventory
                 ) {
                     return { id: item.id, quantity: item.quantity + 1 };
@@ -29,6 +31,7 @@ export const Provider = ({ children }) => {
             }
             return item;
         });
+        console.log("updated objects: ", updatedObjects);
         setCartData(updatedObjects);
     };
 
