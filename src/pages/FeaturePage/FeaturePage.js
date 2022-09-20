@@ -20,7 +20,7 @@ const renderProducts = () =>
         <div
           key={`${id}`}
           className={stylesCarousel.imgContainer}
-          productId={id}
+          productid={id}
         >
           <img src={image} alt={name} className={stylesCarousel.img} />
         </div>

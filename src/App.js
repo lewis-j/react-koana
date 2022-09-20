@@ -1,11 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 // import { FeaturePage } from "./pages/FeaturePage";
-import { FeaturePageTemp } from "./pages/FeaturePageTemp/FeaturePageTemp";
+// import { FeaturePageTemp } from "./pages/FeaturePageTemp/FeaturePageTemp";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import { Provider } from "./context/CartContext";
-import { StoreItemProvider } from "./context/StoreItemsContext";
 import axios from "./axios";
 
 import Cart from "./components/Cart/Cart.js";
@@ -34,12 +33,6 @@ const App = () => {
 
     fetch_squareItems();
   }, []);
-
-  const storeItemContext = useContext(StoreItemContext);
-  useEffect(() => {
-    storeItemContext.fetchStoreItems();
-  }, []);
-  console.log("storeItemContext.storeItems::", storeItemContext.storeItems);
   return (
     <>
       <Provider>

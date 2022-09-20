@@ -206,7 +206,7 @@ const Carousel = ({
             variant="light"
             className={styles.btnSubmit}
             onClick={() => {
-              clickHandler(items[current.y][current.x].props.productId);
+              clickHandler(items[current.y][current.x].props.productid);
             }}
           >
             Add Item
