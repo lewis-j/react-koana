@@ -16,9 +16,12 @@ const featuredItems = imagesData
 const renderProducts = () =>
   [...Array(4).keys()].map((j) => {
     return imagesData.map(({ image, name, id }, i) => {
-      console.log("id in images data carousel mapping id", id);
       return (
-        <div key={`${id}`} className={stylesCarousel.imgContainer} data-id={id}>
+        <div
+          key={`${id}`}
+          className={stylesCarousel.imgContainer}
+          productId={id}
+        >
           <img src={image} alt={name} className={stylesCarousel.img} />
         </div>
       );
@@ -37,26 +40,16 @@ const FeaturePage = () => {
     const carousel = carouselRef.current;
 
     if (gallery && carousel) {
-      console.log("setting up observer");
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            console.log("entry", entry);
             const { isIntersecting, target, intersectionRatio } = entry;
-
-            console.log({
-              isIntersecting,
-              target,
-              intersectionRatio,
-            });
             if (isIntersecting) {
               observer.unobserve(entry.target);
-              console.log("target", target.dataset.anim);
               if (target.dataset.anim === animationNames.GALLERY) {
                 setIsGalleryVisible(true);
               }
               if (target.dataset.anim === animationNames.CAROUSEL) {
-                console.log("run carousel anim");
                 setIsCarouselVisible(true);
               }
             }
@@ -140,7 +133,6 @@ const FeaturePage = () => {
     }
     return style;
   };
-  console.log("animation styles::", getAnimStyles());
 
   const animStyles = getAnimStyles();
 
@@ -157,7 +149,6 @@ const FeaturePage = () => {
     className: animStyles.carousel,
     navDelay: 200,
     showNav: (func) => {
-      console.log("carouselanimend", carouselAnimEnd);
       if (carouselAnimEnd > 1) func();
     },
   };
@@ -225,20 +216,25 @@ const FeaturePage = () => {
             ref={carouselRef}
             data-anim={animationNames.CAROUSEL}
             onAnimationEnd={() => {
-              console.log("running animation");
               setCarouselAnimEnd((stage) => stage + 1);
             }}
           >
             <div
               className={animStyles.logoOverlay}
               onAnimationEnd={() => {
-                console.log("running animation");
                 setCarouselAnimEnd((stage) => stage + 1);
               }}
             >
               <img src={logoIcon} alt={"Koana Brand Icon"} />
             </div>
-            <Carousel {...carouselProps}>{renderProducts()}</Carousel>
+            <Carousel
+              clickHandler={(item) => {
+                console.log("item and current", item);
+              }}
+              {...carouselProps}
+            >
+              {renderProducts()}
+            </Carousel>
           </div>
         </div>
         <div className={stylesLocation.container}>

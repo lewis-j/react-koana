@@ -12,13 +12,16 @@ import { useTransitionStyle, useSetCurrent, actions } from "./CarouselHooks";
 import styles from "./Carousel.module.scss";
 import VeritcalNav from "../VerticalNav/VerticalNav";
 import { Button } from "../../Button";
+import { click } from "@testing-library/user-event/dist/click";
 const _style = (...styles) => styles.join(" ");
+
 const Carousel = ({
   children: items = ["1", "2"],
   className: wrapper = {},
   slidesToShow = 1,
   slidesToMove = 1,
   showNav,
+  clickHandler,
 }) => {
   const totalSlides = slidesToShow + slidesToMove;
   const initialSlideContent = items[0].slice(0, totalSlides);
@@ -31,6 +34,8 @@ const Carousel = ({
     items.length,
     slidesToMove
   );
+
+  console.log("items in carousel", clickHandler);
 
   const [transition, setTransition] = useState({});
 
@@ -200,9 +205,9 @@ const Carousel = ({
           <Button
             variant="light"
             className={styles.btnSubmit}
-            onClick={(e) =>
-              console.log("clicking item", current, items[current.x][current.y])
-            }
+            onClick={() => {
+              clickHandler(items[current.y][current.x].props.productId);
+            }}
           >
             Add Item
           </Button>

@@ -1,7 +1,7 @@
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { koana_logo } from "../../../assets/images/icons";
 import { CartContext } from "../../../context/CartContext";
 import { GetIcon } from "../GetIcon";
@@ -10,6 +10,9 @@ import styles from "./SmScreenMenu.scss";
 const SmScreenMenu = () => {
   const [expand, setExpand] = useState(false);
   const navigate = useNavigate();
+  const darkThemes = ["/"];
+  const location = useLocation();
+  const isDark = darkThemes.some((path) => path === location.pathname);
   const value = useContext(CartContext);
 
   const menuBtnRef = useRef(null);
@@ -65,9 +68,13 @@ const SmScreenMenu = () => {
     </div>
   ));
 
-  const classStyle = expand
+  const hiddenStyle = expand
     ? "burgerNavItems"
     : "burgerNavItems burgerNavItemsHide";
+  console.log("isDark", isDark);
+  const classStyle = isDark
+    ? hiddenStyle + " darkTheme"
+    : hiddenStyle + " lightTheme";
   return (
     <div className={styles.container}>
       <div className="bigMacMode">
