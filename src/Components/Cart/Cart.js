@@ -3,35 +3,40 @@ import { imagesData } from "../../data/imagesData";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
+import { StoreItemContext } from "../../context/StoreItemsContext";
 import "./cart.css";
 
 const Cart = () => {
     const value = useContext(CartContext);
+    const { storeItems } = useContext(StoreItemContext);
     const navigate = useNavigate();
     const subTotal = () => {
-        return value.cartData.reduce(
-            (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
-            0
-        );
+        return value.cartData.reduce((acc, cur) => {
+            const item = storeItems.find((item) => item.id === cur.id);
+            return item.price * cur.quantity + acc;
+        }, 0);
     };
 
     const cartItemsContent = () => {
+        console.log("test", storeItems[0].name);
+        console.log("cartData", value.cartData);
         const itemList = value.cartData.map((cartItem, idx) => {
+            const { name, price, weight, unit, image } = storeItems.find(
+                (item) => item.id === cartItem.id
+            );
+
             return (
                 <div key={idx} className="cartItem">
                     <div className="cartItemContent">
                         <div className="cartItemStatsContainer">
                             <div className="cartItemTitleContainer">
                                 <div className="cartItemName">
-                                    {imagesData[cartItem.id].name.toUpperCase()}
+                                    {name.toUpperCase()}
                                 </div>
                             </div>
                             <div className="cartItemPrice">
-                                ${imagesData[cartItem.id].price}{" "}
-                                {imagesData[cartItem.id].weight !== undefined &&
-                                    "/"}{" "}
-                                {imagesData[cartItem.id].weight}
-                                {imagesData[cartItem.id].unit}
+                                ${price} {weight !== undefined && "/"} {weight}
+                                {unit}
                             </div>
                             <div className="cartItemEditorContainer">
                                 <div className="cartItemQuantityContainer">
@@ -74,10 +79,7 @@ const Cart = () => {
                                 {"remove"}
                             </div>
                             <div className="cartItemImageContainer">
-                                <img
-                                    src={imagesData[cartItem.id].image}
-                                    alt="item"
-                                />
+                                <img src={image} alt="item" />
                             </div>
                         </div>
                     </div>
