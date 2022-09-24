@@ -15,7 +15,6 @@ export const Provider = ({ children }) => {
     const getCartData = () => cartData;
 
     const cartHandleItemQuantityChange = (id, increment) => {
-        // console.log("cartHandleItemQuantityChange");
         const updatedObjects = getCartData().map((item) => {
             if (item.id === id) {
                 if (
@@ -40,6 +39,14 @@ export const Provider = ({ children }) => {
         setCartData(remainingCart);
     };
 
+    // empties cart after purchase
+    const handleEmptyCart = () => {
+        const remainingCart = cartData.filter(
+            (item) => item === "notEqualToMe:)"
+        );
+        setCartData(remainingCart);
+    };
+
     const updateCart = (id, itemQuantity) => {
         setCartData((prev) => {
             const otherItems = prev.filter((item) => item.id !== id);
@@ -53,19 +60,26 @@ export const Provider = ({ children }) => {
     // this is accessed on Cart close button,
     // VerticalMenu and RegularNavbar (children of the navbar)
     const handleDisplayCart = () => {
-        // console.log("handleDisplayCart: ", displayCart);
         setDisplayCart(!displayCart);
+    };
+
+    const checkSubTotal = () => {
+        return cartData.reduce((acc, cur) => {
+            const item = storeItems.find((item) => item.id === cur.id);
+            return item.price * cur.quantity + acc;
+        }, 0);
     };
 
     const value = {
         cartHandleItemQuantityChange,
         handleRemoveItem,
         getCartData,
+        handleEmptyCart,
         cartData,
         updateCart,
-        //
         handleDisplayCart,
         displayCart,
+        checkSubTotal,
     };
 
     return (

@@ -7,8 +7,13 @@ import { ShippingInfoSummary } from "./ShippingInfoSummary";
 import { PaymentInfoSummary } from "./PaymentInfoSummary";
 
 export const OrderSummaryForm = (props) => {
-    const { getCartData, cartData, displayCart, handleDisplayCart } =
-        useContext(CartContext);
+    const {
+        getCartData,
+        cartData,
+        handleEmptyCart,
+        displayCart,
+        handleDisplayCart,
+    } = useContext(CartContext);
     const { storeItems } = useContext(StoreItemContext);
     const { shippingFormData, paymentFormData, handleFormsCompleted } = props;
     const navigate = useNavigate();
@@ -28,7 +33,8 @@ export const OrderSummaryForm = (props) => {
 
     useEffect(() => {
         if (!subTotal()) {
-            displayCart && handleDisplayCart();
+            // this will toggle off cart display if value of all items in cart is zero
+            // displayCart && handleDisplayCart();
             navigate(`/shop`);
         }
     });
@@ -137,7 +143,10 @@ export const OrderSummaryForm = (props) => {
                         </div>
                         <div
                             className="formButtonPurchase"
-                            onClick={() => alertItems()}
+                            onClick={() => {
+                                alertItems();
+                                handleEmptyCart();
+                            }}
                         >
                             <div className="place">place</div>
                             <div className="order">order</div>

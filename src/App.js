@@ -17,38 +17,38 @@ import { StoreItemContext } from "./context/StoreItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {
-  const { setStoreItemsHandler } = useContext(StoreItemContext);
-  // running useEffect to 'fetch the items' from the server using Axios
-  useEffect(() => {
-    console.log("useEffect started");
-    const fetch_squareItems = async () => {
-      try {
-        const res = await axios.get("/items");
-        console.log(res.data);
-        setStoreItemsHandler(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    const { setStoreItemsHandler } = useContext(StoreItemContext);
+    // running useEffect to 'fetch the items' from the server using Axios
+    useEffect(() => {
+        console.log("useEffect started");
+        const fetch_squareItems = async () => {
+            try {
+                const res = await axios.get("/items");
+                // console.log(res.data);
+                setStoreItemsHandler(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
 
-    fetch_squareItems();
-  }, []);
-  return (
-    <>
-      <Provider>
-        <NavBarNew />
-        <Routes>
-          <Route path="/" element={<FeaturePage />} />
-          {/* <Route path="/" element={<FeaturePageTemp />} /> */}
-          <Route path="about" element={<AboutPage />} />
-          <Route path="shop" element={<OnlineShop />} />
-          <Route path="checkout" element={<CheckoutPage />} />
-        </Routes>
-        <Footer />
-        <Cart />
-      </Provider>
-    </>
-  );
+        fetch_squareItems();
+    }, []);
+    return (
+        <>
+            <Provider>
+                <NavBarNew />
+                <Routes>
+                    <Route path="/" element={<FeaturePage />} />
+                    {/* <Route path="/" element={<FeaturePageTemp />} /> */}
+                    <Route path="about" element={<AboutPage />} />
+                    <Route path="shop" element={<OnlineShop />} />
+                    <Route path="checkout" element={<CheckoutPage />} />
+                </Routes>
+                <Footer />
+                <Cart />
+            </Provider>
+        </>
+    );
 };
 
 export default App;

@@ -1,7 +1,7 @@
 // we're going to access imagesData with the testData 'props'
-import { imagesData } from "../../data/imagesData";
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { imagesData } from "../../data/imagesData";
+import { useContext, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import "./cart.css";
@@ -10,6 +10,9 @@ const Cart = () => {
     const value = useContext(CartContext);
     const { storeItems } = useContext(StoreItemContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log("locations", location);
+
     const subTotal = () => {
         return value.cartData.reduce((acc, cur) => {
             const item = storeItems.find((item) => item.id === cur.id);
@@ -17,9 +20,18 @@ const Cart = () => {
         }, 0);
     };
 
+    // useEffect(() => {
+    //     if (value.displayCart) {
+    //         if (value.cartData.length < 1 || value.checkSubTotal() === 0) {
+    //             navigate("/shop");
+    //         }
+    //     }
+    // }, [navigate, storeItems, value, value.cartData]);
+
     const cartItemsContent = () => {
         console.log("test", storeItems[0].name);
         console.log("cartData", value.cartData);
+
         const itemList = value.cartData.map((cartItem, idx) => {
             const { name, price, weight, unit, image } = storeItems.find(
                 (item) => item.id === cartItem.id
