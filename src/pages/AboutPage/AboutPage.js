@@ -13,8 +13,8 @@ const AboutPage = () => {
                     </div>
                     <div className="textContent">
                         <div>
-                            <h2>Our Aloha Story</h2>
-                            <h4>Aloha from Brian and Jan,</h4>
+                            <h2 className="header">Our Aloha Story</h2>
+                            <h4 className="header">Aloha from Brian and Jan,</h4>
                             <p>{aboutPageText}</p>
                             <h4>Aloha A Hui Hou~ Sincerely,</h4>
                             <h4>Brian and Jan</h4>
