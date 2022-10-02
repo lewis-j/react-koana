@@ -58,6 +58,7 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    opacity: 0.4;
     filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
 }

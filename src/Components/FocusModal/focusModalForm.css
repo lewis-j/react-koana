@@ -7,7 +7,7 @@
 }
 
 .quantityLabel {
-    color: #fffd80;
+    color: #d0cf6a;
     font-size: 0.6rem;
     margin-bottom: .2rem;
     letter-spacing: .1rem;
@@ -22,7 +22,7 @@
 }
 
 .increment {
-    border: 1px solid #fffd80;
+    border: 1px solid #d0cf6a;
     border-bottom-left-radius: 1.3rem;
     width: 4rem;
     cursor: pointer;
@@ -30,7 +30,7 @@
 }
 
 .increment:hover {
-    background-color: #fffd80;
+    background-color: #d0cf6a;
     transition: all 0.2s ease-in-out;
 }
 
@@ -41,7 +41,7 @@
 .plusHorizontal {
     width: 1.5rem;
     height: 1px;
-    background-color: #fffd80;
+    background-color: #d0cf6a;
     transform: translate(1.2rem, 1.2rem);
 }
 
@@ -56,12 +56,12 @@
 .plusVertical {
     width: 1.5rem;
     height: 1px;
-    background-color: #fffd80;
+    background-color: #d0cf6a;
     transform: rotate(90deg) translate(1.1rem, -1.15rem);
 }
 
 .decrement {
-    border: 1px solid #fffd80;
+    border: 1px solid #d0cf6a;
     border-top-right-radius: 1.3rem;
     width: 4rem;
     display: flex;
@@ -72,7 +72,7 @@
 }
 
 .decrement:hover {
-    background-color: #fffd80;
+    background-color: #d0cf6a;
     transition: all 0.2s ease-in-out;
 }
 
@@ -83,7 +83,7 @@
 .minus {
     width: 1.5rem;
     height: 1px;
-    background-color: #fffd80;
+    background-color: #d0cf6a;
 }
 
 .decrement:hover .minus{
@@ -97,8 +97,8 @@
     align-items: center;
     font-size: 1.5rem;
     color: #d0cf6a;
-    border-top: 1px solid #fffd80;
-    border-bottom: 1px solid #fffd80;
+    border-top: 1px solid #d0cf6a;
+    border-bottom: 1px solid #d0cf6a;
 }
 
 .submitButton {
@@ -110,8 +110,8 @@
     transition: all 0.2s ease-in-out;
     font-size: 0.75rem;
     letter-spacing: .1rem;
-    color: #fffd80;
-    border: 1px solid #fffd80;
+    color: #d0cf6a;
+    border: 1px solid #d0cf6a;
     border-bottom-left-radius: 1.4rem;
     border-top-right-radius: 1.4rem;
     
@@ -133,7 +133,7 @@
 }
 
 .submitButton:hover {
-    background-color: #fffd80;
+    background-color: #d0cf6a;
     color: black;
     transition: all 0.2s ease-in-out;
     font-weight: bold;
@@ -141,17 +141,17 @@
 }
 
 .submitButton:active {
-    color: #fffd80;
+    color: #d0cf6a;
     background-color: black;
 }
 
 .submitButton:hover.Zero {
-    background-color: #fffd80;
+    background-color: #d0cf6a;
     color: black;
     font-weight: bold;
 }
 
 .submitButton:active.Zero {
     background-color: black;
-    color: #fffd80;
+    color: #d0cf6a;
 }

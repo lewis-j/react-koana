@@ -14,7 +14,7 @@
     border-bottom-left-radius: 3rem;
     border: 1px solid #d0cf6a;
     /* background-image: linear-gradient(white, white, rgb(255, 228, 196)); */
-    background-color: rgba(0, 0, 0, .8);
+    background-color: rgba(0, 0, 0, 0.8);
     /* box-shadow: 0 0px 50px 25px rgba(140, 140, 140, 0.5); */
     animation: fadeModalIn 0.5s ease-out forwards;
 }
@@ -52,6 +52,7 @@
     margin-right: 1.25rem;
     padding: 1rem 0.3rem;
     border-radius: 50%;
+    border: 1px solid black;
     background-color: black;
     /* border: 1px solid rgb(254, 251, 0); */
     cursor: pointer;
@@ -63,8 +64,9 @@
 }
 
 .modalCloseButton:hover {
+    border: 1px solid black;
     background-color: #d0cf6a;
-    /* transition: all 0.25s ease-in-out; */
+    transition: all 0.25s ease-in-out;
 }
 
 .modalCloseButtonLeftLine,
@@ -96,7 +98,7 @@
 }
 
 .modalCloseButtonLeftLine {
-    transform: rotate(45deg) translate(1px, 1px);
+    transform: rotate(45deg) translate(1px, 0.75px);
 }
 
 .modalCloseButtonRightLine {
@@ -125,17 +127,15 @@
 
 .boxDesc {
     color: #60be02;
-    font-size: .75rem;
+    font-size: 0.75rem;
     font-weight: bold;
     letter-spacing: 0.1rem;
-
 }
-
 
 .boxPrice {
     color: rgb(144, 173, 106);
     font-size: 1rem;
-    letter-spacing: .1rem;
+    letter-spacing: 0.1rem;
 }
 
 @media screen and (min-width: 751px) {
@@ -154,7 +154,7 @@
     }
 
     .modalBorder img {
-        width: 50%;
+        /* width: 50%; */
         height: 100%;
         border-top-right-radius: 2.5rem;
         border-bottom-left-radius: 2.5rem;
@@ -166,6 +166,10 @@
         margin-top: 1rem;
         margin-right: 1rem;
         border: 1px solid #d0cf6a;
+    }
+    .modalCloseButton:hover {
+        border: 1px solid #d0cf6a;
+        transition: all 0.25s ease-in-out;
     }
 
     .boxDetails {
@@ -204,5 +208,4 @@
         font-size: 0.65rem;
         letter-spacing: 0.1rem;
     }
-
 }
