@@ -4,8 +4,23 @@ import { useState } from "react";
 import { ShippingForm } from "../../components/CheckoutForms/ShippingForm";
 import { PaymentForm } from "../../components/CheckoutForms/PaymentForm.js";
 import { OrderSummaryForm } from "../../components/CheckoutForms/OrderSummaryForm";
+import { useContext, useEffect } from "react";
+import { CartContext } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
+    const { cartData, displayCart, checkSubTotal } = useContext(CartContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (displayCart) {
+            if (cartData.length < 1 || checkSubTotal() === 0) {
+                navigate("/shop");
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [cartData, displayCart, checkSubTotal]);
+
     const [shippingFormData, setShippingFormData] = useState({
         firstName: "a",
         lastName: "a",
@@ -77,15 +92,16 @@ const CheckoutPage = () => {
         //   <MyPaymentForm />
         // </div>
         <>
-            {formsCompleted.shippingForm && formsCompleted.paymentForm && (
-                <OrderSummaryForm
-                    shippingFormData={shippingFormData}
-                    paymentFormData={paymentFormData}
-                    handleFormsCompleted={handleFormsCompleted}
-                />
-            )}
-
-            {!formsCompleted.shippingForm && (
+            {cartData &&
+                formsCompleted.shippingForm &&
+                formsCompleted.paymentForm && (
+                    <OrderSummaryForm
+                        shippingFormData={shippingFormData}
+                        paymentFormData={paymentFormData}
+                        handleFormsCompleted={handleFormsCompleted}
+                    />
+                )}
+            {cartData && !formsCompleted.shippingForm && (
                 <ShippingForm
                     shippingFormData={shippingFormData}
                     setShippingFormData={setShippingFormData}
@@ -93,7 +109,8 @@ const CheckoutPage = () => {
                     handleFormsCompleted={handleFormsCompleted}
                 />
             )}
-            {formsCompleted.shippingForm &&
+            {cartData &&
+                formsCompleted.shippingForm &&
                 !formsCompleted.paymentForm &&
                 !formsCompleted.orderSummaryForm && (
                     <PaymentForm
@@ -102,6 +119,7 @@ const CheckoutPage = () => {
                         handleFormsCompleted={handleFormsCompleted}
                     />
                 )}
+            {/* {!cartData && navigate("/shop")} */}
         </>
     );
 };
