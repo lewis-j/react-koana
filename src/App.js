@@ -23,7 +23,7 @@ const App = () => {
     console.log("useEffect started");
     const fetch_squareItems = async () => {
       try {
-        const res = await axios.get("/items");
+        const res = await axios.get("/catalog");
         console.log(res.data);
         setStoreItemsHandler(res.data);
       } catch (err) {
