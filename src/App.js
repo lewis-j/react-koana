@@ -24,7 +24,7 @@ const App = () => {
     const fetch_squareItems = async () => {
       try {
         const res = await axios.get("/catalog");
-        // console.log(res.data);
+
         setStoreItemsHandler(res.data);
       } catch (err) {
         console.log(err);
