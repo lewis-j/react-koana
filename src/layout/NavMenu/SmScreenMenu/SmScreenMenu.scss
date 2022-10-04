@@ -42,6 +42,8 @@
     justify-content: center;
     gap: 3px;
     animation: opacity-bigMac 2s forwards;
+    background-color: rgba(0,0,0,.3);
+    border-radius: 1000px;
   }
 
   @keyframes opacity-bigMac {
@@ -65,6 +67,7 @@
     // color: rgb(209, 209, 209);
     transition: all 0.25s ease-in-out;
     z-index: 1;
+    
   }
 
   .burgerExpand {
@@ -99,12 +102,24 @@
     transition: opacity 1s, transform 0.4s ease-in-out;
     position: absolute;
     text-transform: uppercase;
+    padding-bottom: 1rem;
   }
   .darkTheme {
     color: rgb(255, 255, 255);
+    background-color: rgba(0,0,0,.3);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 1000px;
+    border-bottom-right-radius: 1000px;
   }
   .lightTheme {
     color: rgb(66, 66, 66);
+    background-color: rgba(0,0,0,.3);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 1000px;
+    border-bottom-right-radius: 1000px;
+    border-radius: 1000px;
   }
 
   .burgerNavItemsHide {

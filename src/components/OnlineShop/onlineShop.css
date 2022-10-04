@@ -23,6 +23,24 @@
     animation: fadeIn 2s;
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    filter: grayscale(50%);
+    -webkit-filter: grayscale(50%);
+}
+
+.itemCardsBackground {
+    /* border: 1px solid white; */
+    margin-left: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+    animation: fadeIn 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
 }
 
 
@@ -37,8 +55,7 @@
     align-items: center;
     opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
-    filter: grayscale(50%);
-    -webkit-filter: grayscale(50%);
+
 }
 
 .itemCard:hover {
@@ -50,16 +67,17 @@
 }
 
 .itemCardBackground {
-    height: 43.75vh;
+    height: auto;
     min-height: 19rem;
     width: 35vh;
     min-width: 15rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    opacity: 0.3;
+    padding: 1rem;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    opacity: 0.4;
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
 }
 
 .itemCardBackground:hover {
@@ -91,7 +109,8 @@
 
 .itemCardBackground img {
     width: 100%;
-    border-radius: 2rem;
+    border-top-right-radius: 3rem;
+    border-bottom-left-radius: 3rem;
 }
 
 .itemInfo {
@@ -140,10 +159,10 @@
 
 .modalOffClickWrapper {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(0, 0, 0, 0.5);
     top: 0;
     left: 0;
-    height: 100%;
+    height: auto;
     width: 100vw;
     z-index: 2;
 }
@@ -154,7 +173,7 @@
     /* background-color: rgba(179, 38, 38, 0.678); */
     top: 0;
     left: 0;
-    height: 100%;
+    height: auto;
     width: 100vw;
     z-index: 3;
 }

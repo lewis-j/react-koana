@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 // import { imagesData } from "../../data/imagesData";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import FocusModal from "../FocusModal/FocusModal";
@@ -6,6 +7,7 @@ import "./onlineShop.css";
 
 export const OnlineShop = () => {
     const { getStoreItemsHandler, storeItems } = useContext(StoreItemContext);
+    const { displayCart } = useContext(CartContext);
     const [modalFocus, setModalFocus] = useState(false);
     const [currentModalId, setCurrentModalId] = useState(0);
 
@@ -21,9 +23,10 @@ export const OnlineShop = () => {
 
     const products = storeItems.map((item, idx) => {
         return (
+            
             <div
                 key={item.id + idx}
-                className={modalFocus ? "itemCardBackground" : "itemCard"}
+                className={modalFocus || displayCart ? "itemCardBackground" : "itemCard"}
                 onClick={() => {
                     handleModalFocus(!modalFocus ? "card" : "outside");
                     setCurrentModalId(item.id);

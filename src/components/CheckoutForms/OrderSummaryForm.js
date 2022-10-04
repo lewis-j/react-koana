@@ -41,7 +41,7 @@ export const OrderSummaryForm = (props) => {
 
     let checkoutItemState = "checkoutItem";
     if (displayCart) {
-        checkoutItemState = "checkoutItemStatic";
+        checkoutItemState = "checkoutItemStatic"
     }
 
     const alertItems = () => {
@@ -81,7 +81,7 @@ export const OrderSummaryForm = (props) => {
                             edit
                         </div>
                     </div>
-                    <div className="checkoutitemPrice">${price}</div>
+                    <div className="checkoutItemPrice">${price}</div>
                 </div>
             );
         });

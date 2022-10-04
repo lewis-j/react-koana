@@ -18,7 +18,7 @@ export const ShippingInfoSummary = ({ shippingFormData, paymentFormData }) => {
         textTransform: "uppercase",
         fontSize: ".65rem",
         letterSpacing: "0.1rem",
-        color: "#01949b",
+        color: "#d0cf6a",
     };
 
     function capChanger(text, setting) {

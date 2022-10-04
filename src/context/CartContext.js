@@ -60,7 +60,7 @@ export const Provider = ({ children }) => {
   // this is accessed on Cart close button,
   // VerticalMenu and RegularNavbar (children of the navbar)
   const handleDisplayCart = () => {
-    // console.log("handleDisplayCart: ", displayCart);
+    console.log("handleDisplayCart function");
     setDisplayCart(!displayCart);
   };
 
