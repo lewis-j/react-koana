@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 // import { FeaturePage } from "./pages/FeaturePage";
 // import { FeaturePageTemp } from "./pages/FeaturePageTemp/FeaturePageTemp";
-// import { OnlineShop } from "./components/OnlineShop";
+import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import { Provider } from "./context/CartContext";
@@ -23,7 +23,7 @@ const App = () => {
     console.log("useEffect started");
     const fetch_squareItems = async () => {
       try {
-        const res = await axios.get("/items");
+        const res = await axios.get("/catalog");
         // console.log(res.data);
         setStoreItemsHandler(res.data);
       } catch (err) {
@@ -41,7 +41,7 @@ const App = () => {
           <Route path="/" element={<FeaturePage />} />
           {/* <Route path="/" element={<FeaturePageTemp />} /> */}
           <Route path="about" element={<AboutPage />} />
-          {/* <Route path="shop" element={<OnlineShop />} /> */}
+          <Route path="shop" element={<OnlineShop />} />
           <Route path="checkout" element={<CheckoutPage />} />
         </Routes>
         <Footer />
