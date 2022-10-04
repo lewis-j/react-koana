@@ -7,7 +7,7 @@ import {
   tea_green,
 } from "../assets/images/products";
 
-export const imagesData = [
+const itemDefaults = [
   {
     id: 0,
     cat: "coffee",
@@ -75,3 +75,5 @@ export const imagesData = [
     inventory: 5,
   },
 ];
+
+export default itemDefaults;
