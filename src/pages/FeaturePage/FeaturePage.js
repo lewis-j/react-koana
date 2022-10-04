@@ -194,12 +194,16 @@ const FeaturePage = () => {
                             // id="feature-hoop"
                             onClick={() => navigate(`/shop`)}
                         >
-                            <div className={stylesHero.koana}>{`K\xa0\xa0\xa0\xa0a\xa0n\xa0a`}</div>
-                            {<div className={stylesHero.ohBox}>
-                                  <div className={stylesHero.koanaOh}></div>
-                            </div>}
+                            <div
+                                className={stylesHero.koana}
+                            >{`K\xa0\xa0\xa0\xa0a\xa0n\xa0a`}</div>
+                            {
+                                <div className={stylesHero.ohBox}>
+                                    <div className={stylesHero.koanaOh}></div>
+                                </div>
+                            }
                             <div className={stylesHero.desc}>
-                                Hawaii Speciality Coffee and Chocolate
+                                Hawaii Speciality Coffee & Chocolate
                             </div>
                         </div>
                         <div className={stylesHero.best}>

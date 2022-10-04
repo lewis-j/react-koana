@@ -7,6 +7,7 @@ import { OrderSummaryForm } from "../../components/CheckoutForms/OrderSummaryFor
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import "../../components/CheckoutForms/checkoutForms.css";
 
 const CheckoutPage = () => {
     const { cartData, displayCart, checkSubTotal } = useContext(CartContext);
@@ -91,35 +92,37 @@ const CheckoutPage = () => {
         // <div className={styles.container}>
         //   <MyPaymentForm />
         // </div>
-        <>
-            {cartData &&
-                formsCompleted.shippingForm &&
-                formsCompleted.paymentForm && (
-                    <OrderSummaryForm
+        <>  
+            <div className="checkoutFormBackground">
+                {cartData &&
+                    formsCompleted.shippingForm &&
+                    formsCompleted.paymentForm && (
+                        <OrderSummaryForm
+                            shippingFormData={shippingFormData}
+                            paymentFormData={paymentFormData}
+                            handleFormsCompleted={handleFormsCompleted}
+                        />
+                    )}
+                {cartData && !formsCompleted.shippingForm && (
+                    <ShippingForm
                         shippingFormData={shippingFormData}
-                        paymentFormData={paymentFormData}
-                        handleFormsCompleted={handleFormsCompleted}
-                    />
-                )}
-            {cartData && !formsCompleted.shippingForm && (
-                <ShippingForm
-                    shippingFormData={shippingFormData}
-                    setShippingFormData={setShippingFormData}
-                    setPaymentFormData={setPaymentFormData}
-                    handleFormsCompleted={handleFormsCompleted}
-                />
-            )}
-            {cartData &&
-                formsCompleted.shippingForm &&
-                !formsCompleted.paymentForm &&
-                !formsCompleted.orderSummaryForm && (
-                    <PaymentForm
-                        paymentFormData={paymentFormData}
+                        setShippingFormData={setShippingFormData}
                         setPaymentFormData={setPaymentFormData}
                         handleFormsCompleted={handleFormsCompleted}
                     />
                 )}
-            {/* {!cartData && navigate("/shop")} */}
+                {cartData &&
+                    formsCompleted.shippingForm &&
+                    !formsCompleted.paymentForm &&
+                    !formsCompleted.orderSummaryForm && (
+                        <PaymentForm
+                            paymentFormData={paymentFormData}
+                            setPaymentFormData={setPaymentFormData}
+                            handleFormsCompleted={handleFormsCompleted}
+                        />
+                    )}
+                {/* {!cartData && navigate("/shop")} */}
+            </div>
         </>
     );
 };

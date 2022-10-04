@@ -29,9 +29,6 @@ const Cart = () => {
     // }, [navigate, storeItems, value, value.cartData]);
 
     const cartItemsContent = () => {
-        console.log("test", storeItems[0].name);
-        console.log("cartData", value.cartData);
-
         const itemList = value.cartData.map((cartItem, idx) => {
             const { name, price, weight, unit, image } = storeItems.find(
                 (item) => item.id === cartItem.id

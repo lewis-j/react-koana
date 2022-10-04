@@ -23,6 +23,24 @@
     animation: fadeIn 2s;
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    filter: grayscale(50%);
+    -webkit-filter: grayscale(50%);
+}
+
+.itemCardsBackground {
+    /* border: 1px solid white; */
+    margin-left: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+    animation: fadeIn 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
 }
 
 
@@ -37,8 +55,7 @@
     align-items: center;
     opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
-    filter: grayscale(50%);
-    -webkit-filter: grayscale(50%);
+
 }
 
 .itemCard:hover {
