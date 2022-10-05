@@ -55,7 +55,7 @@ video {
   color: rgb(131, 131, 131);
   text-transform: uppercase;
   text-align: justify;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
   font-size: 1.25rem;
   line-height: 2.5rem;
   animation: fadeInText 2s;
@@ -95,7 +95,7 @@ video {
     background-color: black;
     color: rgb(131, 131, 131);
     text-transform: uppercase;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1rem;
     font-size: 1.25rem;
     line-height: 2.5rem;
     height: 50%;
