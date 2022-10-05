@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+
+.formContent {
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.quantityLabel {
+    color: #d0cf6a;
+    font-size: 0.6rem;
+    margin-bottom: .2rem;
+    letter-spacing: .1rem;
+}
+
+.quantityContainer {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-flow: row nowrap;
+    height: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.increment {
+    border: 1px solid #d0cf6a;
+    border-bottom-left-radius: 1.3rem;
+    width: 4rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.increment:hover {
+    background-color: #d0cf6a;
+    transition: all 0.2s ease-in-out;
+}
+
+.increment:active {
+    background-color: black;
+}
+
+.plusHorizontal {
+    width: 1.5rem;
+    height: 1px;
+    background-color: #d0cf6a;
+    transform: translate(1.2rem, 1.2rem);
+}
+
+.increment:hover .plusHorizontal{
+    background-color: black;
+}
+
+.increment:hover .plusVertical{
+    background-color: black;
+}
+
+.plusVertical {
+    width: 1.5rem;
+    height: 1px;
+    background-color: #d0cf6a;
+    transform: rotate(90deg) translate(1.1rem, -1.15rem);
+}
+
+.decrement {
+    border: 1px solid #d0cf6a;
+    border-top-right-radius: 1.3rem;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.decrement:hover {
+    background-color: #d0cf6a;
+    transition: all 0.2s ease-in-out;
+}
+
+.decrement:active {
+    background-color: black;
+}
+
+.minus {
+    width: 1.5rem;
+    height: 1px;
+    background-color: #d0cf6a;
+}
+
+.decrement:hover .minus{
+    background-color:black;
+}
+
+.quantityWindow {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #d0cf6a;
+    border-top: 1px solid #d0cf6a;
+    border-bottom: 1px solid #d0cf6a;
+}
+
+.submitButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    transition: all 0.2s ease-in-out;
+    font-size: 0.75rem;
+    letter-spacing: .1rem;
+    color: #d0cf6a;
+    border: 1px solid #d0cf6a;
+    border-bottom-left-radius: 1.4rem;
+    border-top-right-radius: 1.4rem;
+    
+}
+
+@media screen and (max-width: 750.99px) {
+
+    .formContent {
+        /* border: 1px solid blue; */
+        margin-top: .5rem;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    .submitButton {
+        border-top-right-radius: 1.3rem;
+        border-bottom-left-radius: 3rem;
+    }
+}
+
+.submitButton:hover {
+    background-color: #d0cf6a;
+    color: black;
+    transition: all 0.2s ease-in-out;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submitButton:active {
+    color: #d0cf6a;
+    background-color: black;
+}
+
+.submitButton:hover.Zero {
+    background-color: #d0cf6a;
+    color: black;
+    font-weight: bold;
+}
+
+.submitButton:active.Zero {
+    background-color: black;
+    color: #d0cf6a;
+}
