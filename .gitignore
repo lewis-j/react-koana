@@ -32,4 +32,4 @@ contextReferences.txt
 /resources
 
 # media for archive only (hosted on Cloudinary)
-./src/assets/videos
+/src/assets/videos
