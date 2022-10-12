@@ -1,0 +1,13 @@
+.introVidContainer {
+    position: absolute;
+    min-height: 100vh;
+}
+
+.introVidContainer video {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 50%;
+    z-index: 0;
+}

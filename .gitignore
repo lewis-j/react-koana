@@ -30,3 +30,6 @@ yarn-error.log*
 # just for reference
 contextReferences.txt
 /resources
+
+# media for archive only (hosted on Cloudinary)
+./src/assets/videos
