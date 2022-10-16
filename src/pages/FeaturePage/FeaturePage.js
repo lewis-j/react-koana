@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
+import { CloudImg } from "../../components/CloudImg";
 
 const featuredItems = imagesData
   .slice(0, 6)
@@ -156,6 +157,7 @@ const FeaturePage = () => {
   return (
     <>
       <div className={styles.container}>
+        <CloudImg />
         {/* <div className={stylesHero.container}>
           <div className={stylesHero.overlay}>
             <div className={stylesHero.contentWrapper}>
