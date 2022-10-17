@@ -205,7 +205,7 @@ const FeaturePage = () => {
                                 </div>
                             }
                             <div className={stylesHero.desc}>
-                                Hawaii Speciality Coffee & Chocolate
+                                slow black coffee
                             </div>
                         </div>
                         <div className={stylesHero.best}>
