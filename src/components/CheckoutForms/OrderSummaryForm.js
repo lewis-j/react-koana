@@ -7,25 +7,20 @@ import { ShippingInfoSummary } from "./ShippingInfoSummary";
 import { PaymentInfoSummary } from "./PaymentInfoSummary";
 
 export const OrderSummaryForm = (props) => {
-  const {
-    getCartData,
-    cartData,
-    handleEmptyCart,
-    displayCart,
-    handleDisplayCart,
-  } = useContext(CartContext);
+  const { cart, handleEmptyCart, displayCart, handleDisplayCart } =
+    useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
   const { shippingFormData, paymentFormData, handleFormsCompleted } = props;
   const navigate = useNavigate();
 
   // const subTotal = () => {
-  //     return cartData.reduce(
+  //     return cart.reduce(
   //         (acc, cur) => imagesData[cur.id].price * cur.quantity + acc,
   //         0
   //     );
   // };
   const subTotal = () => {
-    return cartData.reduce((acc, cur) => {
+    return cart.reduce((acc, cur) => {
       const item = storeItems.find((item) => item.id === cur.id);
       return item.price * cur.quantity + acc;
     }, 0);
@@ -56,7 +51,7 @@ export const OrderSummaryForm = (props) => {
     );
   };
 
-  const checkoutItems = getCartData().filter((item) => item.quantity > 0);
+  const checkoutItems = cart.filter((item) => item.quantity > 0);
 
   const ItemsInCart = () => {
     return checkoutItems.map((checkoutItem, idx) => {
@@ -87,69 +82,69 @@ export const OrderSummaryForm = (props) => {
 
   return (
     <>
-      <div className="formContainer">
+      {/* <div className="formContainer">
         <div className="formTheme">
           <h5>CHECKOUT</h5>
           <h3>Review Order</h3>
+        </div> */}
+      <div className="formCategories">
+        <div className="shippingAndBilling">
+          <ShippingInfoSummary
+            shippingFormData={shippingFormData}
+            paymentFormData={paymentFormData}
+          />
+          <PaymentInfoSummary
+            shippingFormData={shippingFormData}
+            paymentFormData={paymentFormData}
+          />
+          <ItemsInCart />
         </div>
-        <div className="formCategories">
-          <div className="shippingAndBilling">
-            <ShippingInfoSummary
-              shippingFormData={shippingFormData}
-              paymentFormData={paymentFormData}
-            />
-            <PaymentInfoSummary
-              shippingFormData={shippingFormData}
-              paymentFormData={paymentFormData}
-            />
-            <ItemsInCart />
-          </div>
 
-          <div className="subTotalShippingOrderTotal  categoryStyling">
-            <div className="subTotalShippingOrderTotalRow">
-              <div className="subTotalShippingOrderTotalCol">{`subtotal: `}</div>
-              <div>{`$${subTotal()}.00`}</div>
-            </div>
-            <div className="subTotalShippingOrderTotalRow">
-              <div className="subTotalShippingOrderTotalCol">{"taxes: "}</div>
-              <div>{"$0.00"}</div>
-            </div>
-            <div className="subTotalShippingOrderTotalRow">
-              <div className="subTotalShippingOrderTotalCol">{`Fedex 2 Day USA: `}</div>
-              <div>{`$12.50`}</div>
-            </div>
-            <br></br>
-            <div className="subTotalShippingOrderTotalRow">
-              <div className="subTotalShippingOrderTotalTallyCol">{`order total: `}</div>
-              <div className="subTotalShippingOrderTotalTallyVal">{`$${(
-                (subTotal() + 12.5) /
-                1
-              ).toFixed(2)}`}</div>
-            </div>
+        <div className="subTotalShippingOrderTotal  categoryStyling">
+          <div className="subTotalShippingOrderTotalRow">
+            <div className="subTotalShippingOrderTotalCol">{`subtotal: `}</div>
+            <div>{`$${subTotal()}.00`}</div>
           </div>
-          <div className="formBottomContent">
-            <div
-              className="formButton"
-              type="button"
-              onClick={() => {
-                handleFormsCompleted("paymentForm", false);
-              }}
-            >
-              Back - Payment Method
-            </div>
-            <div
-              className="formButtonPurchase"
-              onClick={() => {
-                alertItems();
-                handleEmptyCart();
-              }}
-            >
-              <div className="place">place</div>
-              <div className="order">order</div>
-            </div>
+          <div className="subTotalShippingOrderTotalRow">
+            <div className="subTotalShippingOrderTotalCol">{"taxes: "}</div>
+            <div>{"$0.00"}</div>
+          </div>
+          <div className="subTotalShippingOrderTotalRow">
+            <div className="subTotalShippingOrderTotalCol">{`Fedex 2 Day USA: `}</div>
+            <div>{`$12.50`}</div>
+          </div>
+          <br></br>
+          <div className="subTotalShippingOrderTotalRow">
+            <div className="subTotalShippingOrderTotalTallyCol">{`order total: `}</div>
+            <div className="subTotalShippingOrderTotalTallyVal">{`$${(
+              (subTotal() + 12.5) /
+              1
+            ).toFixed(2)}`}</div>
+          </div>
+        </div>
+        <div className="formBottomContent">
+          <div
+            className="formButton"
+            type="button"
+            onClick={() => {
+              handleFormsCompleted("paymentForm", false);
+            }}
+          >
+            Back - Payment Method
+          </div>
+          <div
+            className="formButtonPurchase"
+            onClick={() => {
+              alertItems();
+              handleEmptyCart();
+            }}
+          >
+            <div className="place">place</div>
+            <div className="order">order</div>
           </div>
         </div>
       </div>
+      {/* </div> */}
     </>
   );
 };

@@ -27,6 +27,7 @@ const createAsyncThunk = (func) => {
       await func(dispatch);
       dispatch({ type: types.SUCCESS });
     } catch (error) {
+      console.error(error);
       dispatch({ type: types.FAILED });
     }
   };
@@ -54,7 +55,7 @@ const actions = {
   fetchItems: () =>
     createAsyncThunk(async (dispatch) => {
       const result = await squareApi.cart.fetchCart();
-      console.log("success", result);
+      if (!result) return;
       dispatch({ type: types.SET_CART, payload: result.data });
     }),
 };

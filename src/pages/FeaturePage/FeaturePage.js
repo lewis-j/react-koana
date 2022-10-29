@@ -157,7 +157,7 @@ const FeaturePage = () => {
   return (
     <>
       <div className={styles.container}>
-        <CloudImg />
+        {/* <CloudImg /> */}
         {/* <div className={stylesHero.container}>
           <div className={stylesHero.overlay}>
             <div className={stylesHero.contentWrapper}>

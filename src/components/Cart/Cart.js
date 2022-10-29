@@ -15,7 +15,6 @@ const Cart = () => {
   console.log("locations", location);
 
   useEffect(() => {
-    console.log("fethcing items", typeof actions.fetchItems());
     dispatch(actions.fetchItems());
   }, []);
 

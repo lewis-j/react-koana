@@ -27,13 +27,7 @@ const cart = {
       console.log(error);
     }
   },
-  addToCard: async (lineItems) => {
-    // const lineItems = [
-    //     {
-    //         catalogObjectId: "2NC6YQHNZTGBYU57SYDWFTKF",
-    //         quantity: "1",
-    //     },
-    // ];
+  addToCart: async (lineItems) => {
     try {
       const res = await axios.put("/order", { lineItems }, options);
       console.log("update cart response", res);
@@ -41,6 +35,11 @@ const cart = {
     } catch (error) {
       console.log(error);
     }
+  },
+  processPayment: async () => {
+    try {
+      //TODO: make axios process payement call. return results to inform user if transaction was successful
+    } catch (error) {}
   },
   cancelCart: async () => {
     try {

@@ -1,6 +1,47 @@
 import { useEffect, useState } from "react";
 import styles from "./CreditCard.module.scss";
 
+const darkModeCardStyle = {
+  ".input-container": {
+    borderColor: "#2D2D2D",
+    borderRadius: "6px",
+  },
+  ".input-container.is-focus": {
+    borderColor: "#006AFF",
+  },
+  ".input-container.is-error": {
+    borderColor: "#ff1600",
+  },
+  ".message-text": {
+    color: "#999999",
+  },
+  ".message-icon": {
+    color: "#999999",
+  },
+  ".message-text.is-error": {
+    color: "#ff1600",
+  },
+  ".message-icon.is-error": {
+    color: "#ff1600",
+  },
+  input: {
+    backgroundColor: "#2D2D2D",
+    color: "#FFFFFF",
+    fontFamily: "helvetica neue, sans-serif",
+  },
+  "input::placeholder": {
+    color: "#999999",
+  },
+  "input.is-error": {
+    color: "#ff1600",
+  },
+  "@media screen and (max-width: 600px)": {
+    input: {
+      fontSize: "12px",
+    },
+  },
+};
+
 const CreditCard = ({ square }) => {
   console.log("square:", square);
 
@@ -8,7 +49,9 @@ const CreditCard = ({ square }) => {
   const [card, setCard] = useState(null);
 
   async function initializeCard(payments) {
-    const card = await payments.card();
+    const card = await payments.card({
+      style: darkModeCardStyle,
+    });
     await card.attach("#card-container");
     return card;
   }

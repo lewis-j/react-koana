@@ -18,7 +18,6 @@ import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {
   const { fetchStoreItems } = useContext(StoreItemContext);
-  // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
     fetchStoreItems();
   }, []);
