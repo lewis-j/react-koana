@@ -1,4 +1,4 @@
-import { koana_logo } from "../../assets/images/icons";
+import { koana_icon_new } from "../../assets/images/icons";
 import { useNavigate } from "react-router-dom";
 
 const BigMacIcon = ({ expand, handleExpand }) => {
@@ -10,7 +10,7 @@ const BigMacIcon = ({ expand, handleExpand }) => {
         onClick={() => {
           navigate(`/`);
         }}
-        src={koana_logo}
+        src={koana_icon_new}
         alt="logo"
       />
     </div>

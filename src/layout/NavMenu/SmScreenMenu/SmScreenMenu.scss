@@ -6,8 +6,8 @@
 
   .burgerCollapsedKoanaIcon {
     position: fixed;
-    right: 1rem;
-    margin-top: 0.4rem;
+    right: .5rem;
+    margin-top: .8rem;
     margin-right: 0.5rem;
     height: 3rem;
     display: flex;
@@ -15,7 +15,7 @@
   }
 
   .burgerCollapsedKoanaIcon img {
-    height: 75%;
+    height: 100%;
     transition: all 0.2s ease-in-out;
   }
 
