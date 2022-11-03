@@ -32,7 +32,7 @@ export const GetIcon = () => {
                     icon={icon}
                     size="1x"
                     onClick={action}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer"}}
                     className="fontAwesomeHover"
                 />
             </div>

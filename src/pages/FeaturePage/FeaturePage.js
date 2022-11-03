@@ -20,10 +20,14 @@ const FeaturePage = () => {
                             <div
                                 className={stylesHero.koana}
                             >{`K\xa0\xa0\xa0\xa0a\xa0n\xa0a`}</div>
-                            {
-                                <div className={stylesHero.ohBox}>
-                                    <div className={stylesHero.koanaOh}></div>
-                                </div>
+                            {   <>
+                                    <div className={stylesHero.ohBox}>
+                                        <div className={stylesHero.koanaOh}></div>
+                                    </div>
+                                    <div className={stylesHero.ohBox}>
+                                        <div className={stylesHero.koanaOhSolar}></div>
+                                    </div>
+                                </>
                             }
                             <div className={stylesHero.desc}>
                                 slow black coffee

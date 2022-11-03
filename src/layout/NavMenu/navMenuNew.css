@@ -16,6 +16,10 @@
     .regularKoanaIcon img {
         display: none;
     }
+
+    .fontAwesomeHover:hover {
+        color: white;
+    }
 }
 
 @media screen and (min-width: 577px) {
@@ -42,14 +46,14 @@
             opacity: 1;
         }
     }
-
+ 
     .regularNavItems {
         flex: 0;
         display: flex;
         height: 100%;
         align-items: center;
         gap: 1rem;
-        color: #fef204;
+        color: rgb(81, 207, 133);
     }
 
     .regularKoanaIcon {
