@@ -18,9 +18,17 @@ export const FeatureVideo = () => {
     const koanaIntroVidURL = koanaIntroVid.toURL();
 
     // adding to JSX surrounded with the styling CSS class 'introVidContainer'
+    // 'playsinline' should support background video in mobile platforms, please confirm
     return (
         <div className={stylesFeatureVideo.introVidContainer}>
-            <video src={koanaIntroVidURL} controls autoPlay loop muted />
+            <video
+                src={koanaIntroVidURL}
+                playsInline
+                controls
+                autoPlay
+                loop
+                muted
+            />
         </div>
     );
 };

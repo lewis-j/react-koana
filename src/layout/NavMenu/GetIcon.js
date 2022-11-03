@@ -33,6 +33,7 @@ export const GetIcon = () => {
                     size="1x"
                     onClick={action}
                     style={{ cursor: "pointer" }}
+                    className="fontAwesomeHover"
                 />
             </div>
         );

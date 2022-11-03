@@ -1,4 +1,4 @@
-export { default as koana_logo } from "./koana_icon_new.png";
+export { default as koana_logo } from "./koana_icon_new_black.png";
 export { default as koana_outline } from "./koana_logo_outline.png";
 export { default as bag_icon } from "./bag_.png";
 export { default as chocolate_icon } from "./chocolate_.png";

@@ -7,6 +7,7 @@
 .videoTextContainer {
     display: flex;
     width: 100%;
+    flex-flow: column;
     /* height: 200vh; */
     /* border: 1px solid red; */
     /* justify-content: space-between; */
@@ -48,11 +49,11 @@ h4 {
 }
 
 .textContent {
-    /* left: -10rem; */
+    height: 4000px;
     max-width: auto;
     position: relative;
     margin-top: 3.5rem;
-    padding-left: 20rem;
+    padding-left: 21rem;
     padding-right: 1rem;
     color: rgb(131, 131, 131);
     text-transform: uppercase;
