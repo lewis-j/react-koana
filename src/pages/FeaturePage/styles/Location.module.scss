@@ -1,13 +1,6 @@
 .container {
-  // position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  // flex-wrap: wrap;
   width: 100%;
   padding-top: 1rem;
-  // background-color: black;
   color: white;
   // border: 1px solid red;
   @media (min-width: 881px) {
@@ -29,10 +22,10 @@
 .mapContainer {
   justify-content: left;
   min-height: 20em;
-  @media (min-width: 1008px) {
-    justify-content: end;
-    margin-right: 2em;
-  }
+  max-width: 20em;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  overflow: hidden;
 }
 
 .contentContainer {
@@ -50,15 +43,15 @@
   min-height: 20em;
 
 }
-.content {
-  height: 23em;
-  display: flex;
-  flex-direction: column;
-  // gap: 1em;
-  @media (min-width: 913px) {
-    height: 20em;
-  }
-}
+// .content {
+//   // height: 23em;
+//   display: flex;
+//   flex-direction: column;
+//   // gap: 1em;
+//   @media (min-width: 913px) {
+//     // height: 20em;
+//   }
+// }
 
 .title,
 .jumboTitle {
@@ -69,22 +62,36 @@
   font-size: 2em;
 }
 
+.detailsContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  text-transform: uppercase;
+}
+
 .address {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5em;
   &:hover {
     cursor: pointer;
   }
 }
 
+.address p{
+  line-height: 1.5rem;
+}
+
 .phoneNumber {
   a {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     text-decoration: none;
     color: white;
     gap: 0.5em;
+    // margin-top: 1rem;
+    line-height: 1.5rem;
   }
 }
 
@@ -101,4 +108,10 @@
   font-weight: bold;
   background-color: transparent;
   border-radius: 0.25em;
+}
+
+.message {
+  margin-top: 1rem;
+  text-transform: uppercase;
+  line-height: 1.5rem;
 }
