@@ -18,6 +18,7 @@ const quantityChange = (state, action) => {
 };
 
 const setCart = (state, payload) => {
+  if (payload === "") return { ...state, cart: [] };
   return { ...state, cart: payload };
 };
 

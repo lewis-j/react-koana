@@ -46,9 +46,9 @@ const CheckoutPage = () => {
     country: "",
     email: "",
     phone: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
+    // cardNumber: "",
+    // expiryDate: "",
+    // cvv: "",
   });
 
   const [formsCompleted, setFormsCompleted] = useState({

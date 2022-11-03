@@ -10,7 +10,7 @@ const darkModeCardStyle = {
     borderColor: "#006AFF",
   },
   ".input-container.is-error": {
-    borderColor: "#ff1600",
+    borderColor: "#d0cf6a",
   },
   ".message-text": {
     color: "#999999",
@@ -42,11 +42,11 @@ const darkModeCardStyle = {
   },
 };
 
-const CreditCard = ({ square }) => {
+const CreditCard = ({ square, retrieveCard, card }) => {
   console.log("square:", square);
 
   const [isDisabled, setIsDisabled] = useState(false);
-  const [card, setCard] = useState(null);
+  // const [card, setCard] = useState(null);
 
   async function initializeCard(payments) {
     const card = await payments.card({
@@ -54,50 +54,6 @@ const CreditCard = ({ square }) => {
     });
     await card.attach("#card-container");
     return card;
-  }
-
-  // Call this function to send a payment token, buyer name, and other details
-  // to the project server code so that a payment can be created with
-  // Payments API
-  async function createPayment(token) {
-    const body = JSON.stringify({
-      locationId: process.env.REACT_APP_LOCATION_ID,
-      sourceId: token,
-    });
-    console.log("body", body);
-    const paymentResponse = await fetch("http://localhost:3000/payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    });
-    console.log("paymentResponse:", paymentResponse.body);
-    setIsDisabled(false);
-
-    if (paymentResponse.ok) {
-      return paymentResponse.json();
-    }
-    const errorBody = await paymentResponse.text();
-    throw new Error(errorBody);
-  }
-
-  // This function tokenizes a payment method.
-  // The ‘error’ thrown from this async function denotes a failed tokenization,
-  // which is due to buyer error (such as an expired card). It is up to the
-  // developer to handle the error and provide the buyer the chance to fix
-  // their mistakes.
-  async function tokenize(paymentMethod) {
-    const tokenResult = await paymentMethod.tokenize();
-    if (tokenResult.status === "OK") {
-      return tokenResult.token;
-    } else {
-      let errorMessage = `Tokenization failed-status: ${tokenResult.status}`;
-      if (tokenResult.errors) {
-        errorMessage += ` and errors: ${JSON.stringify(tokenResult.errors)}`;
-      }
-      throw new Error(errorMessage);
-    }
   }
 
   // Helper method for displaying the Payment Status on the screen.
@@ -115,24 +71,6 @@ const CreditCard = ({ square }) => {
   //   statusContainer.style.visibility = "visible";
   // }
 
-  async function handlePaymentMethodSubmission(event, paymentMethod) {
-    event.preventDefault();
-
-    try {
-      // disable the submit button as we await tokenization and make a
-      // payment request.
-      setIsDisabled(true);
-      console.log("running tokenize", paymentMethod);
-      const token = await tokenize(paymentMethod);
-      const paymentResults = await createPayment(token);
-
-      console.debug("Payment Success", paymentResults);
-    } catch (e) {
-      setIsDisabled(false);
-      console.error(e.message);
-    }
-  }
-
   useEffect(() => {
     if (card) return;
     const fetch = async () => {
@@ -148,28 +86,29 @@ const CreditCard = ({ square }) => {
       try {
         const card = await initializeCard(payments);
         console.log("card::::::::::", card);
-        setCard(card);
+        retrieveCard(card);
       } catch (e) {
         console.error("Initializing Card failed", e);
-        return;
+        return () => card.destroy();
       }
     };
 
     fetch();
+    return () => card.destroy();
   }, []);
 
   return (
     <div>
       <form id="payment-form" className={styles.form}>
         <div id="card-container"></div>
-        <button
+        {/* <button
           id="card-button"
           type="button"
           disabled={isDisabled}
           onClick={(e) => handlePaymentMethodSubmission(e, card)}
         >
           Pay $1.00
-        </button>
+        </button> */}
       </form>
       <div id="payment-status-container"></div>
     </div>

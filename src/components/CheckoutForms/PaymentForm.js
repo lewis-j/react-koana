@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Formik, useField, Form } from "formik";
 import * as Yup from "yup";
+import CreditCardForm from "../PaymentForm/PaymentForm";
 import "./checkoutForms.css";
-import SquarePayment from "../PaymentForm/PaymentForm";
+import { handlePaymentMethodSubmission } from "../PaymentForm/cardProccessing";
 
 const TextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -29,58 +30,62 @@ export const PaymentForm = ({
   setPaymentFormData,
   handleFormsCompleted,
 }) => {
+  const [card, setCard] = useState();
+  // const formRef = useRef();
+  const retrieveCard = (card) => {
+    setCard(card);
+  };
   return (
     <>
-      {/* <div className="formContainer">
-        <div className="formTheme">
-          <h5>CHECKOUT</h5>
-          <h3>Payment method</h3>
-        </div> */}
-      <Formik
-        initialValues={paymentFormData}
-        validationSchema={Yup.object({
-          firstName: Yup.string().required("Required"),
-          lastName: Yup.string().required("Required"),
-          addressLineOne: Yup.string().required("Required"),
-          city: Yup.string()
-            .matches(/[A-Za-z]/, "Invalid City Name")
-            .required("Required"),
-          zip: Yup.string()
-            .matches(/^[0-9-]{5,}$/, "Invalid Zip/Postal Code")
-            .required("Required"),
-          region: Yup.string()
-            .matches(/^[A-Za-z]{2,}$/, "Invalid State")
-            .required("Required"),
-          country: Yup.string()
-            .matches(/[A-Za-z]/, "Invalid Country Name")
-            .required("Required"),
-          email: Yup.string()
-            .matches(
-              /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-              "Invalid Email"
-            )
-            .required("Required"),
-          phone: Yup.string()
-            .matches(/^[0-9]{10}$/, "Invalid Phone Number")
-            .required("Required"),
-          cardNumber: Yup.string()
-            .matches(/^[0-9]{15,19}$/, "Invalid Credit Card Number")
-            .required("Required"),
-          expiryDate: Yup.string()
-            .matches(/^[0-9]{8}$/, "Invalid Expiry Date")
-            .required("Required"),
-          cvv: Yup.string()
-            .matches(/^[0-9]{3}$/, "Invalid CVV number")
-            .required("Required"),
-        })}
-        onSubmit={(values) => {
-          handleFormsCompleted("paymentForm", true);
-          // alert(JSON.stringify(values, null, 2)); // for testing
-          setPaymentFormData({ ...values });
-        }}
-      >
-        <div className="formCategories">
-          <Form id="paymentForm">
+      <div className="formCategories">
+        <Formik
+          // innerRef={formRef}
+          initialValues={paymentFormData}
+          validationSchema={Yup.object({
+            firstName: Yup.string().required("Required"),
+            lastName: Yup.string().required("Required"),
+            addressLineOne: Yup.string().required("Required"),
+            city: Yup.string()
+              .matches(/[A-Za-z]/, "Invalid City Name")
+              .required("Required"),
+            zip: Yup.string()
+              .matches(/^[0-9-]{5,}$/, "Invalid Zip/Postal Code")
+              .required("Required"),
+            region: Yup.string()
+              .matches(/^[A-Za-z]{2,}$/, "Invalid State Abbreviation")
+              .required("Required"),
+            country: Yup.string()
+              .matches(/[A-Za-z]/, "Invalid Country Name")
+              .required("Required"),
+            email: Yup.string()
+              .matches(
+                /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                "Invalid Email"
+              )
+              .required("Required"),
+            phone: Yup.string()
+              .matches(/^[0-9]{10}$/, "Invalid Phone Number")
+              .required("Required"),
+            // cardNumber: Yup.string()
+            //   .matches(/^[0-9]{15,19}$/, "Invalid Credit Card Number")
+            //   .required("Required"),
+            // expiryDate: Yup.string()
+            //   .matches(/^[0-9]{8}$/, "Invalid Expiry Date")
+            //   .required("Required"),
+            // cvv: Yup.string()
+            //   .matches(/^[0-9]{3}$/, "Invalid CVV number")
+            //   .required("Required"),
+          })}
+          onSubmit={(values) => {
+            handleFormsCompleted("paymentForm", true);
+            handlePaymentMethodSubmission(card);
+            alert(JSON.stringify(values, null, 2)); // for testing
+
+            //TODO: add payment to order
+            setPaymentFormData({ ...values });
+          }}
+        >
+          <Form id="payForm">
             <div className="formRowDouble">
               <div>
                 <TextInput
@@ -180,65 +185,62 @@ export const PaymentForm = ({
               </div>
             </div>
             {/* <div className="formRowDouble">
-              <div>
-                <TextInput
-                  className="formColumnSingle"
-                  label="Card Number*"
-                  name="cardNumber"
-                  type="text"
-                  placeholder="###############"
-                />
-              </div>
-              <div>
-                <TextInput
-                  className="formColumnSingle"
-                  label="Expiry Date*"
-                  name="expiryDate"
-                  type="text"
-                  placeholder="mmddyyyy"
-                />
-              </div>
+            <div>
+              <TextInput
+                className="formColumnSingle"
+                label="Card Number*"
+                name="cardNumber"
+                type="text"
+                placeholder="###############"
+              />
             </div>
             <div>
               <TextInput
                 className="formColumnSingle"
-                label="CVV last 3 digits on signature strip*"
-                name="cvv"
+                label="Expiry Date*"
+                name="expiryDate"
                 type="text"
-                placeholder="XXX"
+                placeholder="mmddyyyy"
               />
-            </div> */}
-
-            {/* <div className="formBottomContent">
-            <button
-              className="formButton"
-              type="button"
-              onClick={() => handleFormsCompleted("shippingForm", false)}
-            >
-              Back - Shipping Address
-            </button>
-            <button className="formButton" type="submit">
-              Next - Order Summary
-            </button>
-          </div> */}
-          </Form>
-          <SquarePayment />
-          <div className="formBottomContent">
-            <button
-              className="formButton"
-              type="button"
-              onClick={() => handleFormsCompleted("shippingForm", false)}
-            >
-              Back - Shipping Address
-            </button>
-            <button className="formButton" form="paymentForm" type="submit">
-              Next - Order Summary
-            </button>
+            </div>
           </div>
+          <div>
+            <TextInput
+              className="formColumnSingle"
+              label="CVV last 3 digits on signature strip*"
+              name="cvv"
+              type="text"
+              placeholder="XXX"
+            />
+          </div> */}
+            {/* <div className="formBottomContent">
+              <button
+                className="formButton"
+                type="button"
+                onClick={() => handleFormsCompleted("shippingForm", false)}
+              >
+                Back - Shipping Address
+              </button>
+              <button className="formButton" type="submit">
+              Next - Order Summary
+            </button>
+            </div> */}
+          </Form>
+        </Formik>
+        <CreditCardForm retrieveCard={retrieveCard} card={card} />
+        <div className="formBottomContent">
+          <button
+            className="formButton"
+            type="button"
+            onClick={() => handleFormsCompleted("shippingForm", false)}
+          >
+            Back - Shipping Address
+          </button>
+          <button className="formButton" type="submit" form="payForm">
+            Next - Order Summary
+          </button>
         </div>
-      </Formik>
-
-      {/* </div> */}
+      </div>
     </>
   );
 };

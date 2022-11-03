@@ -17,10 +17,12 @@ export const GetIcon = () => {
   ];
 
   const iconWithBadge = ["cart-arrow-down"];
-  if (!cart) return null;
-  const cartItemQuantity = cart.reduce((acc, cur) => {
-    return cur.quantity + acc;
-  }, 0);
+
+  const cartItemQuantity = !cart
+    ? 0
+    : cart.reduce((acc, cur) => {
+        return cur.quantity + acc;
+      }, 0);
 
   return iconsData.map(([icon, action], iconIdx) => {
     return (
