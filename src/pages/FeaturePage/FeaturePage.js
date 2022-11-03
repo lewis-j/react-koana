@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
-import { CloudImg } from "../../components/CloudImg";
+import { FeatureVideo } from "./FeatureVideo";
 
 const featuredItems = imagesData
   .slice(0, 6)
@@ -154,10 +154,10 @@ const FeaturePage = () => {
     },
   };
   const navigate = useNavigate();
+
   return (
     <>
       <div className={styles.container}>
-        {/* <CloudImg /> */}
         {/* <div className={stylesHero.container}>
           <div className={stylesHero.overlay}>
             <div className={stylesHero.contentWrapper}>
@@ -195,15 +195,16 @@ const FeaturePage = () => {
                   <div className={stylesHero.koanaOh}></div>
                 </div>
               }
-              <div className={stylesHero.desc}>
-                Hawaii Speciality Coffee & Chocolate
-              </div>
+              <div className={stylesHero.desc}>slow black coffee</div>
             </div>
             <div className={stylesHero.best}>
               Best Coffee Shop in the State of Hawaii 2022 by FOOD & WINE
             </div>
           </div>
         </div>
+        {/* cloudinary component */}
+        <FeatureVideo />
+
         <div className={styles.featuredWrapper}>
           <div className={styles.header}>
             <h2 className={styles.heading}>Highly Recommended</h2>

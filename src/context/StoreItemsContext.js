@@ -9,6 +9,7 @@ export const StoreItemProvider = ({ children }) => {
 
   const setStoreItemsHandler = (apiData) => {
     if (apiData) setStoreItems(apiData);
+    console.log("%cFetch successful!", "color:skyblue; font-size: 1.5rem");
   };
   const fetchStoreItems = async () => {
     try {
