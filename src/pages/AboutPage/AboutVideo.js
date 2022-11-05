@@ -20,7 +20,14 @@ export const AboutVideo = () => {
     // adding to JSX surrounded with the styling CSS class 'introVidContainer'
     return (
         <div className="videoContainer">
-            <video src={koanaAboutVidURL} controls autoPlay loop muted />
+            <video
+                src={koanaAboutVidURL}
+                controls
+                playsInline
+                autoPlay
+                loop
+                muted
+            />
         </div>
     );
 };

@@ -23,8 +23,6 @@
     animation: fadeIn 2s;
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    filter: grayscale(50%);
-    -webkit-filter: grayscale(50%);
 }
 
 .itemCardsBackground {
@@ -53,17 +51,19 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    opacity: 0.8;
-    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+    filter: grayscale(75%);
+    -webkit-filter: grayscale(75%);
 
 }
 
 .itemCard:hover {
     cursor: pointer;
     opacity: 1;
-    transition: opacity 0.2s ease-in-out;
-    filter: grayscale(25%);
-    -webkit-filter: grayscale(25%);
+    transition: all 0.2s ease-in-out;
+    filter: grayscale(0%);
+    -webkit-filter: grayscale(0%);
 }
 
 .itemCardBackground {

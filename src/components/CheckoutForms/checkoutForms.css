@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+body {
+    padding: none;
+    margin: none;
+    background-color: black;
+}
 
 .checkoutFormBackground {
     height: 100vh;
@@ -16,6 +21,7 @@
 
 .formContainer {
     position: fixed;
+    /* margin-top: 5rem; */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -28,7 +34,7 @@
     min-width: 18rem;
     width: 25rem;
     border: 1px solid #d0cf6a;
-    max-height: 80%;
+    max-height: 95%;
 }
 
 .formTheme {

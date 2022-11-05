@@ -7,14 +7,12 @@
 .videoTextContainer {
     display: flex;
     width: 100%;
+    flex-flow: column;
+    justify-content: space-between;
     /* height: 200vh; */
     /* border: 1px solid red; */
     /* justify-content: space-between; */
     gap: 1rem;
-}
-
-.videoContainer {
-    height: 100%;
 }
 
 .videoContainer video {
@@ -48,11 +46,11 @@ h4 {
 }
 
 .textContent {
-    /* left: -10rem; */
+    /* height: 4000px; */
     max-width: auto;
     position: relative;
     margin-top: 3.5rem;
-    padding-left: 20rem;
+    padding-left: 21rem;
     padding-right: 1rem;
     color: rgb(131, 131, 131);
     text-transform: uppercase;
@@ -75,11 +73,11 @@ h4 {
 
 @media only screen and (min-width: 750px) {
     .textContent {
-        text-align: justify;
+        /* text-align: justify; */
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 671px) {
     .videoTextContainer {
         background-color: black;
         flex-direction: column;

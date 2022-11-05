@@ -3,7 +3,6 @@
     padding-top: 0.5rem;
     width: 100%;
     /* background-color: white; */
-    color: rgb(135, 135, 135);
     margin-top: none;
     margin-top: -0.5rem;
     z-index: 1;
@@ -16,6 +15,10 @@
 
     .regularKoanaIcon img {
         display: none;
+    }
+
+    .fontAwesomeHover:hover {
+        color: white;
     }
 }
 
@@ -32,7 +35,7 @@
         padding-right: 1rem;
         opacity: 0;
         animation: opacity-regular 2s forwards;
-        background-color: rgba(0, 0, 0, .5);
+        background-color: rgba(0, 0, 0, 0.1);
     }
 
     @keyframes opacity-regular {
@@ -43,13 +46,14 @@
             opacity: 1;
         }
     }
-
+ 
     .regularNavItems {
         flex: 0;
         display: flex;
         height: 100%;
         align-items: center;
         gap: 1rem;
+        color: rgb(81, 207, 133);
     }
 
     .regularKoanaIcon {
@@ -57,7 +61,7 @@
         flex: 1;
         height: 100%;
         align-items: center;
-        padding: .2rem;
+        padding: 0.5rem 0px 0px 0px;
     }
 
     .regularKoanaIcon img {
@@ -66,7 +70,7 @@
     }
 
     .regularKoanaIcon img:hover {
-        margin-top: 4rem;
+        margin-top: 7rem;
         height: 300%;
         cursor: pointer;
         transition: all 0.2s ease-in-out;
@@ -82,6 +86,11 @@
 
     .regularTradNavItems:hover {
         font-weight: bold;
+        color: white;
+    }
+
+    .fontAwesomeHover:hover {
+        color: white;
     }
 }
 

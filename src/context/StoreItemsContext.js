@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import itemDefaultData from "../data/itemDefaults";
+import squareApi from "../lib/squareApi";
 
 export const StoreItemContext = createContext();
 
@@ -10,14 +11,19 @@ export const StoreItemProvider = ({ children }) => {
     if (apiData) setStoreItems(apiData);
     console.log("%cFetch successful!", "color:skyblue; font-size: 1.5rem");
   };
-
-  const getStoreItemsHandler = () => {
-    return storeItems;
+  const fetchStoreItems = async () => {
+    try {
+      const result = await squareApi.items.fetchItems();
+      console.log("result from fetch", result);
+      setStoreItems(result.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const value = {
+    fetchStoreItems,
     setStoreItemsHandler,
-    getStoreItemsHandler,
     storeItems,
   };
 
