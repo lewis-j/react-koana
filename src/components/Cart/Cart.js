@@ -1,6 +1,6 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";

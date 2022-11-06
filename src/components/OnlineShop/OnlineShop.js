@@ -6,7 +6,7 @@ import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
 
 export const OnlineShop = () => {
-    const { getStoreItemsHandler, storeItems } = useContext(StoreItemContext);
+    const { storeItems } = useContext(StoreItemContext);
     const { displayCart } = useContext(CartContext);
     const [modalFocus, setModalFocus] = useState(false);
     const [currentModalId, setCurrentModalId] = useState(0);

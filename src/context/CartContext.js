@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useState } from "react";
 // import { imagesData } from "../data/imagesData";
 import { StoreItemContext } from "./StoreItemsContext";
 

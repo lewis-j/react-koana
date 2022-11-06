@@ -1,4 +1,4 @@
-import { Feature, Map, Overlay, View } from "ol/index";
+import { Feature, Map, View } from "ol/index";
 import { OSM, Vector as VectorSource } from "ol/source";
 import { Icon, Style } from "ol/style";
 import { Point } from "ol/geom";
@@ -6,7 +6,7 @@ import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { useGeographic } from "ol/proj";
 import Logo from "../../assets/images/icons/koana_mtn.png";
 
-import { useRef, FC, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const MapsOL = ({ className: style_container }) => {
   const ref = useRef(null);

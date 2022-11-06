@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, useField, Form } from "formik";
 import * as Yup from "yup";
 import "./checkoutForms.css";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 // Checkout Form One
 // this form holds full name, shipping address, and option for same address for payment details

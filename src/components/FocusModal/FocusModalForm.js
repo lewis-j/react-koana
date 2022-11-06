@@ -14,7 +14,7 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
 
   const handleQuantityChange = (increment) => {
     // console.log("store item", storeItems);
-    const { inventory: available, variations } = storeItems.find(
+    const { inventory: available } = storeItems.find(
       (item) => item.id === id
     );
     increment
