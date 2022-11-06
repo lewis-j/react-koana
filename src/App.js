@@ -32,7 +32,7 @@ const App = () => {
     };
 
     fetch_squareItems();
-  }, [setStoreItemsHandler]);
+  }, []);
   return (
     <>
       <Provider>
