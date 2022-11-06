@@ -32,6 +32,7 @@ const App = () => {
     };
 
     fetch_squareItems();
+    // eslint-disable-next-line
   }, []);
   return (
     <>
