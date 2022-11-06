@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CreditCard from "./CreditCard";
 import styles from "./PaymentForm.module.scss";
 
-const PaymentForm = ({ retrieveCard }) => {
+const PaymentForm = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const PaymentForm = ({ retrieveCard }) => {
   const render = () => {
     console.log("window", window.Square);
     if (!isLoaded) return null;
-    return <CreditCard square={window.Square} retrieveCard={retrieveCard} />;
+    return <CreditCard square={window.Square} />;
   };
 
   return <>{render()}</>;

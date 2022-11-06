@@ -144,8 +144,8 @@
     background-color: black;
     color: #d0cf6a;
     box-shadow: 0px 1px 20px 2px rgb(255, 253, 147);
-    transition: opacity .5s ease-in-out;
-    animation: pulseOff .2s infinite;
+    transition: opacity 0.5s ease-in-out;
+    animation: pulseOff 0.2s infinite;
 }
 
 @keyframes pulseOff {
@@ -154,7 +154,7 @@
     }
 
     50% {
-        opacity: .9;
+        opacity: 0.9;
     }
 
     100% {
@@ -171,24 +171,24 @@
     color: #d0cf6a;
     opacity: 0;
     box-shadow: 0px 1px 18px 2px rgb(255, 253, 147);
-    transition: opacity .5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     animation: pulseOn 5s infinite;
 }
 
 @keyframes pulseOn {
     0% {
-        opacity: .9;
+        opacity: 0.9;
     }
 
     40% {
-        opacity: .2;
+        opacity: 0.2;
     }
     50% {
         opacity: 1;
     }
 
     100% {
-        opacity: .9;
+        opacity: 0.9;
     }
 }
 

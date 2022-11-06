@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import { Provider } from "./context/CartContext/CartContext";
+import { Provider } from "./context/CartContext";
 import axios from "./axios";
 
 import Cart from "./components/Cart/Cart.js";
@@ -17,9 +17,21 @@ import { StoreItemContext } from "./context/StoreItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {
-  const { fetchStoreItems } = useContext(StoreItemContext);
+  const { setStoreItemsHandler } = useContext(StoreItemContext);
+  // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
-    fetchStoreItems();
+    console.log("useEffect started");
+    const fetch_squareItems = async () => {
+      try {
+        const res = await axios.get("/catalog");
+
+        setStoreItemsHandler(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetch_squareItems();
   }, []);
   return (
     <>
