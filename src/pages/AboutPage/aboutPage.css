@@ -50,6 +50,7 @@ h4 {
     max-width: auto;
     position: relative;
     margin-top: 3.5rem;
+    padding-bottom: 1rem;
     padding-left: 21rem;
     padding-right: 1rem;
     color: rgb(131, 131, 131);
@@ -96,7 +97,8 @@ h4 {
     .textContent {
         position: relative;
         margin-top: 0rem;
-        padding-left: 0;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
         background-color: black;
         color: rgb(131, 131, 131);
         text-transform: uppercase;
@@ -106,6 +108,7 @@ h4 {
         line-height: 2.5rem;
         height: 50%;
         overflow-y: scroll;
+        border: 1px solid red;
     }
     .textContent::-webkit-scrollbar {
         width: 1rem;
