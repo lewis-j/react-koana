@@ -8,29 +8,38 @@ import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { useNavigate } from "react-router-dom";
 import "../../components/CheckoutForms/checkoutForms.css";
+import {
+  tokenize,
+  verifyBuyerToken,
+} from "../../components/SquarePaymentForm/square";
+import {
+  regionNameToAbbreviation,
+  countryNameToAbbreviation,
+} from "../../utils/countryAndRegionAbbr";
 
 const CheckoutPage = () => {
-  const { cart, displayCart, checkSubTotal } = useContext(CartContext);
-  console.log("CardData", cart);
+  const { cart, netAmounts, displayCart, actions, dispatch } =
+    useContext(CartContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (displayCart) {
-      if (cart.length < 1 || checkSubTotal() === 0) {
+      if (cart.length < 1 || netAmounts.totalMoney === 0) {
         navigate("/shop");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart, displayCart, checkSubTotal]);
+  }, [cart, displayCart, netAmounts]);
 
   const [shippingFormData, setShippingFormData] = useState({
     firstName: "",
     lastName: "",
-    addressLineOne: "",
-    addressLineTwo: "",
+    addressLine1: "",
+    addressLine2: "",
     city: "",
     region: "",
-    zip: "",
+    postalCode: "",
     country: "U.S.",
     paymentSameAddressCheckbox: false,
   });
@@ -38,94 +47,150 @@ const CheckoutPage = () => {
   const [paymentFormData, setPaymentFormData] = useState({
     lastName: "",
     firstName: "",
-    addressLineOne: "",
-    addressLineTwo: "",
+    addressLine1: "",
+    addressLine2: "",
     city: "",
     region: "",
-    zip: "",
+    postalCode: "",
     country: "",
     email: "",
     phone: "",
-    // cardNumber: "",
-    // expiryDate: "",
-    // cvv: "",
+    cardNumber: "",
+    token: "",
   });
 
   const [formsCompleted, setFormsCompleted] = useState({
     shippingForm: false,
     paymentForm: false,
-    orderSummaryForm: false,
   });
+  if (!cart) return null;
 
   /*
     this function the name of the form and a boolean value
     completedStatus: true means the form will be hidden 
     and the next form will be revealed
     */
+  const withPrevious = (values) => (prev) => ({ ...prev, ...values });
 
-  const handleFormsCompleted = (form, completedStatus) => {
+  const mapToAbbreviations = (formValues) => {
+    const { region, country } = formValues;
+    return {
+      ...formValues,
+      region: regionNameToAbbreviation(region),
+      country: countryNameToAbbreviation(country),
+    };
+  };
+
+  const handleShippingSubmit = (formValues) => {
+    const { paymentSameAddressCheckbox: isSame } = formValues;
+    const _formValues = mapToAbbreviations(formValues);
+    setShippingFormData(withPrevious(_formValues));
+
+    if (isSame) setPaymentFormData(withPrevious(_formValues));
+  };
+  const handlePaymentSubmit = async (formValues, card) => {
+    const tokenResult = await tokenize(card);
+    const _formValues = mapToAbbreviations(formValues);
+
+    setPaymentFormData(
+      withPrevious({
+        ..._formValues,
+        cardNumber: tokenResult.details.card.last4,
+        token: tokenResult.token,
+        postalCode: tokenResult.details.billing.postalCode,
+      })
+    );
+
+    // dispatch(
+    //   actions.addShippingFulfillment({
+    //     ..._formValues,
+    //     ...shippingFormData,
+    //   })
+    // );
+  };
+
+  const handleSummarySubmit = async () => {
+    const { token, ...billingContact } = paymentFormData;
+    const verifiedtoken = await verifyBuyerToken(
+      token,
+      billingContact,
+      netAmounts.totalMoney
+    );
+
+    dispatch(actions.emptyCart());
+    // dispatch(
+    //   actions.processCardOrder(verifiedtoken, {
+    //     ...paymentFormData,
+    //     ...shippingFormData,
+    //   })
+    // );
+  };
+
+  const handleFormsCompleted = (form, payload) => {
     switch (form) {
       case "shippingForm":
         setFormsCompleted((prev) => ({
           ...prev,
-          shippingForm: completedStatus,
+          shippingForm: payload.complete,
         }));
+        if (payload?.formValues) {
+          handleShippingSubmit(payload.formValues);
+        }
         break;
       case "paymentForm":
         setFormsCompleted((prev) => ({
           ...prev,
-          paymentForm: completedStatus,
+          paymentForm: payload.complete,
         }));
+        if (payload?.formValues) {
+          const { formValues, card } = payload;
+          handlePaymentSubmit(formValues, card);
+        }
         break;
       case "orderSummaryForm":
-        setFormsCompleted((prev) => ({
-          ...prev,
-          orderSummaryForm: completedStatus,
-        }));
+        handleSummarySubmit();
         break;
       default:
-        console.log(`invalid form: ${[form, completedStatus]}`);
+        console.warn(`invalid form: ${[form, payload]}`);
         break;
     }
   };
-  if (!cart) return null;
 
-  let modalInfo = {};
-  if (!formsCompleted.shippingForm) {
-    modalInfo = {
-      title: "Shipping address",
-      component: (
-        <ShippingForm
-          shippingFormData={shippingFormData}
-          setShippingFormData={setShippingFormData}
-          setPaymentFormData={setPaymentFormData}
-          handleFormsCompleted={handleFormsCompleted}
-        />
-      ),
-    };
-  } else if (!formsCompleted.paymentForm) {
-    modalInfo = {
-      title: "Payment method",
-      component: (
-        <PaymentForm
-          paymentFormData={paymentFormData}
-          setPaymentFormData={setPaymentFormData}
-          handleFormsCompleted={handleFormsCompleted}
-        />
-      ),
-    };
-  } else {
-    modalInfo = {
+  const getForm = (formsCompleted) => {
+    const { shippingForm, paymentForm } = formsCompleted;
+    if (!shippingForm)
+      return {
+        title: "Shipping address",
+        component: (
+          <ShippingForm
+            shippingFormData={shippingFormData}
+            handleFormsCompleted={handleFormsCompleted}
+          />
+        ),
+      };
+    if (!paymentForm)
+      return {
+        title: "Payment method",
+        component: (
+          <PaymentForm
+            paymentFormData={paymentFormData}
+            handleFormsCompleted={handleFormsCompleted}
+          />
+        ),
+      };
+    return {
       title: "Review Order",
       component: (
-        <PaymentForm
+        <OrderSummaryForm
+          shippingFormData={shippingFormData}
           paymentFormData={paymentFormData}
-          setPaymentFormData={setPaymentFormData}
           handleFormsCompleted={handleFormsCompleted}
         />
       ),
     };
-  }
+  };
+
+  const { title, component } = getForm(formsCompleted);
 
   return (
     // <div className={styles.container}>
@@ -136,9 +201,9 @@ const CheckoutPage = () => {
         <div className="formContainer">
           <div className="formTheme">
             <h5>CHECKOUT</h5>
-            <h3>{modalInfo.title}</h3>
+            <h3>{title}</h3>
           </div>
-          {modalInfo.component}
+          {component}
         </div>
       </div>
     </>

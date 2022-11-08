@@ -239,7 +239,7 @@ const FeaturePage = () => {
             </div>
             <Carousel
               clickHandler={(item) => {
-                console.log("item and current", item);
+                alert(`item and current: ${item}`);
               }}
               {...carouselProps}
             >

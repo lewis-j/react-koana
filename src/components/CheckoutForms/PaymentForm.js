@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Formik, useField, Form } from "formik";
 import * as Yup from "yup";
-import CreditCardForm from "../PaymentForm/PaymentForm";
+import CreditCardForm from "../SquarePaymentForm/PaymentForm";
 import "./checkoutForms.css";
-import { handlePaymentMethodSubmission } from "../PaymentForm/cardProccessing";
 
 const TextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -25,15 +24,56 @@ const TextInput = ({ label, ...props }) => {
   );
 };
 
-export const PaymentForm = ({
-  paymentFormData,
-  setPaymentFormData,
-  handleFormsCompleted,
-}) => {
-  const [card, setCard] = useState();
-  // const formRef = useRef();
-  const retrieveCard = (card) => {
-    setCard(card);
+export const PaymentForm = ({ paymentFormData, handleFormsCompleted }) => {
+  const [card, setCard] = useState(null);
+  const darkModeCardStyle = {
+    ".input-container": {
+      borderColor: "#2D2D2D",
+      borderRadius: "6px",
+    },
+    ".input-container.is-focus": {
+      borderColor: "#006AFF",
+    },
+    ".input-container.is-error": {
+      borderColor: "#d0cf6a",
+    },
+    ".message-text": {
+      color: "#999999",
+    },
+    ".message-icon": {
+      color: "#999999",
+    },
+    ".message-text.is-error": {
+      color: "#ff1600",
+    },
+    ".message-icon.is-error": {
+      color: "#ff1600",
+    },
+    input: {
+      backgroundColor: "#2D2D2D",
+      color: "#FFFFFF",
+      fontFamily: "helvetica neue, sans-serif",
+    },
+    "input::placeholder": {
+      color: "#999999",
+    },
+    "input.is-error": {
+      color: "#ff1600",
+    },
+    "@media screen and (max-width: 600px)": {
+      input: {
+        fontSize: "12px",
+      },
+    },
+  };
+
+  const handleOnSubmit = async (values) => {
+    handleFormsCompleted("paymentForm", {
+      complete: true,
+      formValues: values,
+      card,
+    });
+    alert(JSON.stringify(values, null, 2)); // for testing
   };
   return (
     <>
@@ -44,11 +84,11 @@ export const PaymentForm = ({
           validationSchema={Yup.object({
             firstName: Yup.string().required("Required"),
             lastName: Yup.string().required("Required"),
-            addressLineOne: Yup.string().required("Required"),
+            addressLine1: Yup.string().required("Required"),
             city: Yup.string()
               .matches(/[A-Za-z]/, "Invalid City Name")
               .required("Required"),
-            zip: Yup.string()
+            postalCode: Yup.string()
               .matches(/^[0-9-]{5,}$/, "Invalid Zip/Postal Code")
               .required("Required"),
             region: Yup.string()
@@ -66,24 +106,8 @@ export const PaymentForm = ({
             phone: Yup.string()
               .matches(/^[0-9]{10}$/, "Invalid Phone Number")
               .required("Required"),
-            // cardNumber: Yup.string()
-            //   .matches(/^[0-9]{15,19}$/, "Invalid Credit Card Number")
-            //   .required("Required"),
-            // expiryDate: Yup.string()
-            //   .matches(/^[0-9]{8}$/, "Invalid Expiry Date")
-            //   .required("Required"),
-            // cvv: Yup.string()
-            //   .matches(/^[0-9]{3}$/, "Invalid CVV number")
-            //   .required("Required"),
           })}
-          onSubmit={(values) => {
-            handleFormsCompleted("paymentForm", true);
-            handlePaymentMethodSubmission(card);
-            alert(JSON.stringify(values, null, 2)); // for testing
-
-            //TODO: add payment to order
-            setPaymentFormData({ ...values });
-          }}
+          onSubmit={handleOnSubmit}
         >
           <Form id="payForm">
             <div className="formRowDouble">
@@ -109,7 +133,7 @@ export const PaymentForm = ({
                 <TextInput
                   className="formColumnDouble"
                   label="Billing address Line 1*"
-                  name="addressLineOne"
+                  name="addressLine1"
                   type="text"
                 />
               </div>
@@ -119,7 +143,7 @@ export const PaymentForm = ({
                 <TextInput
                   className="formColumnDouble"
                   label="Billing address Line 2"
-                  name="addressLineTwo"
+                  name="addressLine2"
                   type="text"
                 />
               </div>
@@ -149,7 +173,7 @@ export const PaymentForm = ({
                 <TextInput
                   className="formColumnSingle"
                   label="Zip/Postal Code*"
-                  name="zip"
+                  name="postalCode"
                   type="text"
                   placeholder="#####"
                 />
@@ -184,55 +208,16 @@ export const PaymentForm = ({
                 />
               </div>
             </div>
-            {/* <div className="formRowDouble">
-            <div>
-              <TextInput
-                className="formColumnSingle"
-                label="Card Number*"
-                name="cardNumber"
-                type="text"
-                placeholder="###############"
-              />
-            </div>
-            <div>
-              <TextInput
-                className="formColumnSingle"
-                label="Expiry Date*"
-                name="expiryDate"
-                type="text"
-                placeholder="mmddyyyy"
-              />
-            </div>
-          </div>
-          <div>
-            <TextInput
-              className="formColumnSingle"
-              label="CVV last 3 digits on signature strip*"
-              name="cvv"
-              type="text"
-              placeholder="XXX"
-            />
-          </div> */}
-            {/* <div className="formBottomContent">
-              <button
-                className="formButton"
-                type="button"
-                onClick={() => handleFormsCompleted("shippingForm", false)}
-              >
-                Back - Shipping Address
-              </button>
-              <button className="formButton" type="submit">
-              Next - Order Summary
-            </button>
-            </div> */}
           </Form>
         </Formik>
-        <CreditCardForm retrieveCard={retrieveCard} card={card} />
+        <CreditCardForm cardStyle={darkModeCardStyle} handleCard={setCard} />
         <div className="formBottomContent">
           <button
             className="formButton"
             type="button"
-            onClick={() => handleFormsCompleted("shippingForm", false)}
+            onClick={() =>
+              handleFormsCompleted("shippingForm", { complete: false })
+            }
           >
             Back - Shipping Address
           </button>

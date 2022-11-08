@@ -71,7 +71,6 @@ const SmScreenMenu = () => {
   const hiddenStyle = expand
     ? "burgerNavItems"
     : "burgerNavItems burgerNavItemsHide";
-  console.log("isDark", isDark);
   const classStyle = isDark
     ? hiddenStyle + " darkTheme"
     : hiddenStyle + " lightTheme";

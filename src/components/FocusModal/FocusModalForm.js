@@ -15,7 +15,6 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
   const { inventory: available } = storeItem;
 
   const handleQuantityChange = (increment) => {
-    // console.log("store item", storeItems);
     increment
       ? setItemQuantity((prev) => {
           //make axios call to update(upsert)
@@ -44,7 +43,6 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
           <div
             className="decrement"
             onClick={() => {
-              console.log("handling quantity change");
               handleQuantityChange(false);
             }}
           >

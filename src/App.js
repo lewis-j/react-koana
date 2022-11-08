@@ -15,11 +15,13 @@ import { Footer } from "./layout/NavMenu/Footer";
 import { useEffect, useContext } from "react";
 import { StoreItemContext } from "./context/StoreItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
+import squareApi from "./lib/squareApi";
 
 const App = () => {
   const { fetchStoreItems } = useContext(StoreItemContext);
   useEffect(() => {
     fetchStoreItems();
+    squareApi.cart.createPaymentLink({});
   }, []);
   return (
     <>

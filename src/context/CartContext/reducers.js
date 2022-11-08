@@ -16,10 +16,23 @@ const quantityChange = (state, action) => {
   });
   return [...updatedObjects];
 };
-
+const formatCurrency = (num) => (num / 100).toFixed(2);
 const setCart = (state, payload) => {
   if (payload === "") return { ...state, cart: [] };
-  return { ...state, cart: payload };
+
+  const _netAmounts = Object.entries(payload.netAmounts).reduce(
+    (obj, [key, value]) => {
+      return { ...obj, [key]: formatCurrency(value.amount) };
+    },
+    {}
+  );
+
+  payload.items.map((item) => ({
+    ...item,
+    price: formatCurrency(item.price),
+  }));
+
+  return { ...state, cart: payload.items, netAmounts: _netAmounts };
 };
 
 const removeItem = (state, action) => {
@@ -29,8 +42,8 @@ const removeItem = (state, action) => {
 };
 
 const emptyCart = (state, action) => {
-  const remainingCart = state.cart.filter((item) => item === "notEqualToMe:)");
-  return [...remainingCart];
+  // const remainingCart = state.cart.filter((item) => item === "notEqualToMe:)");
+  return [];
 };
 
 const updateCart = (state, action) => {

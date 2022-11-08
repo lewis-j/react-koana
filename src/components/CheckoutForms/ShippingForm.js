@@ -44,8 +44,8 @@ const PaymentSameAddressCheckbox = ({ children, ...props }) => {
 
 export const ShippingForm = ({
   shippingFormData,
-  setShippingFormData,
-  setPaymentFormData,
+  // setShippingFormData,
+  // setPaymentFormData,
   handleFormsCompleted,
 }) => {
   return (
@@ -60,14 +60,14 @@ export const ShippingForm = ({
         validationSchema={Yup.object({
           firstName: Yup.string().required("Required"),
           lastName: Yup.string().required("Required"),
-          addressLineOne: Yup.string().required("Required"),
+          addressLine1: Yup.string().required("Required"),
           city: Yup.string()
             .matches(/[A-Za-z]/, "Invalid City Name")
             .required("Required"),
           region: Yup.string()
             .matches(/^[A-Za-z]{2,}$/, "Invalid State")
             .required("Required"),
-          zip: Yup.string()
+          postalCode: Yup.string()
             .matches(/^[0-9-]{5,}$/, "Invalid Zip/Postal Code")
             .required("Required"),
           country: Yup.string()
@@ -75,31 +75,34 @@ export const ShippingForm = ({
             .required("Required"),
         })}
         onSubmit={(values) => {
-          handleFormsCompleted("shippingForm", true);
-          // alert(JSON.stringify(values, null, 2)); // for testing
-          setShippingFormData({ ...values });
-
-          setPaymentFormData((prev) => {
-            return values.paymentSameAddressCheckbox === true
-              ? {
-                  ...prev,
-                  addressLineOne: values.addressLineOne,
-                  addressLineTwo: values.addressLineTwo,
-                  country: values.country,
-                  region: values.region,
-                  city: values.city,
-                  zip: values.zip,
-                }
-              : {
-                  ...prev,
-                  addressLineOne: "",
-                  addressLineTwo: "",
-                  country: "",
-                  region: "",
-                  city: "",
-                  zip: "",
-                };
+          handleFormsCompleted("shippingForm", {
+            complete: true,
+            formValues: values,
           });
+          // alert(JSON.stringify(values, null, 2)); // for testing
+          // setShippingFormData({ ...values });
+
+          // setPaymentFormData((prev) => {
+          //   return values.paymentSameAddressCheckbox === true
+          //     ? {
+          //         ...prev,
+          //         addressLineOne: values.addressLineOne,
+          //         addressLineTwo: values.addressLineTwo,
+          //         country: values.country,
+          //         region: values.region,
+          //         city: values.city,
+          //         postalCode: values.postalCode,
+          //       }
+          //     : {
+          //         ...prev,
+          //         addressLineOne: "",
+          //         addressLineTwo: "",
+          //         country: "",
+          //         region: "",
+          //         city: "",
+          //         postalCode: "",
+          //       };
+          // });
         }}
       >
         <Form className="formCategories">
@@ -125,7 +128,7 @@ export const ShippingForm = ({
             <TextInput
               className="formColumnDouble"
               label="Address Line 1*"
-              name="addressLineOne"
+              name="addressLine1"
               type="text"
             />
           </div>
@@ -133,7 +136,7 @@ export const ShippingForm = ({
             <TextInput
               className="formColumnDouble"
               label="Address Line 2"
-              name="addressLineTwo"
+              name="addressLine2"
               type="text"
             />
           </div>
@@ -160,7 +163,7 @@ export const ShippingForm = ({
               <TextInput
                 className="formColumnSingle"
                 label="Zip/Postal Code*"
-                name="zip"
+                name="postalCode"
                 type="text"
               />
             </div>

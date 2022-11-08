@@ -9,10 +9,9 @@ const items = {
   fetchItems: async () => {
     try {
       const res = await axios.get("/catalog");
-      console.log("fetch items response", res);
       return res;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
   uploadItemImg: async (file) => {
@@ -20,20 +19,14 @@ const items = {
     formData.append("myImage", file);
     // formData.append("filename", "calalogItem");
 
-    console.log("FORMDATA", formData);
-
     try {
-      const res = await axios.post("/catalog/img/upload", formData, {
+      await axios.post("/catalog/img/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(
-        "response from multipart form data image upload::::::::::",
-        res
-      );
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 };
@@ -42,31 +35,66 @@ const cart = {
   fetchCart: async () => {
     try {
       const res = await axios.get("/order", options);
-      console.log("fetch cart response", res);
       return res;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    }
+  },
+  addShipping: async (customerDetails) => {
+    try {
+      const res = await axios.put(
+        "/order/shipping",
+        { customerDetails },
+        options
+      );
+      return res;
+    } catch (error) {
+      console.error(error);
     }
   },
   addToCart: async (lineItems) => {
     try {
       const res = await axios.put("/order", { lineItems }, options);
-      console.log("update cart response", res);
       return res;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
-  processPayment: async (cardToken) => {
+  processPayment: async (cardToken, address, amount) => {
     try {
-      console.log("cardToken", cardToken);
-      //TODO: make axios process payement call. return results to inform user if transaction was successful
-    } catch (error) {}
+      const res = await axios.post(
+        "/order/process",
+        {
+          locationId: process.env.REACT_APP_LOCATION_ID,
+          sourceId: cardToken,
+          address,
+          amount,
+        },
+        options
+      );
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  createPaymentLink: async (customerDetails) => {
+    try {
+      const res = await axios.post(
+        "/order/paymentLink",
+        { customerDetails },
+        options
+      );
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   cancelCart: async () => {
     try {
-      const res = await axios.put("/order/cancel", {}, options);
-    } catch (error) {}
+      await axios.put("/order/cancel", {}, options);
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 

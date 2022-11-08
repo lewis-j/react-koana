@@ -19,7 +19,6 @@ const MapsOL = ({ className: style_container }) => {
       const place = [-155.10754366343065, 19.55125614955651];
       const point = new Point(place);
 
-      console.log("new map", ref);
       const map = new Map({
         target: "map",
         view: new View({
@@ -56,7 +55,7 @@ const MapsOL = ({ className: style_container }) => {
         var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
           return feature;
         });
-        console.log("feature", feature?.values_?.name);
+
         if (feature?.values_?.name === markerIcon) {
           window.open(
             "https://www.google.com/maps/dir//Koana,+18-1325+Old+Volcano+Rd,+Mountain+View,+HI+96771/@19.551059,-155.1118996,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x7953cdbce39b4f45:0xe9a9b13d06b4489d!2m2!1d-155.1075018!2d19.5510317",

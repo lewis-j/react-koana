@@ -5,11 +5,11 @@ export const ShippingInfoSummary = ({ shippingFormData, paymentFormData }) => {
   const {
     firstName,
     lastName,
-    addressLineOne,
-    addressLineTwo,
+    addressLine1,
+    addressLine2,
     city,
     region,
-    zip,
+    postalCode,
     country,
   } = shippingFormData;
 
@@ -40,12 +40,12 @@ export const ShippingInfoSummary = ({ shippingFormData, paymentFormData }) => {
       <div className="margin">
         {capChanger(firstName, "capitalize")}{" "}
         {capChanger(lastName, "capitalize")}
-        <div>{capChanger(addressLineOne, "capitalize")}</div>
-        {addressLineTwo ? (
-          <div>{capChanger(addressLineTwo, "capitalize")}</div>
+        <div>{capChanger(addressLine1, "capitalize")}</div>
+        {addressLine2 ? (
+          <div>{capChanger(addressLine2, "capitalize")}</div>
         ) : null}
         <div>
-          {capChanger(city, "capitalize")}, {`${region} ${zip}`}
+          {capChanger(city, "capitalize")}, {`${region} ${postalCode}`}
         </div>
         <div>{capChanger(country, "upper")}</div>
         <div>{`Phone: ${paymentFormData.phone}`}</div>

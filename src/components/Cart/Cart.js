@@ -11,8 +11,6 @@ const Cart = () => {
     useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log("locations", location);
 
   useEffect(() => {
     dispatch(actions.fetchItems());
@@ -112,8 +110,9 @@ const Cart = () => {
                 className="cartToCheckout"
                 // checkout button now goes to checkout section
                 onClick={() => {
-                  navigate("/checkout");
-                  displayCart && handleDisplayCart();
+                  // navigate("/checkout");
+                  // displayCart && handleDisplayCart();
+                  dispatch(actions.createPaymentLink());
                 }}
               >
                 {"checkout".toUpperCase()}

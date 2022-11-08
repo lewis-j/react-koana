@@ -9,15 +9,13 @@ export const StoreItemProvider = ({ children }) => {
 
   const setStoreItemsHandler = (apiData) => {
     if (apiData) setStoreItems(apiData);
-    console.log("%cFetch successful!", "color:skyblue; font-size: 1.5rem");
   };
   const fetchStoreItems = async () => {
     try {
       const result = await squareApi.items.fetchItems();
-      console.log("result from fetch", result);
       setStoreItems(result.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

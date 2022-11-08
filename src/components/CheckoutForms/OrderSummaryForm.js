@@ -7,11 +7,37 @@ import { ShippingInfoSummary } from "./ShippingInfoSummary";
 import { PaymentInfoSummary } from "./PaymentInfoSummary";
 
 export const OrderSummaryForm = (props) => {
-  const { cart, handleEmptyCart, displayCart, handleDisplayCart } =
-    useContext(CartContext);
+  const {
+    cart,
+    netAmounts,
+    displayCart,
+    handleDisplayCart,
+    dispatch,
+    actions,
+  } = useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
   const { shippingFormData, paymentFormData, handleFormsCompleted } = props;
   const navigate = useNavigate();
+
+  const { totalMoney, taxMoney, serviceChargeMoney: shippingCost } = netAmounts;
+
+  // const handleEmptyCart = () => {
+  //   dispatch(actions.emptyCart());
+  // };
+
+  const handleSubmit = async () => {
+    // handleFormsCompleted("orderSummaryForm");
+
+    const shipping = {
+      ...paymentFormData,
+      ...shippingFormData,
+    };
+
+    dispatch(actions.createPaymentLink({ shipping, payment: paymentFormData }));
+    // handleEmptyCart();
+    // const verifiedtoken = await verifyBuyerToken(cardToken, paymentFormData);
+    // dispatch(actions.processCardOrder(verifiedtoken, shippingFormData));
+  };
 
   // const subTotal = () => {
   //     return cart.reduce(
@@ -19,37 +45,37 @@ export const OrderSummaryForm = (props) => {
   //         0
   //     );
   // };
-  const subTotal = () => {
-    return cart.reduce((acc, cur) => {
-      const item = storeItems.find((item) => item.id === cur.id);
-      return item.price * cur.quantity + acc;
-    }, 0);
-  };
+  const subTotal = cart.reduce((acc, cur) => {
+    const item = storeItems.find((item) => item.id === cur.id);
+    return item.price * cur.quantity + acc;
+  }, 0);
 
   useEffect(() => {
-    if (!subTotal()) {
+    if (subTotal === "0.00") {
       // this will toggle off cart display if value of all items in cart is zero
       // displayCart && handleDisplayCart();
       navigate(`/shop`);
     }
   });
 
-  let checkoutItemState = "checkoutItem";
-  if (displayCart) {
-    checkoutItemState = "checkoutItemStatic";
-  }
+  // let checkoutItemState = "checkoutItem";
+  // if (displayCart) {
+  //   checkoutItemState = "checkoutItemStatic";
+  // }
 
-  const alertItems = () => {
-    const itemsAndQuantity = checkoutItems.map((purchase) => {
-      const product = storeItems.find((item) => item.id === purchase.id);
-      return `\n${product.name} (${purchase.quantity})`;
-    });
-    const total = `$${((subTotal() + 12.5) / 1).toFixed(2)}`;
-    const orderNumber = Math.floor(Math.random() * 9999999999);
-    alert(
-      `Thank you for your purchase!\nORDER: ${orderNumber}\n${itemsAndQuantity}\n\nTOTAL: ${total}`
-    );
-  };
+  const checkoutItemStyle = displayCart ? "checkoutItemStatic" : "checkoutItem";
+
+  // const alertItems = () => {
+  //   const itemsAndQuantity = checkoutItems.map((purchase) => {
+  //     const product = storeItems.find((item) => item.id === purchase.id);
+  //     return `\n${product.name} (${purchase.quantity})`;
+  //   });
+  //   const total = `$${((subTotal() + 12.5) / 1).toFixed(2)}`;
+  //   const orderNumber = Math.floor(Math.random() * 9999999999);
+  //   alert(
+  //     `Thank you for your purchase!\nORDER: ${orderNumber}\n${itemsAndQuantity}\n\nTOTAL: ${total}`
+  //   );
+  // };
 
   const checkoutItems = cart.filter((item) => item.quantity > 0);
 
@@ -59,7 +85,7 @@ export const OrderSummaryForm = (props) => {
         (item) => item.id === checkoutItem.id
       );
       return (
-        <div key={idx} className={checkoutItemState}>
+        <div key={idx} className={checkoutItemStyle}>
           <div className="checkoutItemImage">
             <img src={image} alt={name} />
           </div>
@@ -103,23 +129,22 @@ export const OrderSummaryForm = (props) => {
         <div className="subTotalShippingOrderTotal  categoryStyling">
           <div className="subTotalShippingOrderTotalRow">
             <div className="subTotalShippingOrderTotalCol">{`subtotal: `}</div>
-            <div>{`$${subTotal()}.00`}</div>
+            <div>{subTotal}</div>
           </div>
           <div className="subTotalShippingOrderTotalRow">
             <div className="subTotalShippingOrderTotalCol">{"taxes: "}</div>
-            <div>{"$0.00"}</div>
+            <div>{taxMoney}</div>
           </div>
           <div className="subTotalShippingOrderTotalRow">
             <div className="subTotalShippingOrderTotalCol">{`Fedex 2 Day USA: `}</div>
-            <div>{`$12.50`}</div>
+            <div>{shippingCost}</div>
           </div>
           <br></br>
           <div className="subTotalShippingOrderTotalRow">
             <div className="subTotalShippingOrderTotalTallyCol">{`order total: `}</div>
-            <div className="subTotalShippingOrderTotalTallyVal">{`$${(
-              (subTotal() + 12.5) /
-              1
-            ).toFixed(2)}`}</div>
+            <div className="subTotalShippingOrderTotalTallyVal">
+              {totalMoney}
+            </div>
           </div>
         </div>
         <div className="formBottomContent">
@@ -133,12 +158,16 @@ export const OrderSummaryForm = (props) => {
             Back - Payment Method
           </div>
           <div
-            className="formButtonPurchase"
+            className="formButton"
+            type="button"
             onClick={() => {
-              alertItems();
-              handleEmptyCart();
+              dispatch(actions.cancelOrder());
             }}
           >
+            Cancel Order
+          </div>
+
+          <div className="formButtonPurchase" onClick={handleSubmit}>
             <div className="place">place</div>
             <div className="order">order</div>
           </div>

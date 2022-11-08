@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
-// import { imagesData } from "../../data/imagesData";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
@@ -20,7 +19,7 @@ export const OnlineShop = () => {
       setModalFocus(false);
     }
   };
-  console.log("status", status);
+
   const products = storeItems.map((item, idx) => {
     return (
       <div

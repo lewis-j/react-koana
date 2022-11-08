@@ -15,14 +15,12 @@ const NavMenu = () => {
   const navigate = useNavigate();
   const widthSize = useRef(window.innerWidth);
   const MEDBREAKPOINT = 769;
-  console.log("ran state", viewportSize);
   const tradNavItems = ["shop", "about"].map((item, idx) => (
     <div
       onClick={() => navigate(`/${item}`)}
       key={`${idx}${item}`}
       className="navHamburgerItem"
     >
-      {console.log(`/${item}`)}
       {item}{" "}
     </div>
   ));
@@ -96,7 +94,6 @@ const NavMenu = () => {
 
     function closeExpandedNav(e) {
       const target = e.target.classList.value;
-      console.log("target", { target: e.target });
 
       if (confirmSmallBreakpoint()) {
         if (target === "" && collapsed === false) {

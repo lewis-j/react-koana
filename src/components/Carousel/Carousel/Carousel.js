@@ -35,8 +35,6 @@ const Carousel = ({
     slidesToMove
   );
 
-  console.log("items in carousel", clickHandler);
-
   const [transition, setTransition] = useState({});
 
   const pauseSlides = () => {};
@@ -117,7 +115,6 @@ const Carousel = ({
           }
           return items[_current.y + 1][i - count];
         });
-        console.log("result:", result);
 
         return result;
       });
@@ -149,7 +146,6 @@ const Carousel = ({
   const slideDown = () => {
     if (current.y === items.length - slidesToShow) return;
 
-    console.log("Current", current);
     setSlides(() =>
       [...Array(totalSlides).keys()].map((i) => {
         if (i === 0) return items[current.y][current.x];
@@ -237,7 +233,7 @@ const Carousel = ({
           />
           {/* <FontAwesomeIcon
             icon={faPause}
-            onClick={() => console.log("pausing")}
+            onClick={() => alert("pausing")}
             className={_style(styles.btn, styles.btnPause)}
           /> */}
         </div>
