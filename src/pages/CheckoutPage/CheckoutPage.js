@@ -5,7 +5,7 @@ import { ShippingForm } from "../../components/CheckoutForms/ShippingForm";
 import { PaymentForm } from "../../components/CheckoutForms/PaymentForm.js";
 import { OrderSummaryForm } from "../../components/CheckoutForms/OrderSummaryForm";
 import { useContext, useEffect } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../context/CartContext/CartContext";
 import { useNavigate } from "react-router-dom";
 import "../../components/CheckoutForms/checkoutForms.css";
 import {

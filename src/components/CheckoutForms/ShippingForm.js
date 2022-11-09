@@ -7,38 +7,38 @@ import "./checkoutForms.css";
 // this form holds full name, shipping address, and option for same address for payment details
 
 const TextInput = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
-    return (
-        <>
-            <label className="text-input" htmlFor={props.id || props.name}>
-                {label}
-            </label>
-            <input
-                className="text-input"
-                autoComplete="off" // for testing - clears field cache
-                {...field}
-                {...props}
-            />
-            {meta.touched && meta.error ? (
-                <div className="error errorMessage">{meta.error}</div>
-            ) : null}
-        </>
-    );
+  const [field, meta] = useField(props);
+  return (
+    <>
+      <label className="text-input" htmlFor={props.id || props.name}>
+        {label}
+      </label>
+      <input
+        className="text-input"
+        autoComplete="off" // for testing - clears field cache
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? (
+        <div className="error errorMessage">{meta.error}</div>
+      ) : null}
+    </>
+  );
 };
 
 const PaymentSameAddressCheckbox = ({ children, ...props }) => {
-    const [field, meta] = useField({ ...props, type: "checkbox" });
-    return (
-        <div>
-            <label className="checkbox-input formCheckbox">
-                <input type="checkbox" {...field} {...props} />
-                {children}
-            </label>
-            {meta.touched && meta.error ? (
-                <div className="error">{meta.error}</div>
-            ) : null}
-        </div>
-    );
+  const [field, meta] = useField({ ...props, type: "checkbox" });
+  return (
+    <div>
+      <label className="checkbox-input formCheckbox">
+        <input type="checkbox" {...field} {...props} />
+        {children}
+      </label>
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </div>
+  );
 };
 
 export const ShippingForm = ({
@@ -180,13 +180,12 @@ export const ShippingForm = ({
               <span>Use this address for payment details</span>
             </PaymentSameAddressCheckbox>
 
-                            <button className="formButton" type="submit">
-                                Next - Payment Method
-                            </button>
-                        </div>
-                    </Form>
-                </Formik>
-            </div>
-        </>
-    );
+            <button className="formButton" type="submit">
+              Next - Payment Method
+            </button>
+          </div>
+        </Form>
+      </Formik>
+    </>
+  );
 };

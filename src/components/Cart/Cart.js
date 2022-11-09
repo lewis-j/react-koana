@@ -1,8 +1,8 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import "./cart.css";
 
@@ -32,6 +32,9 @@ const Cart = () => {
   //         }
   //     }
   // }, [navigate, storeItems, value, value.cartData]);
+  useEffect(() => {
+    dispatch(actions.fetchItems());
+  }, []);
 
   const cartItemsContent = () => {
     const itemList = cart.map((cartItem, idx) => {

@@ -4,17 +4,15 @@ import { Routes, Route } from "react-router-dom";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import { Provider } from "./context/CartContext";
-
+import { Provider } from "./context/CartContext/CartContext";
 import Cart from "./components/Cart/Cart.js";
-
 import "./App.css";
 import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
 import { Footer } from "./layout/NavMenu/Footer";
 import { useEffect, useContext } from "react";
 import { StoreItemContext } from "./context/StoreItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
-import squareApi from "./lib/squareApi";
+// import squareApi from "./lib/squareApi";
 
 const App = () => {
   const { fetchStoreItems } = useContext(StoreItemContext);

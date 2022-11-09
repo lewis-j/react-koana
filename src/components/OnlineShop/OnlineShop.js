@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
+
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
@@ -7,6 +8,7 @@ import "./onlineShop.css";
 export const OnlineShop = () => {
   const { storeItems } = useContext(StoreItemContext);
   const { displayCart } = useContext(CartContext);
+  console.log("displayCart", displayCart);
   const [modalFocus, setModalFocus] = useState(false);
   const [currentModalId, setCurrentModalId] = useState(0);
 
