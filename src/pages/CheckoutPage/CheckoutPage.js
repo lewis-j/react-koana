@@ -116,6 +116,7 @@ const CheckoutPage = () => {
       billingContact,
       netAmounts.totalMoney
     );
+    console.log("verified token", verifiedtoken);
 
     dispatch(actions.emptyCart());
     // dispatch(

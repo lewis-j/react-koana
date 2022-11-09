@@ -1,7 +1,6 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
 import { useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import "./cart.css";
@@ -16,7 +15,6 @@ const Cart = () => {
     cartHandleItemQuantityChange: changeQuantity,
   } = useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
-  const navigate = useNavigate();
 
   const subTotal = () => {
     return cart.reduce((acc, cur) => {
@@ -34,6 +32,7 @@ const Cart = () => {
   // }, [navigate, storeItems, value, value.cartData]);
   useEffect(() => {
     dispatch(actions.fetchItems());
+    // eslint-disable-next-line
   }, []);
 
   const cartItemsContent = () => {

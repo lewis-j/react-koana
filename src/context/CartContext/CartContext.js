@@ -1,7 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import squareApi from "../../lib/squareApi";
 // import { imagesData } from "../data/imagesData";
-import { StoreItemContext } from "../StoreItemsContext";
 import reducers from "./reducers";
 import useReducerWithThunk from "../reducerMiddleware";
 
@@ -136,8 +135,6 @@ const cartReducer = (state, action) => {
 };
 
 export const Provider = ({ children }) => {
-  const { storeItems } = useContext(StoreItemContext);
-
   // const [cartData, setCartData] = useState(initialState);
   const [state, dispatch] = useReducerWithThunk(cartReducer, initialState);
   // state to toggle visibility of Cart

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 export const getPayment = () => {
   return window.Square.payments(
     process.env.REACT_APP_APPLICATION_ID,

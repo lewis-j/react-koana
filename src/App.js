@@ -19,7 +19,8 @@ const App = () => {
   // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
     fetchStoreItems();
-  }, []);
+  }, [fetchStoreItems]);
+
   return (
     <>
       <Provider>

@@ -61,7 +61,7 @@ const PaymentForm = ({ cardStyle, handleCard }) => {
     return () => {
       _card.destroy();
     };
-  }, [isLoaded]);
+  }, [isLoaded, cardStyle, handleCard]);
 
   const render = () => {
     if (!isLoaded) return null;
