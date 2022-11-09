@@ -42,7 +42,12 @@
 .textContent,
 h2,
 h4 {
-    color: rgb(152, 152, 109);
+    color: white;
+}
+
+.header {
+    text-transform: uppercase;
+    letter-spacing: .1rem;;
 }
 
 .textContent {
@@ -50,11 +55,12 @@ h4 {
     max-width: auto;
     position: relative;
     margin-top: 3.5rem;
+    padding-bottom: 1rem;
     padding-left: 21rem;
     padding-right: 1rem;
-    color: rgb(131, 131, 131);
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
+    color: rgb(200, 200, 200);
+    /* text-transform: uppercase; */
+    /* letter-spacing: 0.1rem; */
     font-size: 1.25rem;
     line-height: 2.5rem;
     animation: fadeInText 2s;
@@ -96,16 +102,18 @@ h4 {
     .textContent {
         position: relative;
         margin-top: 0rem;
-        padding-left: 0;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
         background-color: black;
         color: rgb(131, 131, 131);
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
         text-align: unset;
-        letter-spacing: 0.1rem;
+        /* letter-spacing: 0.1rem; */
         font-size: 1.25rem;
         line-height: 2.5rem;
         height: 50%;
         overflow-y: scroll;
+        border: 1px solid red;
     }
     .textContent::-webkit-scrollbar {
         width: 1rem;

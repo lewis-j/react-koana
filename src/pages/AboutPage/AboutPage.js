@@ -8,7 +8,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 
+
+
+
 const AboutPage = () => {
+
+    const IndentText = () => {
+
+        const makeTextArray = aboutPageText.replaceAll("\n", "").split(". ");
+        const formattedText = makeTextArray.map((sentence) => {
+            return <p>{sentence.concat(".").concat(" ")}</p>;
+        })
+        return formattedText;
+    }
+
     return (
         <>
             <div className="aboutBackground">
@@ -19,9 +32,9 @@ const AboutPage = () => {
                         <div>
                             <h2 className="header">Our Aloha Story</h2>
                             <h4 className="header">
-                                Aloha from Brian and Jan,
+                                Aloha from Brian and Jan
                             </h4>
-                            <p>{aboutPageText}</p>
+                            <IndentText />
                             <h4>Aloha A Hui Hou~ Sincerely,</h4>
                             <h4>Brian and Jan</h4>
                         </div>
