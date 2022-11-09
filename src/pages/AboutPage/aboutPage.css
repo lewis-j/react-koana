@@ -42,7 +42,12 @@
 .textContent,
 h2,
 h4 {
-    color: rgb(152, 152, 109);
+    color: white;
+}
+
+.header {
+    text-transform: uppercase;
+    letter-spacing: .1rem;;
 }
 
 .textContent {
@@ -53,9 +58,9 @@ h4 {
     padding-bottom: 1rem;
     padding-left: 21rem;
     padding-right: 1rem;
-    color: rgb(131, 131, 131);
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
+    color: rgb(200, 200, 200);
+    /* text-transform: uppercase; */
+    /* letter-spacing: 0.1rem; */
     font-size: 1.25rem;
     line-height: 2.5rem;
     animation: fadeInText 2s;
@@ -101,9 +106,9 @@ h4 {
         padding-bottom: 1rem;
         background-color: black;
         color: rgb(131, 131, 131);
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
         text-align: unset;
-        letter-spacing: 0.1rem;
+        /* letter-spacing: 0.1rem; */
         font-size: 1.25rem;
         line-height: 2.5rem;
         height: 50%;

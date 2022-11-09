@@ -32,7 +32,7 @@ const AboutPage = () => {
                         <div>
                             <h2 className="header">Our Aloha Story</h2>
                             <h4 className="header">
-                                Aloha from Brian and Jan,
+                                Aloha from Brian and Jan
                             </h4>
                             <IndentText />
                             <h4>Aloha A Hui Hou~ Sincerely,</h4>
