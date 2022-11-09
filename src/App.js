@@ -4,8 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import { Provider } from "./context/CartContext/CartContext";
-import axios from "./axios";
+import { Provider } from "./context/CartContext";
 
 import Cart from "./components/Cart/Cart.js";
 
@@ -19,9 +18,9 @@ import squareApi from "./lib/squareApi";
 
 const App = () => {
   const { fetchStoreItems } = useContext(StoreItemContext);
+  // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
     fetchStoreItems();
-    squareApi.cart.createPaymentLink({});
   }, []);
   return (
     <>

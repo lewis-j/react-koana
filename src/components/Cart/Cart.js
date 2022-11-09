@@ -1,20 +1,22 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { CartContext } from "../../context/CartContext/CartContext";
+import { CartContext } from "../../context/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, actions, dispatch, displayCart, handleDisplayCart } =
-    useContext(CartContext);
+  const {
+    cart,
+    actions,
+    dispatch,
+    displayCart,
+    handleDisplayCart,
+    cartHandleItemQuantityChange: changeQuantity,
+  } = useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(actions.fetchItems());
-  }, []);
 
   const subTotal = () => {
     return cart.reduce((acc, cur) => {
@@ -23,18 +25,13 @@ const Cart = () => {
     }, 0);
   };
 
-  const changeQuantity = (id, inc) => {
-    const { inventory } = storeItems.find((item) => item.id === id);
-    dispatch(actions.changeQuantity(id, inc, inventory));
-  };
-
   // useEffect(() => {
   //     if (value.displayCart) {
-  //         if (cart.length < 1 || value.checkSubTotal() === 0) {
+  //         if (value.cartData.length < 1 || value.checkSubTotal() === 0) {
   //             navigate("/shop");
   //         }
   //     }
-  // }, [navigate, storeItems, value, cart]);
+  // }, [navigate, storeItems, value, value.cartData]);
 
   const cartItemsContent = () => {
     const itemList = cart.map((cartItem, idx) => {

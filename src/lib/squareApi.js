@@ -14,21 +14,21 @@ const items = {
       console.error(error);
     }
   },
-  uploadItemImg: async (file) => {
-    const formData = new FormData();
-    formData.append("myImage", file);
-    // formData.append("filename", "calalogItem");
+  // uploadItemImg: async (file) => {
+  //   const formData = new FormData();
+  //   formData.append("myImage", file);
+  //   // formData.append("filename", "calalogItem");
 
-    try {
-      await axios.post("/catalog/img/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  },
+  //   try {
+  //     await axios.post("/catalog/img/upload", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // },
 };
 //Cart(order) API
 const cart = {

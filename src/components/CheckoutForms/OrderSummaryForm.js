@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { CartContext } from "../../context/CartContext/CartContext";
+import { CartContext } from "../../context/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 // import { imagesData } from "../../data/imagesData";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +77,7 @@ export const OrderSummaryForm = (props) => {
   //   );
   // };
 
-  const checkoutItems = cart.filter((item) => item.quantity > 0);
+    const checkoutItems = getCartData().filter((item) => item.quantity > 0);
 
   const ItemsInCart = () => {
     return checkoutItems.map((checkoutItem, idx) => {
@@ -91,40 +91,42 @@ export const OrderSummaryForm = (props) => {
           </div>
           <div className="checkoutItemDesc">{name}</div>
 
-          <div className="quantityEdit">
-            <div className="checkoutItemQuantity">{checkoutItem.quantity}</div>
-            <div
-              className="checkoutItemEdit"
-              onClick={() => handleDisplayCart()}
-            >
-              edit
-            </div>
-          </div>
-          <div className="checkoutItemPrice">${price}</div>
-        </div>
-      );
-    });
-  };
+                    <div className="quantityEdit">
+                        <div className="checkoutItemQuantity">
+                            {checkoutItem.quantity}
+                        </div>
+                        <div
+                            className="checkoutItemEdit"
+                            onClick={() => handleDisplayCart()}
+                        >
+                            edit
+                        </div>
+                    </div>
+                    <div className="checkoutItemPrice">${price}</div>
+                </div>
+            );
+        });
+    };
 
-  return (
-    <>
-      {/* <div className="formContainer">
-        <div className="formTheme">
-          <h5>CHECKOUT</h5>
-          <h3>Review Order</h3>
-        </div> */}
-      <div className="formCategories">
-        <div className="shippingAndBilling">
-          <ShippingInfoSummary
-            shippingFormData={shippingFormData}
-            paymentFormData={paymentFormData}
-          />
-          <PaymentInfoSummary
-            shippingFormData={shippingFormData}
-            paymentFormData={paymentFormData}
-          />
-          <ItemsInCart />
-        </div>
+    return (
+        <>
+            <div className="formContainer">
+                <div className="formTheme">
+                    <h5>CHECKOUT</h5>
+                    <h3>Review Order</h3>
+                </div>
+                <div className="formCategories">
+                    <div className="shippingAndBilling">
+                        <ShippingInfoSummary
+                            shippingFormData={shippingFormData}
+                            paymentFormData={paymentFormData}
+                        />
+                        <PaymentInfoSummary
+                            shippingFormData={shippingFormData}
+                            paymentFormData={paymentFormData}
+                        />
+                        <ItemsInCart />
+                    </div>
 
         <div className="subTotalShippingOrderTotal  categoryStyling">
           <div className="subTotalShippingOrderTotalRow">

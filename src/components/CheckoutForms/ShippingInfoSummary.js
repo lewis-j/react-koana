@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-//"TODO: implement this cool feature",
+
 export const ShippingInfoSummary = ({ shippingFormData, paymentFormData }) => {
   const {
     firstName,

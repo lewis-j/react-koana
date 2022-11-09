@@ -20,8 +20,8 @@ export const StoreItemProvider = ({ children }) => {
   };
 
   const value = {
-    fetchStoreItems,
     setStoreItemsHandler,
+    fetchStoreItems,
     storeItems,
   };
 

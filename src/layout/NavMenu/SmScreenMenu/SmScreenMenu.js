@@ -1,9 +1,8 @@
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { koana_logo } from "../../../assets/images/icons";
-import { CartContext } from "../../../context/CartContext/CartContext";
 import { GetIcon } from "../GetIcon";
 import styles from "./SmScreenMenu.scss";
 
@@ -13,7 +12,6 @@ const SmScreenMenu = () => {
   const darkThemes = ["/", "/about"];
   const location = useLocation();
   const isDark = darkThemes.some((path) => path === location.pathname);
-  const value = useContext(CartContext);
 
   const menuBtnRef = useRef(null);
 

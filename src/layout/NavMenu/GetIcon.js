@@ -1,44 +1,43 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartBadge from "../../components/Cart/CartBadge";
-import { CartContext } from "../../context/CartContext/CartContext";
+import { CartContext } from "../../context/CartContext";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 
 export const GetIcon = () => {
-  const { cart, handleDisplayCart } = useContext(CartContext);
+    const { getCartData, handleDisplayCart } = useContext(CartContext);
 
-  const iconsData = [
-    [faCartArrowDown, () => handleDisplayCart()],
-    [
-      faInstagram,
-      () => window.open("https://www.instagram.com/koanahawaii/", "_blank"),
-    ],
-  ];
+    const iconsData = [
+        [faCartArrowDown, () => handleDisplayCart()],
+        [
+            faInstagram,
+            () =>
+                window.open("https://www.instagram.com/koanahawaii/", "_blank"),
+        ],
+    ];
 
-  const iconWithBadge = ["cart-arrow-down"];
-
-  const cartItemQuantity = !cart
-    ? 0
-    : cart.reduce((acc, cur) => {
+    const iconWithBadge = ["cart-arrow-down"];
+    const cartItemQuantity = getCartData().reduce((acc, cur) => {
         return cur.quantity + acc;
-      }, 0);
+    }, 0);
 
-  return iconsData.map(([icon, action], iconIdx) => {
-    return (
-      <div key={iconIdx}>
-        {iconWithBadge.includes(icon.iconName) && (
-          <CartBadge quantity={cartItemQuantity} action={action} />
-        )}
-        <FontAwesomeIcon
-          icon={icon}
-          size="1x"
-          onClick={action}
-          style={{ cursor: "pointer" }}
-        />
-      </div>
-    );
-  });
+    return iconsData.map(([icon, action], iconIdx) => {
+        return (
+            <div key={iconIdx}>
+                {iconWithBadge.includes(icon.iconName) && (
+                    <CartBadge quantity={cartItemQuantity} action={action} />
+                )}
+                <FontAwesomeIcon
+                    icon={icon}
+                    size="1x"
+                    onClick={action}
+                    style={{ cursor: "pointer"}}
+                    className="fontAwesomeHover"
+                />
+            </div>
+        );
+    });
 };
 
 // (faInstagram) is there an issue with this 'window.open' call (as opposed to

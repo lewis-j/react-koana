@@ -62,17 +62,17 @@ const itemDefaults = [
     desc: "Koana's own special belnd of spicy chocolate mix, vegan-friendly",
     inventory: 5,
   },
-  // {
-  //   id: 5,
-  //   cat: "merch",
-  //   image: merch,
-  //   name: "Koana's Coffee Flower",
-  //   price: 16,
-  //   weight: undefined,
-  //   unit: undefined,
-  //   desc: "Pin exclusively designed for Koana, exactly size of a coffee flower blossom, so you can share your love for coffee and nature wherever you go.",
-  //   inventory: 5,
-  // },
+  {
+    id: 5,
+    cat: "merch",
+    image: merch,
+    name: "Koana's Coffee Flower",
+    price: 16,
+    weight: undefined,
+    unit: undefined,
+    desc: "Pin exclusively designed for Koana, exactly size of a coffee flower blossom, so you can share your love for coffee and nature wherever you go.",
+    inventory: 5,
+  },
 ];
 
 export default itemDefaults;
