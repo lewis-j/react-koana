@@ -17,7 +17,7 @@ const AboutPage = () => {
 
         const makeTextArray = aboutPageText.replaceAll("\n", "").split(". ");
         const formattedText = makeTextArray.map((sentence) => {
-            return <p>{sentence.concat(".").concat(" ")}</p>;
+            return <div className="lineHeight"><p>{sentence.concat(".").concat(" ")}</p><br /></div>;
         })
         return formattedText;
     }

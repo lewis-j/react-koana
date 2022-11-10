@@ -9,9 +9,6 @@
     width: 100%;
     flex-flow: column;
     justify-content: space-between;
-    /* height: 200vh; */
-    /* border: 1px solid red; */
-    /* justify-content: space-between; */
     gap: 1rem;
 }
 
@@ -51,7 +48,6 @@ h4 {
 }
 
 .textContent {
-    /* height: 4000px; */
     max-width: auto;
     position: relative;
     margin-top: 3.5rem;
@@ -59,13 +55,15 @@ h4 {
     padding-left: 21rem;
     padding-right: 1rem;
     color: rgb(200, 200, 200);
-    /* text-transform: uppercase; */
-    /* letter-spacing: 0.1rem; */
     font-size: 1.25rem;
     line-height: 2.5rem;
     animation: fadeInText 2s;
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.lineHeight {
+    line-height: 1.65rem;
 }
 
 @keyframes fadeInText {
@@ -74,12 +72,6 @@ h4 {
     }
     100% {
         opacity: 1;
-    }
-}
-
-@media only screen and (min-width: 750px) {
-    .textContent {
-        /* text-align: justify; */
     }
 }
 
@@ -105,15 +97,12 @@ h4 {
         padding-left: 1rem;
         padding-bottom: 1rem;
         background-color: black;
-        color: rgb(131, 131, 131);
-        /* text-transform: uppercase; */
+        color: rgb(200, 200, 200);
         text-align: unset;
-        /* letter-spacing: 0.1rem; */
         font-size: 1.25rem;
         line-height: 2.5rem;
         height: 50%;
         overflow-y: scroll;
-        border: 1px solid red;
     }
     .textContent::-webkit-scrollbar {
         width: 1rem;
