@@ -34,9 +34,9 @@ const createAsyncThunk = (func) => {
 };
 
 const actions = {
-  changeQuantity: (id, increment, inventory) => ({
+  changeQuantity: (id, increment, quantity) => ({
     type: types.ITEM_QUANTITY_CHANGE,
-    payload: { id, increment, inventory },
+    payload: { id, increment, quantity },
   }),
   removeItem: (id) => ({ type: types.REMOVE_ITEM, payload: { id: id } }),
   updateItem: (id, quantity) => ({
@@ -49,7 +49,7 @@ const actions = {
   updateItemThunk: (id, quantity) =>
     createAsyncThunk(async (dispatch) => {
       const result = await squareApi.cart.addToCart([
-        { catalogObjectId: id, quantity: `${quantity}` },
+        { uid: id, quantity: `${quantity}` },
       ]);
 
       dispatch({ type: types.SET_CART, payload: result.data });

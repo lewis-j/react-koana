@@ -6,14 +6,8 @@ import { StoreItemContext } from "../../context/StoreItemsContext";
 import "./cart.css";
 
 const Cart = () => {
-  const {
-    cart,
-    actions,
-    dispatch,
-    displayCart,
-    handleDisplayCart,
-    cartHandleItemQuantityChange: changeQuantity,
-  } = useContext(CartContext);
+  const { cart, actions, dispatch, displayCart, handleDisplayCart } =
+    useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
 
   const subTotal = () => {
@@ -35,11 +29,21 @@ const Cart = () => {
     // eslint-disable-next-line
   }, []);
 
+  const incrementQuantity = (id, quantity) => {
+    console.log("incrementQuantity", id);
+    dispatch(actions.changeQuantity(id, true, quantity));
+  };
+
+  const decrementQuantity = (id, quantity) => {
+    console.log("decrementQuantity", id);
+    dispatch(actions.changeQuantity(id, false, quantity));
+  };
   const cartItemsContent = () => {
     const itemList = cart.map((cartItem, idx) => {
       const { name, price, weight, unit, image } = storeItems.find(
         (item) => item.id === cartItem.id
       );
+      const { id: itemId, quantity } = cartItem;
 
       return (
         <div key={idx} className="cartItem">
@@ -56,15 +60,15 @@ const Cart = () => {
                 <div className="cartItemQuantityContainer">
                   <div
                     className="cartIncrement"
-                    onClick={() => changeQuantity(cartItem.id, true)}
+                    onClick={() => incrementQuantity(itemId, quantity)}
                   >
                     <div className="cartPlusHorizontal"></div>
                     <div className="cartPlusVertical"></div>
                   </div>
-                  <div className="cartQuantityWindow">{cartItem.quantity}</div>
+                  <div className="cartQuantityWindow">{quantity}</div>
                   <div
                     className="cartDecrement"
-                    onClick={() => changeQuantity(cartItem.id, false)}
+                    onClick={() => decrementQuantity(itemId, quantity)}
                   >
                     <div className="cartMinus"></div>
                   </div>
@@ -74,7 +78,7 @@ const Cart = () => {
             <div className="removeAndImageContainer">
               <div
                 className="cartRemoveItem"
-                onClick={() => dispatch(actions.removeItem(cartItem.id))}
+                onClick={() => dispatch(actions.removeItem(itemId))}
               >
                 {"remove"}
               </div>

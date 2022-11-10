@@ -1,6 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-// import { FeaturePage } from "./pages/FeaturePage";
-// import { FeaturePageTemp } from "./pages/FeaturePageTemp/FeaturePageTemp";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
@@ -12,7 +10,6 @@ import { Footer } from "./layout/NavMenu/Footer";
 import { useEffect, useContext } from "react";
 import { StoreItemContext } from "./context/StoreItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
-// import squareApi from "./lib/squareApi";
 
 const App = () => {
   const { fetchStoreItems } = useContext(StoreItemContext);
