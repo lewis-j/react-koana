@@ -8,7 +8,10 @@ const initialState = [];
 
 export const Provider = ({ children }) => {
   const { storeItems } = useContext(StoreItemContext);
-  const [cartData, setCartData] = useState(initialState);
+  
+  // added quantity above inventory for test purposes, replace with 'initialState' when testing completed
+  const [cartData, setCartData] = useState([{id: 'J4V7L3CO7N47HCMZJOGZCWZ7', quantity: 11}]);
+  
   // state to toggle visibility of Cart
   const [displayCart, setDisplayCart] = useState(false);
 
