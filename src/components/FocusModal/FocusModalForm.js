@@ -1,22 +1,20 @@
 import { useState, useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/StoreItemsContext";
 // import { imagesData } from "../../data/imagesData";
 import "./focusModalForm.css";
 
 const FocusModalForm = ({ id, handleModalFocus }) => {
-  const value = useContext(CartContext);
+  const { cart, dispatch, actions } = useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
 
   const [itemQuantity, setItemQuantity] = useState(
-    value.getCartData().find((item) => item.id === id)?.quantity || 0
+    cart.find((item) => item.id === id)?.quantity || 0
   );
 
+  const { inventory: available } = storeItems.find((item) => item.id === id);
+
   const handleQuantityChange = (increment) => {
-    // console.log("store item", storeItems);
-    const { inventory: available } = storeItems.find(
-      (item) => item.id === id
-    );
     increment
       ? setItemQuantity((prev) => {
           //make axios call to update(upsert)
@@ -45,7 +43,6 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
           <div
             className="decrement"
             onClick={() => {
-              console.log("handling quantity change");
               handleQuantityChange(false);
             }}
           >
@@ -57,7 +54,8 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
           // to reflect if itemQuantity is > 0
           className={`${!itemQuantity ? "submitButton Zero" : "submitButton"}`}
           onClick={() => {
-            value.updateCart(id, itemQuantity);
+            // value.updateCart(id, itemQuantity);
+            dispatch(actions.updateItemThunk(id, itemQuantity));
             handleModalFocus("closeButton");
           }}
         >

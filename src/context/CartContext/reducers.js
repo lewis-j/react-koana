@@ -1,25 +1,44 @@
 const quantityChange = (state, action) => {
-  const { id, increment, inventory } = action.payload;
+  const { id, increment, quantity } = action.payload;
+
+  console.log("quantityChange", { id, increment, quantity });
+  console.log("cart", state.cart);
   const updatedObjects = state.cart.map((item) => {
     if (item.id === id) {
+      console.log("item.quantity", item.quantity, "inventory", item.inventory);
+      const _inventory = +item.inventory;
       if (
         increment &&
         item.quantity <
-          inventory /* storeItems.find((shopItem) => shopItem.id === item.id).inventory*/
+          _inventory /* storeItems.find((shopItem) => shopItem.id === item.id).inventory*/
       ) {
-        return { id: item.id, quantity: item.quantity + 1 };
-      } else if (!increment && item.quantity > 0) {
-        return { id: item.id, quantity: item.quantity - 1 };
+        return { ...item, id: item.id, quantity: item.quantity + 1 };
+      } else if (!increment && _inventory > 0) {
+        return { ...item, id: item.id, quantity: item.quantity - 1 };
       }
     }
     return item;
   });
   return [...updatedObjects];
 };
+const formatCurrency = (num) => (num / 100).toFixed(2);
 
 const setCart = (state, payload) => {
   if (payload === "") return { ...state, cart: [] };
-  return { ...state, cart: payload };
+
+  const _netAmounts = Object.entries(payload.netAmounts).reduce(
+    (obj, [key, value]) => {
+      return { ...obj, [key]: formatCurrency(value.amount) };
+    },
+    {}
+  );
+
+  payload.items.map((item) => ({
+    ...item,
+    price: formatCurrency(item.price),
+  }));
+
+  return { ...state, cart: payload.items, netAmounts: _netAmounts };
 };
 
 const removeItem = (state, action) => {
@@ -29,8 +48,8 @@ const removeItem = (state, action) => {
 };
 
 const emptyCart = (state, action) => {
-  const remainingCart = state.cart.filter((item) => item === "notEqualToMe:)");
-  return [...remainingCart];
+  // const remainingCart = state.cart.filter((item) => item === "notEqualToMe:)");
+  return [];
 };
 
 const updateCart = (state, action) => {

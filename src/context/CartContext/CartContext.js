@@ -1,7 +1,6 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useState } from "react";
 import squareApi from "../../lib/squareApi";
 // import { imagesData } from "../data/imagesData";
-import { StoreItemContext } from "../StoreItemsContext";
 import reducers from "./reducers";
 import useReducerWithThunk from "../reducerMiddleware";
 
@@ -13,6 +12,7 @@ const types = {
   REMOVE_ITEM: "REMOVE_ITEM",
   EMPTY_CART: "EMPTY_CART",
   UPDATE_CART: "UPDATE_CART",
+  PROCESS_ORDER: "PROCESS_ORDER",
   PENDING: "PENDING",
   SUCCESS: "SUCCESS",
   FAILED: "FAILED",
@@ -34,22 +34,24 @@ const createAsyncThunk = (func) => {
 };
 
 const actions = {
-  changeQuantity: (id, increment, inventory) => ({
+  changeQuantity: (id, increment, quantity) => ({
     type: types.ITEM_QUANTITY_CHANGE,
-    payload: { id, increment, inventory },
+    payload: { id, increment, quantity },
   }),
   removeItem: (id) => ({ type: types.REMOVE_ITEM, payload: { id: id } }),
   updateItem: (id, quantity) => ({
     type: types.UPDATE_CART,
     payload: { id, quantity },
   }),
+  emptyCart: () => ({
+    type: types.EMPTY_CART,
+  }),
   updateItemThunk: (id, quantity) =>
     createAsyncThunk(async (dispatch) => {
-      console.log("update thunk");
       const result = await squareApi.cart.addToCart([
-        { catalogObjectId: id, quantity: `${quantity}` },
+        { uid: id, quantity: `${quantity}` },
       ]);
-      console.log(result);
+
       dispatch({ type: types.SET_CART, payload: result.data });
     }),
   fetchItems: () =>
@@ -57,6 +59,32 @@ const actions = {
       const result = await squareApi.cart.fetchCart();
       if (!result) return;
       dispatch({ type: types.SET_CART, payload: result.data });
+    }),
+  addShippingFulfillment: (customerDetails) =>
+    createAsyncThunk(async (dispatch) => {
+      const result = await squareApi.cart.addShipping(customerDetails);
+      if (!result) return;
+      dispatch({ type: types.SET_CART, payload: result.data });
+    }),
+  processCardOrder: (token, addresses) =>
+    createAsyncThunk(async (dispatch) => {
+      const result = await squareApi.cart.processPayment(token, addresses);
+      if (!result) return;
+      // dispatch({ type: types.SET_CART, payload: result.data });
+    }),
+  createPaymentLink: (/*customerDetails*/) =>
+    createAsyncThunk(async (dispatch) => {
+      const result =
+        await squareApi.cart.createPaymentLink(/*customerDetails*/);
+      window.open(result);
+      if (!result) return;
+      // dispatch({ type: types.SET_CART, payload: result.data });
+    }),
+  cancelOrder: () =>
+    createAsyncThunk(async (dispatch) => {
+      const result = await squareApi.cart.cancelCart();
+      if (!result) return;
+      // dispatch({ type: types.SET_CART, payload: result.data });
     }),
 };
 
@@ -69,6 +97,7 @@ const _status = {
 
 const initialState = {
   cart: [],
+  netAmounts: {},
   status: _status.IDLE,
 };
 
@@ -106,8 +135,6 @@ const cartReducer = (state, action) => {
 };
 
 export const Provider = ({ children }) => {
-  const { storeItems } = useContext(StoreItemContext);
-
   // const [cartData, setCartData] = useState(initialState);
   const [state, dispatch] = useReducerWithThunk(cartReducer, initialState);
   // state to toggle visibility of Cart
@@ -117,24 +144,22 @@ export const Provider = ({ children }) => {
   // this is accessed on Cart close button,
   // VerticalMenu and RegularNavbar (children of the navbar)
   const handleDisplayCart = () => {
-    console.log("handleDisplayCart function");
     setDisplayCart(!displayCart);
   };
 
-  const checkSubTotal = () => {
-    return state.cart.reduce((acc, cur) => {
-      const item = storeItems.find((item) => item.id === cur.id);
-      return item.price * cur.quantity + acc;
-    }, 0);
-  };
+  // const checkSubTotal = () => {
+  //   return state.cart.reduce((acc, cur) => {
+  //     const item = storeItems.find((item) => item.id === cur.id);
+  //     return item.price * cur.quantity + acc;
+  //   }, 0);
+  // };
   const value = {
-    cart: state.cart,
-    status: state.status,
+    ...state,
     actions,
     dispatch,
     handleDisplayCart,
     displayCart,
-    checkSubTotal,
+    // checkSubTotal,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

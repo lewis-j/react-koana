@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import { Provider } from "./context/CartContext";
+import { Provider } from "./context/CartContext/CartContext";
 import axios from "./axios";
 
 import Cart from "./components/Cart/Cart.js";
