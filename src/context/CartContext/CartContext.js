@@ -49,7 +49,7 @@ const actions = {
   updateItemThunk: (id, quantity) =>
     createAsyncThunk(async (dispatch) => {
       const result = await squareApi.cart.addToCart([
-        { uid: id, quantity: `${quantity}` },
+        { catalogObjectId: id, quantity: `${quantity}` },
       ]);
 
       dispatch({ type: types.SET_CART, payload: result.data });

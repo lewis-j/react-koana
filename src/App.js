@@ -20,14 +20,13 @@ const App = () => {
   const { setStoreItemsHandler } = useContext(StoreItemContext);
   // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
-    console.log("useEffect started");
     const fetch_squareItems = async () => {
       try {
         const res = await axios.get("/catalog");
 
         setStoreItemsHandler(res.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
 

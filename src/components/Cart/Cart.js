@@ -31,23 +31,22 @@ const Cart = () => {
   }, []);
 
   const incrementQuantity = (id, quantity) => {
-    console.log("incrementQuantity", id);
     dispatch(actions.changeQuantity(id, true, quantity));
   };
 
   const decrementQuantity = (id, quantity) => {
-    console.log("decrementQuantity", id);
     dispatch(actions.changeQuantity(id, false, quantity));
   };
-  const cartItemsContent = () => {
-    const itemList = cart.map((cartItem, idx) => {
+
+  const renderCartItems = () => {
+    return cart.map((cartItem, idx) => {
       const { name, price, weight, unit, image } = storeItems.find(
         (item) => item.id === cartItem.id
       );
       const { id: itemId, quantity } = cartItem;
 
       return (
-        <div key={idx} className="cartItem">
+        <div key={idx} className={true ? "cartItem" : "cartItemError"}>
           <div className="cartItemContent">
             <div className="cartItemStatsContainer">
               <div className="cartItemTitleContainer">
@@ -91,6 +90,8 @@ const Cart = () => {
         </div>
       );
     });
+  };
+  const cartItemsContent = () => {
     return (
       <>
         <div className="cartHeaderContainer">
@@ -103,7 +104,7 @@ const Cart = () => {
             <div className="cartHeaderCloseButtonRightLine"></div>
           </div>
         </div>
-        <div className="cartScrollWrapper">{itemList}</div>
+        <div className="cartScrollWrapper">{renderCartItems()}</div>
         {subTotal() ? (
           <div className="cartSubTotalContainer">
             <div className="cartSubTotal">
