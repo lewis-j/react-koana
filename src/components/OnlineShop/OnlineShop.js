@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 
-import { StoreItemContext } from "../../context/StoreItemsContext";
+import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 import FocusModal from "../FocusModal/FocusModal";
 import "./onlineShop.css";
 

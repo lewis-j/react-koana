@@ -13,7 +13,7 @@ import "./App.css";
 import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
 import { Footer } from "./layout/NavMenu/Footer";
 import { useEffect, useContext } from "react";
-import { StoreItemContext } from "./context/StoreItemsContext";
+import { StoreItemContext } from "./context/ItemsContext/ItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {

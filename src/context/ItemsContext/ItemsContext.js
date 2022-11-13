@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import itemDefaultData from "../data/itemDefaults";
+import itemDefaultData from "../../data/itemDefaults";
 
 export const StoreItemContext = createContext();
 

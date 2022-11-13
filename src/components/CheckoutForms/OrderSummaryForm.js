@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
-import { StoreItemContext } from "../../context/StoreItemsContext";
+import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 // import { imagesData } from "../../data/imagesData";
 import { useNavigate } from "react-router-dom";
 import { ShippingInfoSummary } from "./ShippingInfoSummary";

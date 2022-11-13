@@ -2,7 +2,7 @@
 // import { imagesData } from "../../data/imagesData";
 import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
-import { StoreItemContext } from "../../context/StoreItemsContext";
+import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 import "./cart.css";
 
 const Cart = () => {
