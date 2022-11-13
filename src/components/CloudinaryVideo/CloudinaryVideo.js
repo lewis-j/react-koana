@@ -1,7 +1,6 @@
 import { Cloudinary } from "@cloudinary/url-gen";
-import styles from "./CloudinaryVideo.module.scss";
 
-export const CloudinaryVideo = ({ cloudName, instance }) => {
+export const CloudinaryVideo = ({ cloudName, instance, styles }) => {
   // Create and configure your Cloudinary instance.
   const cld = new Cloudinary({
     cloud: {
@@ -20,7 +19,7 @@ export const CloudinaryVideo = ({ cloudName, instance }) => {
   // adding to JSX surrounded with the styling CSS class 'introVidContainer'
   // 'playsinline' should support background video in mobile platforms, please confirm
   return (
-    <div className={styles.introVidContainer}>
+    <div className={styles}>
       <video src={introVidURL} playsInline controls autoPlay loop muted />
     </div>
   );

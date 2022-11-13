@@ -1,4 +1,4 @@
-import { styles, stylesHero } from "./styles";
+import { styles, stylesHero, stylesVideo } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { CloudinaryVideo } from "../../components/CloudinaryVideo/CloudinaryVideo";
 
@@ -39,6 +39,7 @@ const FeaturePage = () => {
         <CloudinaryVideo
           cloudName={"thejourneyville"}
           instance={"koana/koana_intro_vid1"}
+          styles={stylesVideo.introVidContainer}
         />
       </div>
     </>
