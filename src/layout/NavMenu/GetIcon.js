@@ -17,7 +17,6 @@ export const GetIcon = () => {
   ];
 
   const iconWithBadge = ["cart-arrow-down"];
-  console.log("cart:", typeof cart, cart);
 
   const cartItemQuantity = [...cart].reduce((acc, cur) => {
     return cur.quantity + acc;

@@ -19,12 +19,12 @@ const types = {
 };
 
 const createAsyncThunk = (func) => {
-  return async (dispatch) => {
+  return async ({ dispatch, state }) => {
     dispatch({
       type: types.PENDING,
     });
     try {
-      await func(dispatch);
+      await func(dispatch, state);
       dispatch({ type: types.SUCCESS });
     } catch (error) {
       console.error(error);
@@ -39,19 +39,33 @@ const actions = {
     payload: { id, increment, quantity },
   }),
   removeItem: (id) => ({ type: types.REMOVE_ITEM, payload: { id: id } }),
-  updateItem: (id, quantity) => ({
-    type: types.UPDATE_CART,
-    payload: { id, quantity },
-  }),
   emptyCart: () => ({
     type: types.EMPTY_CART,
   }),
   updateItemThunk: (id, quantity) =>
-    createAsyncThunk(async (dispatch) => {
-      const result = await squareApi.cart.addToCart([
-        { catalogObjectId: id, quantity: `${quantity}` },
-      ]);
+    createAsyncThunk(async (dispatch, state) => {
+      const result = await squareApi.cart.addToCart(
+        [{ catalogObjectId: id, quantity: `${quantity}` }],
+        state.orderId
+      );
 
+      dispatch({ type: types.SET_CART, payload: result.data });
+    }),
+  updateItemQuantity: (increment, item) =>
+    createAsyncThunk(async (dispatch, state) => {
+      const { uid, inventory, quantity } = item;
+      const adjustQuantity = (increment, inventory, quantity) => {
+        console.log("adjusting quatity", increment, inventory, quantity);
+        if (increment && quantity < inventory) return quantity + 1;
+        if (!increment && inventory > 0) return quantity - 1;
+        return null;
+      };
+      const _quantity = adjustQuantity(increment, inventory, quantity);
+      if (!_quantity) return null;
+      const result = await squareApi.cart.adjustQuantity(
+        [{ uid: uid, quantity: `${_quantity}` }],
+        state.orderId
+      );
       dispatch({ type: types.SET_CART, payload: result.data });
     }),
   fetchItems: () =>
@@ -97,6 +111,7 @@ const _status = {
 
 const initialState = {
   cart: [],
+  orderId: null,
   netAmounts: {},
   status: _status.IDLE,
 };
@@ -121,8 +136,6 @@ const cartReducer = (state, action) => {
       return { ...state, cart: reducers.removeItem(state, action) };
     case types.EMPTY_CART:
       return { ...state, cart: reducers.emptyCart(state, action) };
-    case types.UPDATE_CART:
-      return { ...state, cart: reducers.updateCart(state, action) };
     case types.SUCCESS:
       return { ...state, status: _status.SUCCESS };
     case types.PENDING:

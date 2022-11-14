@@ -8,7 +8,6 @@ import "./cart.css";
 const Cart = () => {
   const { cart, actions, dispatch, displayCart, handleDisplayCart } =
     useContext(CartContext);
-  console.log("Cartcontext", CartContext);
   const { storeItems } = useContext(StoreItemContext);
 
   const subTotal = () => {
@@ -30,12 +29,17 @@ const Cart = () => {
     // eslint-disable-next-line
   }, []);
 
-  const incrementQuantity = (id, quantity) => {
-    dispatch(actions.changeQuantity(id, true, quantity));
+  const incrementQuantity = (item) => {
+    dispatch(actions.updateItemQuantity(true, item));
   };
 
-  const decrementQuantity = (id, quantity) => {
-    dispatch(actions.changeQuantity(id, false, quantity));
+  const decrementQuantity = (item) => {
+    dispatch(actions.updateItemQuantity(false, item));
+  };
+
+  const stockErrorMsg = (quantity, inventory) => {
+    if (quantity > inventory) return `only ${inventory} remaining`;
+    return null;
   };
 
   const renderCartItems = () => {
@@ -43,10 +47,15 @@ const Cart = () => {
       const { name, price, weight, unit, image } = storeItems.find(
         (item) => item.id === cartItem.id
       );
-      const { id: itemId, quantity } = cartItem;
+      const { id: itemId, quantity, inventory } = cartItem;
+
+      const cartErrorMessage = stockErrorMsg(quantity, inventory);
 
       return (
-        <div key={idx} className={true ? "cartItem" : "cartItemError"}>
+        <div
+          key={idx}
+          className={cartErrorMessage ? "cartItemError" : "cartItem"}
+        >
           <div className="cartItemContent">
             <div className="cartItemStatsContainer">
               <div className="cartItemTitleContainer">
@@ -60,7 +69,7 @@ const Cart = () => {
                 <div className="cartItemQuantityContainer">
                   <div
                     className="cartIncrement"
-                    onClick={() => incrementQuantity(itemId, quantity)}
+                    onClick={() => incrementQuantity(cartItem)}
                   >
                     <div className="cartPlusHorizontal"></div>
                     <div className="cartPlusVertical"></div>
@@ -68,11 +77,12 @@ const Cart = () => {
                   <div className="cartQuantityWindow">{quantity}</div>
                   <div
                     className="cartDecrement"
-                    onClick={() => decrementQuantity(itemId, quantity)}
+                    onClick={() => decrementQuantity(cartItem)}
                   >
                     <div className="cartMinus"></div>
                   </div>
                 </div>
+                <div className="cartErrorMessage">{cartErrorMessage}</div>
               </div>
             </div>
             <div className="removeAndImageContainer">

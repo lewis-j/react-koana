@@ -52,9 +52,21 @@ const cart = {
       console.error(error);
     }
   },
-  addToCart: async (lineItems) => {
+  addToCart: async (lineItems, orderId) => {
     try {
-      const res = await axios.put("/order", { lineItems }, options);
+      const res = await axios.put("/order", { lineItems, orderId }, options);
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  adjustQuantity: async (lineItem, orderId) => {
+    try {
+      const res = await axios.put(
+        "/order/update/quantity",
+        { lineItem, orderId },
+        options
+      );
       return res;
     } catch (error) {
       console.error(error);

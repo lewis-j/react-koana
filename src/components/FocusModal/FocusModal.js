@@ -8,7 +8,6 @@ import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 const FocusModal = ({ handleModalFocus, id }) => {
   const { storeItems } = useContext(StoreItemContext);
 
-  console.log("store items", storeItems);
   const item = storeItems.find((item) => item.id === id);
   if (!item) return null;
   return (

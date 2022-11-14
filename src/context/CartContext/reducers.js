@@ -1,8 +1,6 @@
 const quantityChange = (state, action) => {
   const { id, increment, quantity } = action.payload;
 
-  console.log("quantityChange", { id, increment, quantity });
-  console.log("cart", state.cart);
   const updatedObjects = state.cart.map((item) => {
     if (item.id === id) {
       console.log("item.quantity", item.quantity, "inventory", item.inventory);
@@ -37,10 +35,14 @@ const setCart = (state, payload) => {
     ...item,
     price: formatCurrency(item.price),
   }));
-
-  return { ...state, cart: payload.items, netAmounts: _netAmounts };
+  console.log("payload in set items", payload);
+  return {
+    ...state,
+    cart: payload.items,
+    netAmounts: _netAmounts,
+    orderId: payload.orderId,
+  };
 };
-
 const removeItem = (state, action) => {
   const { id } = action.payload;
   const remainingCart = state.cart.filter((item) => item.id !== id);
@@ -52,14 +54,6 @@ const emptyCart = (state, action) => {
   return [];
 };
 
-const updateCart = (state, action) => {
-  const { id, quantity } = action.payload;
-  const otherItems = state.cart.filter((item) => item.id !== id);
-  const result =
-    quantity > 0 ? [...otherItems, { id: id, quantity: quantity }] : otherItems;
-  return result;
-};
-
-const reducers = { quantityChange, removeItem, emptyCart, updateCart, setCart };
+const reducers = { quantityChange, removeItem, emptyCart, setCart };
 
 export default reducers;
