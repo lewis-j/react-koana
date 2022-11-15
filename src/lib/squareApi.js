@@ -35,6 +35,7 @@ const cart = {
   fetchCart: async () => {
     try {
       const res = await axios.get("/order", options);
+      console.log("response from fetch", res);
       return res;
     } catch (error) {
       console.error(error);
@@ -55,16 +56,17 @@ const cart = {
   addToCart: async (lineItems, orderId) => {
     try {
       const res = await axios.put("/order", { lineItems, orderId }, options);
+      console.log("response from addtocart", res);
       return res;
     } catch (error) {
       console.error(error);
     }
   },
-  adjustQuantity: async (lineItem, orderId) => {
+  updateQuantity: async (lineItems, orderId) => {
     try {
       const res = await axios.put(
         "/order/update/quantity",
-        { lineItem, orderId },
+        { lineItems, orderId },
         options
       );
       return res;

@@ -1,14 +1,17 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
+import { useTimeoutBuffer } from "../../utils/useTimeoutBuffer";
 import "./cart.css";
 
 const Cart = () => {
   const { cart, actions, dispatch, displayCart, handleDisplayCart } =
     useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
+
+  const [timerId, setTimerId] = useState(null);
 
   const subTotal = () => {
     return cart.reduce((acc, cur) => {
@@ -29,12 +32,28 @@ const Cart = () => {
     // eslint-disable-next-line
   }, []);
 
-  const incrementQuantity = (item) => {
-    dispatch(actions.updateItemQuantity(true, item));
+  const OnChangeTimeDelay = useTimeoutBuffer(cart);
+
+  const quantityChangeDelay = () =>
+    OnChangeTimeDelay((_cart) => {
+      console.log("timeout ran", _cart);
+      dispatch(actions.updateItemQuantity(_cart));
+    }, 3000);
+
+  const incrementQuantity = (id) => {
+    dispatch(actions.changeQuantity(id, true));
+    quantityChangeDelay();
   };
 
-  const decrementQuantity = (item) => {
-    dispatch(actions.updateItemQuantity(false, item));
+  const decrementQuantity = (id) => {
+    dispatch(actions.changeQuantity(id, false));
+    quantityChangeDelay();
+  };
+  const checkoutHandler = () => {
+    OnChangeTimeDelay((_cart) => {
+      console.log("checkout ran", _cart);
+      dispatch(actions.createPaymentLink(_cart));
+    }, 0);
   };
 
   const stockErrorMsg = (quantity, inventory) => {
@@ -69,7 +88,7 @@ const Cart = () => {
                 <div className="cartItemQuantityContainer">
                   <div
                     className="cartIncrement"
-                    onClick={() => incrementQuantity(cartItem)}
+                    onClick={() => incrementQuantity(itemId)}
                   >
                     <div className="cartPlusHorizontal"></div>
                     <div className="cartPlusVertical"></div>
@@ -77,7 +96,7 @@ const Cart = () => {
                   <div className="cartQuantityWindow">{quantity}</div>
                   <div
                     className="cartDecrement"
-                    onClick={() => decrementQuantity(cartItem)}
+                    onClick={() => decrementQuantity(itemId)}
                   >
                     <div className="cartMinus"></div>
                   </div>
@@ -124,11 +143,7 @@ const Cart = () => {
               <div
                 className="cartToCheckout"
                 // checkout button now goes to checkout section
-                onClick={() => {
-                  // navigate("/checkout");
-                  // displayCart && handleDisplayCart();
-                  dispatch(actions.createPaymentLink());
-                }}
+                onClick={checkoutHandler}
               >
                 {"checkout".toUpperCase()}
               </div>
