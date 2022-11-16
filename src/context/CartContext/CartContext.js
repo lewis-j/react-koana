@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import squareApi from "../../lib/squareApi";
-// import { imagesData } from "../data/imagesData";
 import reducers from "./reducers";
 import useReducerWithThunk from "../reducerMiddleware";
 
@@ -40,43 +39,44 @@ const actions = {
     payload: { id, increment },
   }),
   removeItem: (id) => ({ type: types.REMOVE_ITEM, payload: { id: id } }),
+  clearItems: (lineItems) =>
+    createAsyncThunk(async (dispatch) => {
+      console.log("lineitems", lineItems);
+      const squareData = await squareApi.cart.clearItem(lineItems);
+      console.log("squaerData from reponse", squareData);
+      dispatch({ type: types.SET_CART, payload: squareData });
+    }),
   emptyCart: () => ({
     type: types.EMPTY_CART,
   }),
   updateItemThunk: (id, quantity) =>
     createAsyncThunk(async (dispatch, state) => {
-      const result = await squareApi.cart.addToCart(
-        [{ catalogObjectId: id, quantity: `${quantity}` }],
+      const squareData = await squareApi.cart.addToCart(
+        { catalogObjectId: id, quantity: `${quantity}` },
         state.order.orderId
       );
-
-      if (result.data?.order) {
-        dispatch({ type: types.SET_CART, payload: result.data.cart });
-        dispatch({ type: types.SET_ORDER, payload: result.data.order });
+      if (squareData?.order) {
+        dispatch({ type: types.SET_CART, payload: squareData.cart });
+        dispatch({ type: types.SET_ORDER, payload: squareData.order });
       } else {
-        dispatch({ type: types.SET_CART, payload: result.data });
+        dispatch({ type: types.SET_CART, payload: squareData });
       }
     }),
 
-  updateItemQuantity: (cart) =>
+  updateItemQuantity: (lineItems) =>
     createAsyncThunk(async (dispatch, state) => {
-      const listItems = cart.map(({ uid, quantity }) => ({
-        uid,
-        quantity: `${quantity}`,
-      }));
-      console.log("listItems", listItems);
-      const result = await squareApi.cart.updateQuantity(
-        listItems,
+      const result = await squareApi.cart.updateQuantities(
+        lineItems,
         state.order.orderId
       );
-      dispatch({ type: types.SET_CART, payload: result.data });
+      dispatch({ type: types.SET_CART, payload: result });
     }),
   fetchItems: () =>
     createAsyncThunk(async (dispatch) => {
       const result = await squareApi.cart.fetchCart();
       if (!result) return;
-      dispatch({ type: types.SET_CART, payload: result.data.cart });
-      dispatch({ type: types.SET_ORDER, payload: result.data.order });
+      dispatch({ type: types.SET_CART, payload: result.cart });
+      dispatch({ type: types.SET_ORDER, payload: result.order });
     }),
   addShippingFulfillment: (customerDetails) =>
     createAsyncThunk(async (dispatch) => {
@@ -90,35 +90,19 @@ const actions = {
       if (!result) return;
       // dispatch({ type: types.SET_CART, payload: result.data });
     }),
-  createPaymentLink: (cart) =>
+  createPaymentLink: (listItems) =>
     createAsyncThunk(async (dispatch, state) => {
-      const listItems = cart.map(({ uid, quantity }) => ({
-        uid,
-        quantity: `${quantity}`,
-      }));
-      const { data } = await squareApi.cart.updateQuantity(
+      const squareData = await squareApi.cart.updateQuantity(
         listItems,
         state.orderId
       );
-
-      console.log("data returned", data);
-
-      const isStocked = data.items.some(
+      const isStocked = squareData.items.some(
         ({ inventory, quantity }) => +quantity <= +inventory
       );
-
       if (isStocked) {
-        console.log("proceed to checkout");
-        // const result =
-        //   await squareApi.cart.createPaymentLink(/*customerDetails*/);
-        // console.log("result", result);
         window.open(state.order.payLink, "_blank");
-      } else {
-        dispatch({ type: types.SET_CART, payload: data });
       }
-
-      // if (!result) return;
-      // dispatch({ type: types.SET_CART, payload: result.data });
+      dispatch({ type: types.SET_CART, payload: squareData });
     }),
   cancelOrder: () =>
     createAsyncThunk(async (dispatch) => {
@@ -141,16 +125,6 @@ const initialState = {
   netAmounts: {},
   status: _status.IDLE,
 };
-
-// const types = {
-//   ITEM_QUANTITY_CHANGE: "ITEM_QUANTITY_CHANGE",
-//   REMOVE_ITEM: "REMOVE_ITEM",
-//   EMPTY_CART: "EMPTY_CART",
-//   UPDATE_CART: "UPDATE_CART",
-// };
-// action = {
-//   type: "ITEM_QUANTITY_CHANGE", payload: { id, quanity }
-// }
 
 const cartReducer = (state, action) => {
   switch (action.type) {

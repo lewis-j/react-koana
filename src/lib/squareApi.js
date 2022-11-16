@@ -34,9 +34,9 @@ const items = {
 const cart = {
   fetchCart: async () => {
     try {
-      const res = await axios.get("/order", options);
-      console.log("response from fetch", res);
-      return res;
+      const response = await axios.get("/order", options);
+      console.log("response from fetch", response);
+      return response.data;
     } catch (error) {
       console.error(error);
     }
@@ -53,23 +53,26 @@ const cart = {
       console.error(error);
     }
   },
-  addToCart: async (lineItems, orderId) => {
+  addToCart: async (lineItem, orderId) => {
     try {
-      const res = await axios.put("/order", { lineItems, orderId }, options);
-      console.log("response from addtocart", res);
-      return res;
+      const response = await axios.put(
+        "/order",
+        { lineItem, orderId },
+        options
+      );
+      return response.data;
     } catch (error) {
       console.error(error);
     }
   },
-  updateQuantity: async (lineItems, orderId) => {
+  updateQuantities: async (lineItems, orderId) => {
     try {
-      const res = await axios.put(
-        "/order/update/quantity",
+      const response = await axios.put(
+        "/order/quantities",
         { lineItems, orderId },
         options
       );
-      return res;
+      return response.data;
     } catch (error) {
       console.error(error);
     }
@@ -93,12 +96,24 @@ const cart = {
   },
   createPaymentLink: async (customerDetails) => {
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         "/order/paymentLink",
         { customerDetails },
         options
       );
-      return res.data;
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  clearItem: async (lineItems) => {
+    try {
+      const response = await axios.put(
+        "/order/clearItems",
+        { lineItems },
+        options
+      );
+      return response.data;
     } catch (error) {
       console.error(error);
     }

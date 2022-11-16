@@ -1,6 +1,6 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 import { useTimeoutBuffer } from "../../utils/useTimeoutBuffer";
@@ -10,8 +10,6 @@ const Cart = () => {
   const { cart, actions, dispatch, displayCart, handleDisplayCart } =
     useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
-
-  const [timerId, setTimerId] = useState(null);
 
   const subTotal = () => {
     return cart.reduce((acc, cur) => {
@@ -31,13 +29,17 @@ const Cart = () => {
     dispatch(actions.fetchItems());
     // eslint-disable-next-line
   }, []);
+  const mapItemsToUidsAndQuantity = (items) =>
+    items.map(({ uid, quantity }) => ({ uid, quantity: `${quantity}` }));
+
+  const mapItemsToUids = (items) => items.map(({ uid }) => ({ uid }));
 
   const OnChangeTimeDelay = useTimeoutBuffer(cart);
 
   const quantityChangeDelay = () =>
-    OnChangeTimeDelay((_cart) => {
-      console.log("timeout ran", _cart);
-      dispatch(actions.updateItemQuantity(_cart));
+    OnChangeTimeDelay((cart) => {
+      const lineItems = mapItemsToUidsAndQuantity(cart);
+      dispatch(actions.updateItemQuantity(lineItems));
     }, 3000);
 
   const incrementQuantity = (id) => {
@@ -49,10 +51,19 @@ const Cart = () => {
     dispatch(actions.changeQuantity(id, false));
     quantityChangeDelay();
   };
+  const removeItemHandler = (id) => {
+    dispatch(actions.removeItem(id));
+    OnChangeTimeDelay((cart) => {
+      console.log("cart in remove item handler", cart);
+      const lineItems = mapItemsToUids(cart);
+      console.log("lineItems", lineItems);
+      dispatch(actions.clearItems(lineItems));
+    }, 0);
+  };
   const checkoutHandler = () => {
-    OnChangeTimeDelay((_cart) => {
-      console.log("checkout ran", _cart);
-      dispatch(actions.createPaymentLink(_cart));
+    OnChangeTimeDelay((cart) => {
+      const lineItems = mapItemsToUidsAndQuantity(cart);
+      dispatch(actions.createPaymentLink(lineItems));
     }, 0);
   };
 
@@ -107,7 +118,7 @@ const Cart = () => {
             <div className="removeAndImageContainer">
               <div
                 className="cartRemoveItem"
-                onClick={() => dispatch(actions.removeItem(itemId))}
+                onClick={() => removeItemHandler(itemId)}
               >
                 {"remove"}
               </div>

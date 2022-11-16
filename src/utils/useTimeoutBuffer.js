@@ -14,7 +14,6 @@ export const useTimeoutBuffer = (cart) => {
   };
   useEffect(() => {
     if (!timerId) {
-      console.log("cart changed", cart);
       func(cart);
     }
   }, [timerId]);
