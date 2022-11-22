@@ -31,7 +31,18 @@ const App = () => {
       }
     };
 
+    const fetch_order = async () => {
+      try {
+        const res = await axios.put("/order");
+
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     fetch_squareItems();
+    fetch_order();
     // eslint-disable-next-line
   }, []);
   return (

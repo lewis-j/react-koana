@@ -439,7 +439,7 @@
     }
 
     .cartIncrement {
-        border-right: 1px solid rgb(255, 98, 0);
+        border-right: 1px solid #d0cf6a;
         width: 2rem;
         height: 2rem;
         cursor: pointer;
@@ -449,19 +449,19 @@
     .cartPlusHorizontal {
         width: 1.5rem;
         height: 1px;
-        background-color: rgb(255, 98, 0);
+        background-color: #d0cf6a;
         transform: translate(0.25rem, 0.95rem);
     }
 
     .cartPlusVertical {
         width: 1.5rem;
         height: 1px;
-        background-color: rgb(255, 98, 0);
+        background-color: #d0cf6a;
         transform: rotate(90deg) translate(0.9rem, -0.3rem);
     }
 
     .cartDecrement {
-        border-left: 1px solid rgb(255, 98, 0);
+        border-left: 1px solid #d0cf6a;
         width: 2rem;
         height: 2rem;
         display: flex;
