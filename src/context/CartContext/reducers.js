@@ -55,7 +55,9 @@ const setOrder = (state, payload) => {
 const removeItem = (state, action) => {
   const { id } = action.payload;
   const remainingCart = state.cart.filter((item) => item.id !== id);
-  return [...remainingCart];
+  const { uid } = state.cart.find(({ id: _id }) => _id === id);
+  const cart = [...remainingCart];
+  return { cart, removedItem: uid };
 };
 
 const emptyCart = (state, action) => {

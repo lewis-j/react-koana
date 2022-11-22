@@ -63,8 +63,17 @@ const actions = {
       }
     }),
 
-  updateItemQuantity: (lineItems) =>
+  updateItemQuantities: (lineItems, deletions) =>
     createAsyncThunk(async (dispatch, state) => {
+      if (deletions.length > 0) {
+        const result = await squareApi.cart.clearItem(
+          lineItems,
+          deletions,
+          state.order.orderId
+        );
+        dispatch({ type: types.SET_CART, payload: result });
+        return;
+      }
       const result = await squareApi.cart.updateQuantities(
         lineItems,
         state.order.orderId
@@ -92,7 +101,8 @@ const actions = {
     }),
   createPaymentLink: (listItems) =>
     createAsyncThunk(async (dispatch, state) => {
-      const squareData = await squareApi.cart.updateQuantity(
+      console.log("running payment link thunk", state);
+      const squareData = await squareApi.cart.updateQuantities(
         listItems,
         state.orderId
       );
@@ -100,9 +110,10 @@ const actions = {
         ({ inventory, quantity }) => +quantity <= +inventory
       );
       if (isStocked) {
+        console.log("paymentLink", state.order.payLink);
         window.open(state.order.payLink, "_blank");
       }
-      dispatch({ type: types.SET_CART, payload: squareData });
+      // dispatch({ type: types.SET_CART, payload: squareData });
     }),
   cancelOrder: () =>
     createAsyncThunk(async (dispatch) => {
@@ -121,6 +132,7 @@ const _status = {
 
 const initialState = {
   cart: [],
+  deletions: [],
   order: {},
   netAmounts: {},
   status: _status.IDLE,
@@ -135,7 +147,13 @@ const cartReducer = (state, action) => {
     case types.ITEM_QUANTITY_CHANGE:
       return { ...state, cart: reducers.quantityChange(state, action) };
     case types.REMOVE_ITEM:
-      return { ...state, cart: reducers.removeItem(state, action) };
+      const { cart, removedItem } = reducers.removeItem(state, action);
+
+      return {
+        ...state,
+        cart,
+        deletions: [...state.deletions, removedItem],
+      };
     case types.EMPTY_CART:
       return { ...state, cart: reducers.emptyCart(state, action) };
     case types.SUCCESS:

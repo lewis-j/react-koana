@@ -41,6 +41,7 @@ const cart = {
       console.error(error);
     }
   },
+  //ignore endoint
   addShipping: async (customerDetails) => {
     try {
       const res = await axios.put(
@@ -77,6 +78,7 @@ const cart = {
       console.error(error);
     }
   },
+  //ignore this endpoint in express app
   processPayment: async (cardToken, address, amount) => {
     try {
       const res = await axios.post(
@@ -106,11 +108,11 @@ const cart = {
       console.error(error);
     }
   },
-  clearItem: async (lineItems) => {
+  clearItem: async (lineItems, deletions, orderId) => {
     try {
       const response = await axios.put(
         "/order/clearItems",
-        { lineItems },
+        { lineItems, deletions, orderId },
         options
       );
       return response.data;
@@ -118,6 +120,7 @@ const cart = {
       console.error(error);
     }
   },
+  //ignore endpoint in express app
   cancelCart: async () => {
     try {
       await axios.put("/order/cancel", {}, options);

@@ -7,7 +7,7 @@ import { useTimeoutBuffer } from "../../utils/useTimeoutBuffer";
 import "./cart.css";
 
 const Cart = () => {
-  const { cart, actions, dispatch, displayCart, handleDisplayCart } =
+  const { cart, deletions, actions, dispatch, displayCart, handleDisplayCart } =
     useContext(CartContext);
   const { storeItems } = useContext(StoreItemContext);
 
@@ -34,34 +34,41 @@ const Cart = () => {
 
   const mapItemsToUids = (items) => items.map(({ uid }) => ({ uid }));
 
-  const OnChangeTimeDelay = useTimeoutBuffer(cart);
+  const OnChangeTimeDelay = useTimeoutBuffer({ cart, deletions });
 
-  const quantityChangeDelay = () =>
-    OnChangeTimeDelay((cart) => {
+  // const quantityChangeDelay = (func) =>
+  //   OnChangeTimeDelay(({ cart, deletions }) => {
+  //     console.log("cart", cart, "deletions", deletions);
+  //     const lineItems = mapItemsToUidsAndQuantity(cart);
+  //     dispatch(actions.updateItemQuantities(lineItems));
+  //   }, 3000);
+
+  const quantityChangeDelay = (func) =>
+    OnChangeTimeDelay(({ cart, deletions }) => {
+      console.log("cart", cart, "deletions", deletions);
       const lineItems = mapItemsToUidsAndQuantity(cart);
-      dispatch(actions.updateItemQuantity(lineItems));
+      dispatch(func(lineItems, deletions));
     }, 3000);
 
   const incrementQuantity = (id) => {
     dispatch(actions.changeQuantity(id, true));
-    quantityChangeDelay();
+    quantityChangeDelay(actions.updateItemQuantities);
   };
 
   const decrementQuantity = (id) => {
     dispatch(actions.changeQuantity(id, false));
-    quantityChangeDelay();
+    quantityChangeDelay(actions.updateItemQuantities);
   };
   const removeItemHandler = (id) => {
     dispatch(actions.removeItem(id));
-    OnChangeTimeDelay((cart) => {
-      console.log("cart in remove item handler", cart);
-      const lineItems = mapItemsToUids(cart);
-      console.log("lineItems", lineItems);
-      dispatch(actions.clearItems(lineItems));
-    }, 0);
+    // OnChangeTimeDelay(({ cart, deletions }) => {
+    //   const lineItems = mapItemsToUids(cart);
+    //   dispatch(actions.clearItems(lineItems));
+    // }, 0);
+    quantityChangeDelay(actions.updateItemQuantities);
   };
   const checkoutHandler = () => {
-    OnChangeTimeDelay((cart) => {
+    OnChangeTimeDelay(({ cart, deletions }) => {
       const lineItems = mapItemsToUidsAndQuantity(cart);
       dispatch(actions.createPaymentLink(lineItems));
     }, 0);
