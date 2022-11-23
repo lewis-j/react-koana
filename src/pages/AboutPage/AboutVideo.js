@@ -1,5 +1,5 @@
 import { Cloudinary } from "@cloudinary/url-gen";
-// import "./aboutPage.css";
+import styles from "./styles/AboutPage.module.scss";
 
 export const AboutVideo = () => {
   // Create and configure your Cloudinary instance.
@@ -19,7 +19,7 @@ export const AboutVideo = () => {
 
   // adding to JSX surrounded with the styling CSS class 'introVidContainer'
   return (
-    <div className="videoContainer">
+    <div className={styles.videoContainer}>
       <video src={koanaAboutVidURL} controls playsInline autoPlay loop muted />
     </div>
   );
