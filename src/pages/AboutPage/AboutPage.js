@@ -15,9 +15,9 @@ const AboutPage = () => {
 
     const IndentText = () => {
 
-        const makeTextArray = aboutPageText.replaceAll("\n", "").split(". ");
-        const formattedText = makeTextArray.map((sentence) => {
-            return <div className="lineHeight"><p>{sentence.concat(".").concat(" ")}</p><br /></div>;
+        const makeTextArray = aboutPageText.replaceAll("\n", "").split(".  ");
+        const formattedText = makeTextArray.map((sentence, idx) => {
+            return <div key={idx} className="lineHeight"><p>{sentence.concat(".").concat(" ")}</p><br /></div>;
         })
         return formattedText;
     }
@@ -27,13 +27,15 @@ const AboutPage = () => {
             <div className="aboutBackground">
                 <div className="videoTextContainer">
                     {/* Cloudinary component for About page video */}
-                    <AboutVideo />
+                    {/* <AboutVideo /> */}
                     <div className="textContent">
                         <div>
+                            <AboutVideo />
                             <h2 className="header">Our Aloha Story</h2>
                             <h4 className="header">
                                 Aloha from Brian and Jan
                             </h4>
+                            <br />
                             <IndentText />
                             <h4>Aloha A Hui Hou~ Sincerely,</h4>
                             <h4>Brian and Jan</h4>
