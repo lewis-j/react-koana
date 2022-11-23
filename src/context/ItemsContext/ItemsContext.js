@@ -4,7 +4,7 @@ import itemDefaultData from "../../data/itemDefaults";
 export const StoreItemContext = createContext();
 
 export const StoreItemProvider = ({ children }) => {
-  const [storeItems, setStoreItems] = useState([...itemDefaultData]);
+  const [storeItems, setStoreItems] = useState([]);
 
   const setStoreItemsHandler = (apiData) => {
     if (apiData) setStoreItems(apiData);
