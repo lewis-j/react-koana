@@ -1,6 +1,6 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 import { useTimeoutBuffer } from "../../utils/useTimeoutBuffer";
@@ -18,13 +18,6 @@ const Cart = () => {
     }, 0);
   };
 
-  // useEffect(() => {
-  //     if (value.displayCart) {
-  //         if (value.cartData.length < 1 || value.checkSubTotal() === 0) {
-  //             navigate("/shop");
-  //         }
-  //     }
-  // }, [navigate, storeItems, value, value.cartData]);
   useEffect(() => {
     dispatch(actions.fetchItems());
     // eslint-disable-next-line
@@ -32,16 +25,7 @@ const Cart = () => {
   const mapItemsToUidsAndQuantity = (items) =>
     items.map(({ uid, quantity }) => ({ uid, quantity: `${quantity}` }));
 
-  const mapItemsToUids = (items) => items.map(({ uid }) => ({ uid }));
-
   const OnChangeTimeDelay = useTimeoutBuffer({ cart, deletions });
-
-  // const quantityChangeDelay = (func) =>
-  //   OnChangeTimeDelay(({ cart, deletions }) => {
-  //     console.log("cart", cart, "deletions", deletions);
-  //     const lineItems = mapItemsToUidsAndQuantity(cart);
-  //     dispatch(actions.updateItemQuantities(lineItems));
-  //   }, 3000);
 
   const quantityChangeDelay = (func) =>
     OnChangeTimeDelay(({ cart, deletions }) => {
@@ -61,32 +45,40 @@ const Cart = () => {
   };
   const removeItemHandler = (id) => {
     dispatch(actions.removeItem(id));
-    // OnChangeTimeDelay(({ cart, deletions }) => {
-    //   const lineItems = mapItemsToUids(cart);
-    //   dispatch(actions.clearItems(lineItems));
-    // }, 0);
     quantityChangeDelay(actions.updateItemQuantities);
   };
-  const checkoutHandler = () => {
+  const checkoutHandler = (event, error) => {
+    if (error) {
+      event.target.animate([{ color: "inhrerit" }, { color: "red" }], {
+        duration: 200,
+        iterations: 2,
+      });
+      return;
+    }
     OnChangeTimeDelay(({ cart, deletions }) => {
       const lineItems = mapItemsToUidsAndQuantity(cart);
-      dispatch(actions.createPaymentLink(lineItems));
+      dispatch(actions.createPaymentLink(lineItems, deletions));
     }, 0);
   };
 
   const stockErrorMsg = (quantity, inventory) => {
     if (quantity > inventory) return `only ${inventory} remaining`;
+
     return null;
   };
 
   const renderCartItems = () => {
-    return cart.map((cartItem, idx) => {
-      const { name, price, weight, unit, image } = storeItems.find(
-        (item) => item.id === cartItem.id
-      );
+    let isError = false;
+    const items = cart.map((cartItem, idx) => {
+      const item = storeItems.find((item) => item.id === cartItem.id);
+      if (!item) {
+        return null;
+      }
+      const { name, price, weight, unit, image } = item;
       const { id: itemId, quantity, inventory } = cartItem;
 
       const cartErrorMessage = stockErrorMsg(quantity, inventory);
+      if (cartErrorMessage) isError = true;
 
       return (
         <div
@@ -137,7 +129,11 @@ const Cart = () => {
         </div>
       );
     });
+    return [items, isError];
   };
+
+  const [cartItems, error] = renderCartItems();
+
   const cartItemsContent = () => {
     return (
       <>
@@ -151,7 +147,7 @@ const Cart = () => {
             <div className="cartHeaderCloseButtonRightLine"></div>
           </div>
         </div>
-        <div className="cartScrollWrapper">{renderCartItems()}</div>
+        <div className="cartScrollWrapper">{cartItems}</div>
         {subTotal() ? (
           <div className="cartSubTotalContainer">
             <div className="cartSubTotal">
@@ -161,7 +157,9 @@ const Cart = () => {
               <div
                 className="cartToCheckout"
                 // checkout button now goes to checkout section
-                onClick={checkoutHandler}
+                onClick={(e) => {
+                  checkoutHandler(e, error);
+                }}
               >
                 {"checkout".toUpperCase()}
               </div>
