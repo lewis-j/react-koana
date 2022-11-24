@@ -41,6 +41,7 @@ const setCart = (state, payload) => {
   console.log("payload in set items", payload);
   return {
     ...state,
+    deletions: [],
     cart: payload.items,
     netAmounts: _netAmounts,
   };

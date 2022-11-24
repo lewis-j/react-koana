@@ -99,21 +99,41 @@ const actions = {
       if (!result) return;
       // dispatch({ type: types.SET_CART, payload: result.data });
     }),
-  createPaymentLink: (listItems) =>
+  createPaymentLink: (lineItems, deletions) =>
     createAsyncThunk(async (dispatch, state) => {
       console.log("running payment link thunk", state);
-      const squareData = await squareApi.cart.updateQuantities(
-        listItems,
-        state.orderId
-      );
-      const isStocked = squareData.items.some(
-        ({ inventory, quantity }) => +quantity <= +inventory
-      );
-      if (isStocked) {
+      let squareData;
+      if (deletions.length > 0) {
+        squareData = await squareApi.cart.clearItem(
+          lineItems,
+          deletions,
+          state.order.orderId
+        );
+        dispatch({ type: types.SET_CART, payload: squareData });
+      } else {
+        squareData = await squareApi.cart.updateQuantities(
+          lineItems,
+          state.order.orderId
+        );
+      }
+
+      dispatch({ type: types.SET_CART, payload: squareData });
+      const isNotStocked = squareData.items.some(({ inventory, quantity }) => {
+        console.log(
+          "inventory",
+          inventory,
+          "quantity",
+          quantity,
+          +quantity >= +inventory
+        );
+        return +quantity > +inventory;
+      });
+      console.log("isNotStocked", isNotStocked);
+      if (!isNotStocked) {
         console.log("paymentLink", state.order.payLink);
         window.open(state.order.payLink, "_blank");
       }
-      // dispatch({ type: types.SET_CART, payload: squareData });
+      dispatch({ type: types.SET_CART, payload: squareData });
     }),
   cancelOrder: () =>
     createAsyncThunk(async (dispatch) => {

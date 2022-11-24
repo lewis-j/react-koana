@@ -41,7 +41,7 @@ const App = () => {
     };
 
     fetch_squareItems();
-    fetch_order();
+    // fetch_order();
     // eslint-disable-next-line
   }, []);
   return (
