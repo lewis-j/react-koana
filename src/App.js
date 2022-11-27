@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
+import { OrderConfirmationPage } from "./pages/OrderConfirmationPage";
 import { Provider } from "./context/CartContext/CartContext";
 import axios from "./axios";
 
@@ -54,6 +55,8 @@ const App = () => {
           <Route path="about" element={<AboutPage />} />
           <Route path="shop" element={<OnlineShop />} />
           <Route path="checkout" element={<CheckoutPage />} />
+          {/* below needs to be updated with dynamic url */}
+          <Route path="confirmation" element={<OrderConfirmationPage />} />
         </Routes>
         <Footer />
         <Cart />

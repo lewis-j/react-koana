@@ -1,0 +1,210 @@
+.orderOuterContainer {
+    /* position: absolute; */
+    width: 100%;
+    min-height: 100vh;
+    min-width: 300px;
+    padding: 5rem 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 236, 236);
+}
+
+.orderInnerContainer {
+    background-color: rgb(255, 255, 255);
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    width: 75%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: rgb(51, 51, 51);
+}
+
+.orderConfirmationMessageContainer {
+    width: 100%;
+    padding: 0rem 0rem 2rem;
+    border-bottom: 1px solid rgb(215, 215, 215);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.orderKoanaIconStamp {
+    width: 10rem;
+    display: flex;
+}
+
+.orderKoanaIconStamp img {
+    width: 100%;
+}
+
+.orderConfirmationMessageBanner {
+    padding: .5rem;
+    width: 100%;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    font-weight: bold;
+    background-color: #51cf85;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+}
+
+.orderConfirmationMessageThankyou {
+    width: 100%;
+}
+
+.orderUserDataContainer {
+    width: 100%;
+    padding: 2rem 0rem;
+    border-bottom: 1px solid rgb(215, 215, 215);
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+@media screen and (max-width: 700px) {
+    .orderUserDataContainer {
+        flex-direction: column;
+    }
+    .orderConfirmationMessageBanner {
+        font-size: .75rem;
+    }
+}
+
+.orderUserDataCol {
+    display: flex;
+    flex-flow: column;
+    gap: .5rem;
+}
+
+.orderUserDataCategory {
+    white-space: nowrap;
+    color: rgb(180, 180, 180);
+}
+
+.orderItemContainer {
+    width: 100%;
+    padding: 2rem 0rem;
+    border-bottom: 1px solid rgb(215, 215, 215);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.orderItemContainer:nth-of-type(1) {
+    border-top: 1px solid rgb(215, 215, 215);
+}
+.orderItemImage {
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    width: 7rem;
+}
+
+.orderItemDetails {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.orderItemImageNameSet {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.orderItemName {
+    /* width: 50%; */
+    padding-right: 1rem;
+    font-size: large;
+    color: black;
+}
+
+.orderItemMath {
+    /* width: 50%; */
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+
+.orderItemImageSmall {
+    display: none;
+}
+
+@media screen and (max-width: 576px) {
+
+    .orderItemDetails {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .orderItemImageNameSet {
+        align-items: center;
+    }
+
+    .orderItemName {
+        text-align: center;
+        padding: 0rem;
+    }
+
+    .orderItemImage {
+        display: none;
+    }
+
+    .orderItemMath {
+        gap: 1rem;
+    }
+
+    .orderItemImageSmall {
+        display: block;
+        height: auto;
+        width: 5rem;
+        border-top-right-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+    }
+}
+
+.orderPriceBreakdownContainer {
+    width: 100%;
+    padding: 2rem 0rem;
+    border-bottom: 1px solid rgb(215, 215, 215);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.orderPriceBreakdownRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderPriceBreakdownCategory {
+    flex: 1;
+}
+
+.orderTotalContainer {
+    width: 100%;
+    padding: 2rem 0rem;
+    border-bottom: 1px solid rgb(215, 215, 215);
+    display: flex;
+    flex-direction: column;
+}
+
+.orderTotalRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    color: black;
+}
+
+.orderTotalCategory {
+    flex: 1;
+}
