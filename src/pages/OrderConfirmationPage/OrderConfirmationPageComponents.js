@@ -1,19 +1,30 @@
-import { tempOrderData } from "./tempAssets/tempOrderData";
+// import { tempOrderData } from "./tempAssets/tempOrderData";
 import { nanoid } from "nanoid";
 import koanaIcon from "./tempAssets/koana_icon_new_bright.png";
 import "./orderConfirmationPage.css";
 
-const {
-    lineItems,
-    fulfillments,
-    netAmounts,
-    totalMoney,
-    totalDiscountMoney,
-    totalServiceChargeMoney,
-    netAmountDueMoney,
-} = tempOrderData;
+// const {
+//     lineItems,
+//     fulfillments,
+//     netAmounts,
+//     totalMoney,
+//     totalDiscountMoney,
+//     totalServiceChargeMoney,
+//     netAmountDueMoney,
+// } = tempOrderData;
 
-const OrderConfirmationPageComponents = () => {
+const OrderConfirmationPageComponents = ({tempOrderData}) => {
+
+    const {
+        lineItems,
+        fulfillments,
+        netAmounts,
+        totalMoney,
+        totalDiscountMoney,
+        totalServiceChargeMoney,
+        netAmountDueMoney,
+    } = tempOrderData;
+
     const accessUserData = (data) => {
         const userData = {
             address: fulfillments[0].shipmentDetails.address,
@@ -45,7 +56,7 @@ const OrderConfirmationPageComponents = () => {
                     <img src={koanaIcon} alt="logo" />
                 </div>
                 <div className="orderConfirmationMessageBanner">
-                    Your order has been confirmed ✓
+                    Order confirmation ✓
                 </div>
                 <div className="orderConfirmationMessageThankyou">
                     Your order has been confirmed and will be shipping soon.
@@ -154,14 +165,14 @@ const OrderConfirmationPageComponents = () => {
                 <div className="orderContactContainer">
                     <div className="orderContactRow">
                         Please check your email for confirmation. We hope you
-                        enjoy your purchase. Thank you.
+                        enjoy your high-quality purchase. Thank you.
                     </div>
                     <div className="orderContactRow">
                         Aloha,
                         <div className="orderContactKoana">Koana</div>
                     </div>
                 </div>
-                <div className="orderContactPhone">tel: 808-209-4432</div>
+                <div className="orderContactPhone">telephone: 808-209-4432</div>
             </>
         ),
     };

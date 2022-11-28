@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 // import axios from "./axios";
+import { tempOrderData } from "./tempAssets/tempOrderData";
 import OrderConfirmationPageComponents from "./OrderConfirmationPageComponents";
 
 
@@ -29,7 +30,7 @@ const OrderConfirmationPage = () => {
     return (
         <div className="orderOuterContainer">
             <div className="orderInnerContainer">
-               <OrderConfirmationPageComponents /> 
+               <OrderConfirmationPageComponents tempOrderData={tempOrderData} /> 
             </div>
         </div>
     );
