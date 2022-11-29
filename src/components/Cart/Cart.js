@@ -1,6 +1,6 @@
 // we're going to access imagesData with the testData 'props'
 // import { imagesData } from "../../data/imagesData";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";
 import { useTimeoutBuffer } from "../../utils/useTimeoutBuffer";

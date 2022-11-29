@@ -1,7 +1,5 @@
 import { useEffect, useContext, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-// import axios from "./axios";
-import { tempOrderData } from "./tempAssets/tempOrderData";
+import { useLocation } from "react-router-dom";
 import OrderConfirmationPageComponents from "./OrderConfirmationPageComponents";
 import squareApi from "../../lib/squareApi";
 import { StoreItemContext } from "../../context/ItemsContext/ItemsContext";

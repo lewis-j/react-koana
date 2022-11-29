@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useTimeoutBuffer = (cart) => {
   const [timerId, setTimerId] = useState(null);
@@ -16,6 +16,7 @@ export const useTimeoutBuffer = (cart) => {
     if (!timerId) {
       func(cart);
     }
+    // eslint-disable-next-line
   }, [timerId]);
 
   return createTimeoutBuffer;

@@ -1,18 +1,6 @@
-// import { tempOrderData } from "./tempAssets/tempOrderData";
-import { nanoid } from "nanoid";
 import koanaIcon from "./tempAssets/koana_icon_new_bright.png";
 import "./orderConfirmationPage.css";
 import { formatPrice } from "../../utils/priceFormat";
-
-// const {
-//     lineItems,
-//     fulfillments,
-//     netAmounts,
-//     totalMoney,
-//     totalDiscountMoney,
-//     totalServiceChargeMoney,
-//     netAmountDueMoney,
-// } = tempOrderData;
 
 const OrderConfirmationPageComponents = ({ orderData }) => {
   console.log("order", orderData);

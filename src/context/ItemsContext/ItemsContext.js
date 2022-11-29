@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import itemDefaultData from "../../data/itemDefaults";
 
 export const StoreItemContext = createContext();
 
@@ -9,10 +8,6 @@ export const StoreItemProvider = ({ children }) => {
   const setStoreItemsHandler = (apiData) => {
     if (apiData) setStoreItems(apiData);
     // console.log("%cFetch successful!", "color:skyblue; font-size: 1.5rem");
-  };
-
-  const getStoreItemsHandler = () => {
-    return storeItems;
   };
 
   const value = {
