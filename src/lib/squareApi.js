@@ -26,19 +26,6 @@ const cart = {
       console.error(error);
     }
   },
-  //ignore endoint
-  addShipping: async (customerDetails) => {
-    try {
-      const res = await axios.put(
-        "/order/shipping",
-        { customerDetails },
-        options
-      );
-      return res;
-    } catch (error) {
-      console.error(error);
-    }
-  },
   addToCart: async (lineItem, orderId) => {
     try {
       const response = await axios.put(
@@ -64,23 +51,6 @@ const cart = {
     }
   },
   //ignore this endpoint in express app
-  processPayment: async (cardToken, address, amount) => {
-    try {
-      const res = await axios.post(
-        "/order/process",
-        {
-          locationId: process.env.REACT_APP_LOCATION_ID,
-          sourceId: cardToken,
-          address,
-          amount,
-        },
-        options
-      );
-      return res;
-    } catch (error) {
-      console.error(error);
-    }
-  },
   createPaymentLink: async (customerDetails) => {
     try {
       const response = await axios.post(
