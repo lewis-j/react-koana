@@ -2,7 +2,7 @@
 import { nanoid } from "nanoid";
 import koanaIcon from "./tempAssets/koana_icon_new_bright.png";
 import "./orderConfirmationPage.css";
-import { useParams, useLocation } from "react-router-dom";
+import { formatPrice } from "../../utils/priceFormat";
 
 // const {
 //     lineItems,
@@ -14,44 +14,31 @@ import { useParams, useLocation } from "react-router-dom";
 //     netAmountDueMoney,
 // } = tempOrderData;
 
-const OrderConfirmationPageComponents = ({ tempOrderData }) => {
-  const { search } = useLocation();
-
-  const query = new URLSearchParams(search);
-
-  console.log("query", query.get("transactionId"));
-  console.log("orderId", query.get("orderId"));
-
-  const {
-    lineItems,
-    fulfillments,
-    netAmounts,
-    totalMoney,
-    totalDiscountMoney,
-    totalServiceChargeMoney,
-    netAmountDueMoney,
-  } = tempOrderData;
+const OrderConfirmationPageComponents = ({ orderData }) => {
+  console.log("order", orderData);
+  const { orderId, lineItems, shipmentDetails, netAmounts, createdAt } =
+    orderData;
 
   const accessUserData = (data) => {
     const userData = {
-      address: fulfillments[0].shipmentDetails.address,
-      orderID: nanoid(),
-      currentDate: String(new Date()).split(" ").slice(0, 4).join(" "),
+      address: shipmentDetails.address,
+      orderID: orderId,
+      currentDate: String(createdAt).split(" ").slice(0, 4).join(" "),
     };
     return userData[data];
   };
 
+  const subtotal = lineItems.reduce((subtotal, { basePriceMoney }) => {
+    return subtotal + +basePriceMoney;
+  }, 0);
+
   const accessAmounts = (data) => {
     const priceBreakdownData = {
-      subtotal: netAmounts.totalMoney.amount,
-      shipping: totalServiceChargeMoney.amount,
-      tax: netAmounts.taxMoney.amount,
-      discount: totalDiscountMoney.amount,
-      grandTotal:
-        netAmounts.totalMoney.amount +
-        totalServiceChargeMoney.amount +
-        netAmounts.taxMoney.amount -
-        totalDiscountMoney.amount,
+      subtotal: subtotal.toFixed(2),
+      shipping: formatPrice(netAmounts.serviceChargeMoney.amount),
+      tax: formatPrice(netAmounts.taxMoney.amount),
+      discount: formatPrice(netAmounts.discountMoney.amount),
+      grandTotal: formatPrice(netAmounts.totalMoney.amount),
     };
     return priceBreakdownData[data];
   };
@@ -102,7 +89,7 @@ const OrderConfirmationPageComponents = ({ tempOrderData }) => {
               <img
                 className="orderItemImageSmall"
                 src={item.image}
-                alt="image"
+                alt={item.name}
               />
               <div className="orderItemName">{item.name}</div>
             </div>
@@ -111,7 +98,7 @@ const OrderConfirmationPageComponents = ({ tempOrderData }) => {
                 {"Qty: ".concat(item.quantity)}
               </div>
               <div className="orderItemPrice">
-                {"$".concat(item.basePriceMoney.price)}
+                {"$".concat(item.basePriceMoney)}
               </div>
             </div>
           </div>
@@ -123,19 +110,19 @@ const OrderConfirmationPageComponents = ({ tempOrderData }) => {
         <div className="orderPriceBreakdownRow">
           <div className="orderPriceBreakdownCategory">Subtotal</div>
           <div className="orderPriceBreakdownCategoryValue">
-            {"$".concat(accessAmounts("subtotal").toFixed(2))}
+            {"$".concat(accessAmounts("subtotal"))}
           </div>
         </div>
         <div className="orderPriceBreakdownRow">
           <div className="orderPriceBreakdownCategory">Shipping</div>
           <div className="orderPriceBreakdownCategoryValue">
-            {"$".concat(accessAmounts("shipping").toFixed(2))}
+            {"$".concat(accessAmounts("shipping"))}
           </div>
         </div>
         <div className="orderPriceBreakdownRow">
           <div className="orderPriceBreakdownCategory">Taxes</div>
           <div className="orderPriceBreakdownCategoryValue">
-            {"$".concat(accessAmounts("tax").toFixed(2))}
+            {"$".concat(accessAmounts("tax"))}
           </div>
         </div>
         {accessAmounts("discount") > 0 ? (
@@ -145,7 +132,7 @@ const OrderConfirmationPageComponents = ({ tempOrderData }) => {
               className="orderPriceBreakdownCategoryValue"
               style={{ color: "#51cf85" }}
             >
-              {"$".concat(accessAmounts("discount").toFixed(2))}
+              {"$".concat(accessAmounts("discount"))}
             </div>
           </div>
         ) : null}
@@ -156,7 +143,7 @@ const OrderConfirmationPageComponents = ({ tempOrderData }) => {
         <div className="orderTotalRow">
           <div className="orderTotalCategory">Total</div>
           <div className="orderTotalCategoryValue">
-            {"$".concat(accessAmounts("grandTotal").toFixed(2))}
+            {"$".concat(accessAmounts("grandTotal"))}
           </div>
         </div>
       </div>

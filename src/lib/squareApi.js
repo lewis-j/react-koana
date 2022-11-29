@@ -75,6 +75,18 @@ const cart = {
       console.error(error);
     }
   },
+  confirmation: async (orderId) => {
+    try {
+      console.log("orderId in confirmation api", orderId);
+      const response = await axios.get(
+        `/order/confirmation/?orderId=${orderId}`
+      );
+      console.log("confirmation response", response);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
   //ignore endpoint in express app
   cancelCart: async () => {
     try {

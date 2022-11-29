@@ -31,6 +31,16 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
         <div className="quantityLabel">QUANTITY</div>
         <div className="quantityContainer">
           <div
+            className="decrement"
+            onClick={() => {
+              handleQuantityChange(false);
+            }}
+          >
+            <div className="minus"></div>
+          </div>
+          <div className="quantityWindow">{itemQuantity}</div>
+
+          <div
             className="increment"
             onClick={() => {
               handleQuantityChange(true);
@@ -38,15 +48,6 @@ const FocusModalForm = ({ id, handleModalFocus }) => {
           >
             <div className="plusHorizontal"></div>
             <div className="plusVertical"></div>
-          </div>
-          <div className="quantityWindow">{itemQuantity}</div>
-          <div
-            className="decrement"
-            onClick={() => {
-              handleQuantityChange(false);
-            }}
-          >
-            <div className="minus"></div>
           </div>
         </div>
         <div
