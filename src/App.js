@@ -15,7 +15,7 @@ import { StoreItemContext } from "./context/ItemsContext/ItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {
-  const { fetchStoreItems } = useContext(StoreItemContext);
+  const { setStoreItemsHandler } = useContext(StoreItemContext);
   // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
     const fetch_squareItems = async () => {
