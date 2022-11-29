@@ -1,6 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-// import { FeaturePage } from "./pages/FeaturePage";
-// import { FeaturePageTemp } from "./pages/FeaturePageTemp/FeaturePageTemp";
 import { OnlineShop } from "./components/OnlineShop";
 import { AboutPage } from "./pages/AboutPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
@@ -9,17 +7,15 @@ import { Provider } from "./context/CartContext/CartContext";
 import axios from "./axios";
 
 import Cart from "./components/Cart/Cart.js";
-
 import "./App.css";
 import { NavBarNew } from "./layout/NavMenu/NavMenuNew";
 import { Footer } from "./layout/NavMenu/Footer";
 import { useEffect, useContext } from "react";
 import { StoreItemContext } from "./context/ItemsContext/ItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
-import squareApi from "./lib/squareApi";
 
 const App = () => {
-  const { setStoreItemsHandler } = useContext(StoreItemContext);
+  const { fetchStoreItems } = useContext(StoreItemContext);
   // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
     const fetch_squareItems = async () => {
@@ -46,6 +42,7 @@ const App = () => {
     // fetch_order();
     // eslint-disable-next-line
   }, []);
+
   return (
     <>
       <Provider>

@@ -32,7 +32,8 @@ const VerticalMenu = ({ expand, handleExpand }) => {
     return () => {
       outsideClick.removeEventListener("click", closeVerticalMenu);
     };
-  }, [expand, handleExpand]);
+    // eslint-disable-next-line
+  }, [expand]);
 
   const koanaIcon = (
     <div key={"koanaIcon"} className="koanaIcon">
