@@ -16,6 +16,7 @@ import { Footer } from "./layout/NavMenu/Footer";
 import { useEffect, useContext } from "react";
 import { StoreItemContext } from "./context/ItemsContext/ItemsContext";
 import FeaturePage from "./pages/FeaturePage/FeaturePage";
+import squareApi from "./lib/squareApi";
 
 const App = () => {
   const { setStoreItemsHandler } = useContext(StoreItemContext);

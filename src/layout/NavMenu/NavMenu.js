@@ -94,7 +94,6 @@ const NavMenu = () => {
 
     function closeExpandedNav(e) {
       const target = e.target.classList.value;
-      console.log("target", { target: e.target });
 
       if (confirmSmallBreakpoint()) {
         if (target === "" && collapsed === false) {

@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCreditCard,
+  faCreditCardAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { faFileInvoice } from "@fortawesome/free-solid-svg-icons";
 
 export const PaymentInfoSummary = ({ shippingFormData, paymentFormData }) => {

@@ -2,7 +2,6 @@ import {
   chocolate,
   coffee_dark,
   coffee_light,
-  merch,
   tea_earl,
   tea_green,
 } from "../assets/images/products";

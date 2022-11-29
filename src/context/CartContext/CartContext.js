@@ -49,6 +49,9 @@ const actions = {
   emptyCart: () => ({
     type: types.EMPTY_CART,
   }),
+  emptyCart: () => ({
+    type: types.EMPTY_CART,
+  }),
   updateItemThunk: (id, quantity) =>
     createAsyncThunk(async (dispatch, state) => {
       const squareData = await squareApi.cart.addToCart(
