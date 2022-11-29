@@ -11,25 +11,16 @@ const OrderConfirmationPage = () => {
   const [orderData, setOrderData] = useState(null);
 
   const query = new URLSearchParams(search);
-
-  console.log("query", query.get("transactionId"));
-
-  // some kind of axios call here to fetch data from orderId
   const orderId = query.get("orderId");
-  console.log("orderId", orderId);
 
   useEffect(() => {
     const fetch = async () => {
-      console.log("orderId in fetch useeffect", orderId);
       const orderInfo = await squareApi.cart.confirmation(orderId);
-      console.log("orderinfo", orderInfo);
 
       const lineItems = orderInfo.lineItems.map((orderitem) => {
         const itemImage = storeItems.find(
           (storeItem) => storeItem.id === orderitem.id
         );
-
-        console.log("storeItem found", itemImage, storeItems);
 
         return {
           ...orderitem,
@@ -66,47 +57,11 @@ const OrderConfirmationPage = () => {
       };
 
       setOrderData(_orderData);
-      //   export const tempOrderData = {
-      //     fulfillments: [
-      //       {
-      //         shipmentDetails: {address: '1234 Main St. MiddleOfNowhere CA, 98765'}
-      //       }
-      //     ],
-      //     netAmounts: {
-      //         totalMoney: { amount: 56.00, currency: 'USD' },
-      //         taxMoney: { amount: 0, currency: 'USD' },
-      //     },
-      //     totalMoney: { amount: 56.00, currency: 'USD' }, //(sub total)
-      //     totalDiscountMoney: { amount: 5, currency: 'USD' },
-      //     totalServiceChargeMoney: { amount: 12.50, currency: 'USD' }, //(shipping fee)
-      //     netAmountDueMoney: { amount: 56.00, currency: 'USD' } // (grand total)
-      // }
     };
     if (orderId) {
       fetch();
     }
   }, [orderId, storeItems]);
-
-  // the response is simulated with tempOrderData
-  // ******
-  //
-  // let { orderId } = useParams();
-  //
-  // useEffect(() => {
-  //
-  //     const fetch_squareOrder = async () => {
-  //         try {
-  //             const res = await axios.get("/order/orderId");
-  //             const tempOrderData = res.data;
-  //         } catch (err) {
-  //             console.error(err);
-  //         }
-  //     };
-  //     fetch_squareOrder();
-  // }, []);
-  //
-
-  // ******
 
   if (!orderData) return null;
 

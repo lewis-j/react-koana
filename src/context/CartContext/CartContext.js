@@ -41,9 +41,7 @@ const actions = {
   removeItem: (id) => ({ type: types.REMOVE_ITEM, payload: { id: id } }),
   clearItems: (lineItems) =>
     createAsyncThunk(async (dispatch) => {
-      console.log("lineitems", lineItems);
       const squareData = await squareApi.cart.clearItem(lineItems);
-      console.log("squaerData from reponse", squareData);
       dispatch({ type: types.SET_CART, payload: squareData });
     }),
   emptyCart: () => ({
@@ -101,7 +99,6 @@ const actions = {
     }),
   createPaymentLink: (lineItems, deletions) =>
     createAsyncThunk(async (dispatch, state) => {
-      console.log("running payment link thunk", state);
       let squareData;
       if (deletions.length > 0) {
         squareData = await squareApi.cart.clearItem(
@@ -119,27 +116,17 @@ const actions = {
 
       dispatch({ type: types.SET_CART, payload: squareData });
       const isNotStocked = squareData.items.some(({ inventory, quantity }) => {
-        console.log(
-          "inventory",
-          inventory,
-          "quantity",
-          quantity,
-          +quantity >= +inventory
-        );
         return +quantity > +inventory;
       });
-      console.log("isNotStocked", isNotStocked);
       if (!isNotStocked) {
-        console.log("paymentLink", state.order.payLink);
         window.open(state.order.payLink, "_blank");
       }
       dispatch({ type: types.SET_CART, payload: squareData });
     }),
   cancelOrder: () =>
-    createAsyncThunk(async (dispatch) => {
+    createAsyncThunk(async () => {
       const result = await squareApi.cart.cancelCart();
       if (!result) return;
-      // dispatch({ type: types.SET_CART, payload: result.data });
     }),
 };
 

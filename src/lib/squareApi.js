@@ -20,7 +20,6 @@ const cart = {
   fetchCart: async () => {
     try {
       const response = await axios.get("/order", options);
-      console.log("response from fetch", response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -77,17 +76,14 @@ const cart = {
   },
   confirmation: async (orderId) => {
     try {
-      console.log("orderId in confirmation api", orderId);
       const response = await axios.get(
         `/order/confirmation/?orderId=${orderId}`
       );
-      console.log("confirmation response", response);
       return response.data;
     } catch (error) {
       console.error(error);
     }
   },
-  //ignore endpoint in express app
   cancelCart: async () => {
     try {
       await axios.put("/order/cancel", {}, options);

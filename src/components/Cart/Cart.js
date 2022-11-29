@@ -29,7 +29,6 @@ const Cart = () => {
 
   const quantityChangeDelay = (func) =>
     OnChangeTimeDelay(({ cart, deletions }) => {
-      console.log("cart", cart, "deletions", deletions);
       const lineItems = mapItemsToUidsAndQuantity(cart);
       dispatch(func(lineItems, deletions));
     }, 3000);

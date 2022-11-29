@@ -3,7 +3,6 @@ import "./orderConfirmationPage.css";
 import { formatPrice } from "../../utils/priceFormat";
 
 const OrderConfirmationPageComponents = ({ orderData }) => {
-  console.log("order", orderData);
   const { orderId, lineItems, shipmentDetails, netAmounts, createdAt } =
     orderData;
 

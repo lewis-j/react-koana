@@ -100,13 +100,6 @@ const CheckoutPage = () => {
         postalCode: tokenResult.details.billing.postalCode,
       })
     );
-
-    // dispatch(
-    //   actions.addShippingFulfillment({
-    //     ..._formValues,
-    //     ...shippingFormData,
-    //   })
-    // );
   };
 
   const handleSummarySubmit = async () => {
@@ -116,15 +109,8 @@ const CheckoutPage = () => {
       billingContact,
       netAmounts.totalMoney
     );
-    console.log("verified token", verifiedtoken);
 
     dispatch(actions.emptyCart());
-    // dispatch(
-    //   actions.processCardOrder(verifiedtoken, {
-    //     ...paymentFormData,
-    //     ...shippingFormData,
-    //   })
-    // );
   };
 
   const handleFormsCompleted = (form, payload) => {

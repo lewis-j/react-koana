@@ -16,7 +16,6 @@ import FeaturePage from "./pages/FeaturePage/FeaturePage";
 
 const App = () => {
   const { setStoreItemsHandler } = useContext(StoreItemContext);
-  // running useEffect to 'fetch the items' from the server using Axios
   useEffect(() => {
     const fetch_squareItems = async () => {
       try {
@@ -27,19 +26,7 @@ const App = () => {
         console.error(err);
       }
     };
-
-    // const fetch_order = async () => {
-    //   try {
-    //     const res = await axios.put("/order");
-
-    //     console.log(res.data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
     fetch_squareItems();
-    // fetch_order();
     // eslint-disable-next-line
   }, []);
 
@@ -49,11 +36,9 @@ const App = () => {
         <NavBarNew />
         <Routes>
           <Route path="/" element={<FeaturePage />} />
-          {/* <Route path="/" element={<FeaturePageTemp />} /> */}
           <Route path="about" element={<AboutPage />} />
           <Route path="shop" element={<OnlineShop />} />
           <Route path="checkout" element={<CheckoutPage />} />
-          {/* below needs to be updated with dynamic url */}
           <Route path="confirmation" element={<OrderConfirmationPage />} />
         </Routes>
         <Footer />
